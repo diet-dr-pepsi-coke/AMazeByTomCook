@@ -80,7 +80,11 @@ public class Controller {
      * rooms and the way the generation algorithms work.
      */
     boolean perfect;
-    /**
+    public void setFileName(String fileName) {
+	    this.fileName = fileName;
+	}
+
+	/**
      * The seed to be used for the random number generator
      * during maze generation.
      */
@@ -111,9 +115,6 @@ public class Controller {
         deterministic = true; // default
     }
     
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
     public void setBuilder(Builder builder) {
         this.builder = builder; 
     }
@@ -155,8 +156,9 @@ public class Controller {
         currentState.setPerfect(perfect);
         if (!deterministic) {
         	System.out.println("Assignment: implement code such that a repeated generation creates different mazes! Program stops!");
-			System.exit(0) ;
-        	// TODO: implement code that makes sure we generate different random mazes
+			//System.exit(0) ;
+			Random random = new Random();
+			seed = random.nextInt();
         	// HINT: check http://download.oracle.com/javase/6/docs/api/java/util/Random.html
         }
         currentState.setSeed(seed);
