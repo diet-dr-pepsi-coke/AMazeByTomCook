@@ -4,6 +4,7 @@
 package generation;
 
 import generation.Order;
+import generation.MazeContainer;
 
 /**
  *
@@ -14,29 +15,33 @@ public class Stub implements Order {
 	public Order order;
 	public int skillLevel;
 	public boolean isPerfect;
+	public MazeContainer container;
 	/**
 	 * 
 	 */
 	public Stub(int skillLevel, Builder builder, boolean ifPerfect) {
 		// TODO Auto-generated constructor stub
+		this.skillLevel = skillLevel;
+		this.builder = builder;
+		this.isPerfect = ifPerfect;
 	}
 
 	@Override
 	public int getSkillLevel() {
 		// TODO Auto-generated method stub
-		return 0;
+		return skillLevel;
 	}
 
 	@Override
 	public Builder getBuilder() {
 		// TODO Auto-generated method stub
-		return null;
+		return builder;
 	}
 
 	@Override
 	public boolean isPerfect() {
 		// TODO Auto-generated method stub
-		return false;
+		return isPerfect;
 	}
 
 	@Override
@@ -47,7 +52,7 @@ public class Stub implements Order {
 
 	@Override
 	public void deliver(Maze mazeConfig) {
-		// TODO Auto-generated method stub
+		container = (MazeContainer) mazeConfig;
 		
 	}
 
@@ -55,6 +60,9 @@ public class Stub implements Order {
 	public void updateProgress(int percentage) {
 		// TODO Auto-generated method stub
 		
+	}
+	public MazeContainer getMaze() {
+		return container;
 	}
 
 }
