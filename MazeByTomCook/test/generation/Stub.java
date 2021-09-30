@@ -10,11 +10,14 @@ import generation.Order;
  *
  */
 public class Stub implements Order {
-
+	public Builder builder;
+	public Order order;
+	public int skillLevel;
+	public boolean isPerfect;
 	/**
 	 * 
 	 */
-	public Stub() {
+	public Stub(int skillLevel, Builder builder, boolean ifPerfect) {
 		// TODO Auto-generated constructor stub
 	}
 
