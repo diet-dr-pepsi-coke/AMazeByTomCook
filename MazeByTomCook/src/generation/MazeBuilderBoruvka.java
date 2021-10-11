@@ -32,7 +32,7 @@ public class MazeBuilderBoruvka extends MazeBuilder implements Runnable {
 		}
 		if (boards.get(w) == -1) {
 			if (walls.indexOf(w) != walls.size() - 1) {
-			int weight = random.nextIntWithinInterval(0,100);
+			int weight = random.nextIntWithinInterval(0,1000);
 			boards.put(w, weight);
 			for (Wallboard i : walls) {
 				if (w.getNeighborX() == i.getX() && w.getNeighborY() == i.getY() && w.getDirection().oppositeDirection() == i.getDirection()) {
@@ -59,19 +59,28 @@ public class MazeBuilderBoruvka extends MazeBuilder implements Runnable {
 		
 		floorplan.initialize();
 		createListOfInternalWallboards();
-		//System.out.println(walls);
-		//System.out.println(boards);
+		int index = 0;
 		for (Wallboard i : walls) { 
-		setEdgeWeight(i);
+			setEdgeWeight(i);
 		}
-		for (Wallboard i : walls) { 
-			int lob = getEdgeWeight(i);
-			System.out.println("x = " + i.getX());
-			System.out.println("y = " + i.getY());
-			System.out.println("cd = " + i.getDirection());
-			System.out.println("weight = " + lob);
-		}
-		System.out.println(boards);
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y< height; y++) {
+				ArrayList<Wallboard> compareWeight = new ArrayList<Wallboard>();
+				System.out.println("new");
+				while (index < walls.size() && walls.get(index).getX() == x && walls.get(index).getY() == y) {
+					//System.out.println(x);
+					//System.out.println(y);
+					compareWeight.add(walls.get(index));
+						index ++;
+				}
+				int least = 1001;
+				for (Wallboard i : compareWeight) {
+					if (boards.get(i) < least) {
+						least = boards.get(i);
+					}
+				System.out.println(least);
+				}
+		}}
 	}
 	/**
 	 * Updates a list of all wallboards that could be removed from the maze based on wallboards towards new cells.
