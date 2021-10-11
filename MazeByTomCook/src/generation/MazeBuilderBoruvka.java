@@ -54,7 +54,14 @@ public class MazeBuilderBoruvka extends MazeBuilder implements Runnable {
 	
 	@Override 
 	protected void generatePathways() {
-		//pseudocode
+		//after creating a floorplan, call the createListOfInternalWallboards method
+		// and set the edge weight for each wallboard. Then, iterating over each wallboard
+		// find the cheapest edge to a neighboring cell and store it. Call deleteWallboard()
+		// on the cheapest edge found and add both cells into a connected component arrayList.
+		// if one edge is already in a connected component and it is the cheapest out of the
+		// current component, merge the arrayLists into one. If a cells neighbors are all in
+		// the same component then nothing happens. By the last cell in the iteration, the 
+		// cells will all be apart of one component.
 		
 		
 		floorplan.initialize();
@@ -76,7 +83,7 @@ public class MazeBuilderBoruvka extends MazeBuilder implements Runnable {
 				int least = 1001;
 				for (Wallboard i : compareWeight) {
 					if (boards.get(i) < least) {
-						least = boards.get(i);
+						least = getEdgeWeight(i);
 					}
 				System.out.println(least);
 				}
