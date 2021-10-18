@@ -23,6 +23,11 @@ import generation.Maze;
  */
 
 public class Wizard implements RobotDriver {
+	
+	// private int totalEnergyConsumption
+	// private int totalPathTravelled
+	// public Robot robot
+	// public Maze maze
 
 	public Wizard() {
 		// TODO Auto-generated constructor stub
@@ -35,7 +40,7 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public void setRobot(Robot r) {
-		// TODO Auto-generated method stub
+		// this.robot = robot
 
 	}
 	
@@ -46,7 +51,7 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public void setMaze(Maze maze) {
-		// TODO Auto-generated method stub
+		// this.maze = maze
 
 	}
 	
@@ -67,7 +72,14 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public boolean drive2Exit() throws Exception {
-		// TODO Auto-generated method stub
+		// while !isAtExit() {
+		//		drive1Step2Exit()
+		// assertEquals(ReliableRobot.getCurrentPosition(), Maze.getExitPosition())
+		// while !ReliableRobot.canSeeThroughExitIntoEternity(getCurrentDirection())
+		//		ReliableRobot.rotate(LEFT)
+		// return true
+		///////////// NOT SURE IF REQUIRED YET //////////////////
+		// ReliableRobot.move(1)
 		return false;
 	}
 	
@@ -88,7 +100,30 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-		// TODO Auto-generated method stub
+		// where we are now = ReliableRobot.getCurrentPosition() 
+		// where we want to go = Maze.getNeighborCloserToExit()
+		// find the difference between the cells (i.e. subtract
+		// 	the x and y values from each other) to see which direction
+		// 	the neighbor cell is
+		// if (ReliableRobot.getBatteryLevel() > 0) {
+		// 	switch (direction of neighbor) :
+		//	case (neighbor is ahead of wizard):
+		// 		ReliableRobot.move(1)
+		// 		setBatteryLevel( getBatteryLevel - getEnergyForStepForward)
+		//		assertEquals(getCurrentPosition(), where we want to go)
+		//		totalEnergyConsumption += getEnergyforStepForward
+		//		totalPathTravelled ++
+		//		return true
+		//	case (neighbor is left or right) :
+		//		ReliableRobot.rotate(LEFT/RIGHT)
+		//		ReliableRobot.move(1)
+		//		setBatteryLevel(getBatteryLevel - (1/4)getEnergyForFullRotation 
+		//			- getEnergyForStepForward)
+		//		assertEquals(getCurrentPosition(), where we want to go)
+		//		totalEnergyConsumption += (1/4)getEnergyForFullRotation 
+		//			+ getEnergyForStepForward
+		//		totalPathTravelled  ++
+		//		return true
 		return false;
 	}
 	
@@ -101,7 +136,7 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public float getEnergyConsumption() {
-		// TODO Auto-generated method stub
+		// return totalEnergyConsumption
 		return 0;
 	}
 
@@ -113,7 +148,7 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public int getPathLength() {
-		// TODO Auto-generated method stub
+		// return totalPathTravelled
 		return 0;
 	}
 
