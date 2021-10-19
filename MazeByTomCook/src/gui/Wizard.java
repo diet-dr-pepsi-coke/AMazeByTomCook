@@ -106,24 +106,22 @@ public class Wizard implements RobotDriver {
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
 		// if (ReliableRobot.getBatteryLevel() > 0) {
-		// 	switch (direction of neighbor) :
+		// 	switch (direction of neighbor) {
 		//	case (neighbor is ahead of wizard):
 		// 		ReliableRobot.move(1)
-		// 		setBatteryLevel( getBatteryLevel - getEnergyForStepForward)
 		//		assertEquals(getCurrentPosition(), where we want to go)
-		//		totalEnergyConsumption += getEnergyforStepForward
+		//		totalEnergyConsumption += energy cost for movement
 		//		totalPathTravelled ++
 		//		return true
 		//	case (neighbor is left or right) :
 		//		ReliableRobot.rotate(LEFT/RIGHT)
-		//		ReliableRobot.move(1)
-		//		setBatteryLevel(getBatteryLevel - (1/4)getEnergyForFullRotation 
-		//			- getEnergyForStepForward)
+		//		totalEnergyConsumption += (1/4)cost for full rotation
+		//		if (ReliableRobot.getBatteryLevel() > 0) {
+		//			ReliableRobot.move(1) 
+		//			totalEnergyConsumption += energy cost for movement }
 		//		assertEquals(getCurrentPosition(), where we want to go)
-		//		totalEnergyConsumption += (1/4)getEnergyForFullRotation 
-		//			+ getEnergyForStepForward
 		//		totalPathTravelled  ++
-		//		return true
+		//		return true }}
 		return false;
 	}
 	

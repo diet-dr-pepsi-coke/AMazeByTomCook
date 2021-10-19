@@ -16,7 +16,7 @@ import gui.Robot.Direction;
  * and is also responsible for keeping track of how much using the sensor costs
  * for the energy consumption.
  * 
- * Collaborators: ReliableRobot, Wizard, DistanceSensor, Maze, Distance, Floorplan
+ * Collaborators: ReliableRobot, DistanceSensor, Maze, Distance, Floorplan
  * 
  * @author Tom Cook
  *

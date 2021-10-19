@@ -22,6 +22,10 @@ import generation.CardinalDirection;
  */
 
 public class ReliableRobot implements Robot {
+	
+	// private int batteryLevel
+	// private int odometer
+	// private boolean stopped
 
 	public ReliableRobot() {
 		// TODO Auto-generated constructor stub
@@ -40,7 +44,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void setController(Controller controller) {
-		// TODO Auto-generated method stub
+		// this.controller = controller
 
 	}
 
@@ -63,7 +67,8 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void addDistanceSensor(DistanceSensor sensor, Direction mountedDirection) {
-		// TODO Auto-generated method stub
+		// DistanceSensor directionSensor = sensor
+		// directionSensor.setSensorDirection(mountedDirection)
 
 	}
 
@@ -76,7 +81,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public int[] getCurrentPosition() throws Exception {
-		// TODO Auto-generated method stub
+		// return Controller.getCurrentPosition()
 		return null;
 	}
 
@@ -86,7 +91,7 @@ public class ReliableRobot implements Robot {
 	 */	
 	@Override
 	public CardinalDirection getCurrentDirection() {
-		// TODO Auto-generated method stub
+		// return Controller.getCurrentDirection()
 		return null;
 	}
 
@@ -101,7 +106,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public float getBatteryLevel() {
-		// TODO Auto-generated method stub
+		//this.batteryLevel = batteryLevel
 		return 0;
 	}
 
@@ -117,7 +122,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void setBatteryLevel(float level) {
-		// TODO Auto-generated method stub
+		//this.batteryLevel = level
 
 	}
 
@@ -128,7 +133,8 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public float getEnergyForFullRotation() {
-		// TODO Auto-generated method stub
+		// return 12
+		// (( energy cost of a 90 degree rotation is 3, so 4 90 degree turns = 12 ))
 		return 0;
 	}
 
@@ -141,7 +147,8 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public float getEnergyForStepForward() {
-		// TODO Auto-generated method stub
+		// return 6
+		// (( as dictated in the project requirements ))
 		return 0;
 	}
 
@@ -156,7 +163,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public int getOdometerReading() {
-		// TODO Auto-generated method stub
+		// return odometer
 		return 0;
 	}
 
@@ -165,7 +172,7 @@ public class ReliableRobot implements Robot {
      */
 	@Override
 	public void resetOdometer() {
-		// TODO Auto-generated method stub
+		// odometer = 0
 
 	}
 
@@ -177,8 +184,20 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void rotate(Turn turn) {
-		// TODO Auto-generated method stub
-
+		// if (getBatteryLevel > 0 and is not stopped) {
+		// 		switch (turn) {
+		//		case (LEFT) :
+		//			Controller.keyDown(LEFT, value)
+		//			setBatteryLevel(current battery - cost of turn)
+		//		case (RIGHT) :
+		//			Controller.keyDown(RIGHT, value)
+		//			setBatteryLevel(current battery - cost of turn)
+		// 		case (AROUND) :
+		//			Controller.keyDown(LEFT, value)
+		//			Controller.keyDown(LEFT, value)
+		//			setBatteryLevel(current battery - 2*cost of turn) }}
+		// if (getBatteryLevel <= 0) {
+		//		stopped = true }
 	}
 
 	/**
@@ -194,8 +213,16 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void move(int distance) {
-		// TODO Auto-generated method stub
-
+		// counter for cells moved in = 0
+		//	for range(distance) {
+		//  	if (getBatteryLevel > 0 and is not stopped) {
+		//			Controller.keyDown(UP, value)
+		//			setBatteryLevel(current battery - cost of movement)
+		//			counter ++
+		//	if (counter != distance after the loop) {
+		// 		stopped = true
+		//  if (getBatteryLevel <= 0) {
+		//		stopped = true }
 	}
 
 	/**
@@ -212,7 +239,12 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void jump() {
-		// TODO Auto-generated method stub
+		// if (getBatteryLevel > 0 and is not stopped) {
+		//		if (not facing border wall) {
+		//			Controller.keyDown(JUMP, value)
+		//			setBatteryLevel(current battery - cost of jumping)
+		// if (getBatteryLevel <= 0) {
+		//		stopped = true }
 
 	}
 
@@ -224,7 +256,9 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean isAtExit() {
-		// TODO Auto-generated method stub
+		// maze = Controller.getMazeConfiguration()
+		// supposedExit = maze.getExitPosition()
+		// return assertEquals(supposedExit, getCurrentPosition())
 		return false;
 	}
 
@@ -234,7 +268,10 @@ public class ReliableRobot implements Robot {
 	 */	
 	@Override
 	public boolean isInsideRoom() {
-		// TODO Auto-generated method stub
+		// maze = Controller.getMazeConfiguration()
+		// x = getCurrentPosition()[0]
+		// y = getCurrentPosition()[1]
+		// return assertEquals(maze.isInRoom(x,y))
 		return false;
 	}
 
@@ -247,7 +284,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean hasStopped() {
-		// TODO Auto-generated method stub
+		// return stopped
 		return false;
 	}
 
@@ -271,7 +308,12 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public int distanceToObstacle(Direction direction) throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
+		// 
+		// DistanceSensor.distanceToObstacle(getCurrentPosition(),
+		// 	getCurrentDirection(), getBatteryLevel())
+		// setBatteryLevel(current battery - energy cost for sensing)
+		// if (getBatteryLevel <= 0) {
+		//		stopped = true }
 		return 0;
 	}
 
@@ -287,7 +329,10 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
+		// if (distanceToObstacle(direction) == Integer.MaxValue) {
+		//		return true }
+		// else {
+		//		return false }
 		return false;
 	}
 
