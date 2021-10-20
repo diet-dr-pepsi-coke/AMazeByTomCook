@@ -58,7 +58,7 @@ public class ReliableSensor implements DistanceSensor {
 	 * ({@code currentPosition[0] < 0 || currentPosition[0] >= width})
 	 * ({@code currentPosition[1] < 0 || currentPosition[1] >= height}) 
 	 * @throws IndexOutOfBoundsException if the powersupply is out of range
-	 * ({@code powersupply < 0}) 
+	 * ({@code powersupply < 0} ) 
 	 */
 	@Override
 	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)

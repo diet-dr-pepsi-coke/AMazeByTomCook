@@ -24,10 +24,10 @@ import generation.Maze;
 
 public class Wizard implements RobotDriver {
 	
-	// private int totalEnergyConsumption
-	// private int totalPathTravelled
-	// public Robot robot
-	// public Maze maze
+	 private int totalEnergyConsumption;
+	 private int totalPathTravelled;
+	 public Robot robot;
+	 public Maze maze;
 
 	public Wizard() {
 		// TODO Auto-generated constructor stub
@@ -40,7 +40,7 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public void setRobot(Robot r) {
-		// this.robot = robot
+		 this.robot = r;
 
 	}
 	
@@ -100,14 +100,24 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-		// where we are now = ReliableRobot.getCurrentPosition() 
-		// where we want to go = Maze.getNeighborCloserToExit()
+		int[] curPos = robot.getCurrentPosition();
+		int[] desiredPos = maze.getNeighborCloserToExit(curPos[0], curPos[1]);
 		// find the difference between the cells (i.e. subtract
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
-		// if (ReliableRobot.getBatteryLevel() > 0) {
-		// 	switch (direction of neighbor) {
-		//	case (neighbor is ahead of wizard):
+		int direction = -1; //determinant for switch statement
+		if (desiredPos[0] > curPos[0]) {
+			direction = 1; //East
+		}
+		if (desiredPos[0] < curPos[0]) {
+			direction = 2; //West
+		}
+		if (desiredPos[1] > curPos[1]) {
+			direction = 3; //
+		}
+		 if (robot.getBatteryLevel() > 0) {
+		 	switch ( ) {
+			case (neighbor is ahead of wizard):
 		// 		ReliableRobot.move(1)
 		//		assertEquals(getCurrentPosition(), where we want to go)
 		//		totalEnergyConsumption += energy cost for movement
@@ -121,7 +131,7 @@ public class Wizard implements RobotDriver {
 		//			totalEnergyConsumption += energy cost for movement }
 		//		assertEquals(getCurrentPosition(), where we want to go)
 		//		totalPathTravelled  ++
-		//		return true }}
+				return true }}
 		return false;
 	}
 	

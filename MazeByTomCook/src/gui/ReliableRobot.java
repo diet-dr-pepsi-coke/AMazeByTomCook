@@ -304,7 +304,7 @@ public class ReliableRobot implements Robot {
 	 * @return number of steps towards obstacle if obstacle is visible 
 	 * in a straight line of sight, Integer.MAX_VALUE otherwise
 	 * @throws UnsupportedOperationException if robot has no sensor in this direction
-	 * or the sensor exists but is currently not operational
+	 * or the sensor exists but is  currently not operational
 	 */
 	@Override
 	public int distanceToObstacle(Direction direction) throws UnsupportedOperationException {
