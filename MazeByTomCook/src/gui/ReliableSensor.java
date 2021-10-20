@@ -25,8 +25,13 @@ import gui.Robot.Direction;
 
 public class ReliableSensor implements DistanceSensor {
 	
+<<<<<<< HEAD
 	private Maze maze;
 	private Direction sensorDirection;
+=======
+	// private Maze maze
+	// private Direction sensorDirection
+>>>>>>> refs/remotes/origin/master
 
 	public ReliableSensor() {
 		// TODO Auto-generated constructor stub
@@ -63,6 +68,7 @@ public class ReliableSensor implements DistanceSensor {
 	@Override
 	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
 			throws Exception {
+<<<<<<< HEAD
 		 Floorplan floorplan = maze.getFloorplan();
 		 int curX = currentPosition[0];
 		 int curY = currentPosition[1];
@@ -87,6 +93,20 @@ public class ReliableSensor implements DistanceSensor {
 					 curX++;  }
 		 		}
 		return openCells;
+=======
+		// floorplan = maze.getFloorplan()
+		// curX = currentPosition[0]
+		// curY = currentPosition[1]
+		// openCells = 0 /////keeps track of how far next wallboard is//////
+		// switch (currentDirection) {
+		//	case (North/East/South/West) :
+		// 		while (!maze.hasWall(curX, curY, currentDirection)) {
+		//			openCells ++
+		//			CurX ++/-- || CurY++/-- ///////depending on the switch statement///
+		////////////// North: CurY--, South: CurY++, West: CurX--, East: CurX++/////////////////
+		// return openCells
+		return 0;
+>>>>>>> refs/remotes/origin/master
 	}
 
 	/**
@@ -98,7 +118,11 @@ public class ReliableSensor implements DistanceSensor {
 	 */
 	@Override
 	public void setMaze(Maze maze) {
+<<<<<<< HEAD
 		this.maze = maze;
+=======
+		// this.maze = maze
+>>>>>>> refs/remotes/origin/master
 
 	}
 
@@ -113,7 +137,11 @@ public class ReliableSensor implements DistanceSensor {
 	 */
 	@Override
 	public void setSensorDirection(Direction mountedDirection) {
+<<<<<<< HEAD
 		this.sensorDirection = mountedDirection;
+=======
+		// this.sensorDirection = mountedDirection
+>>>>>>> refs/remotes/origin/master
 
 	}
 
@@ -125,7 +153,12 @@ public class ReliableSensor implements DistanceSensor {
 	 */
 	@Override
 	public float getEnergyConsumptionForSensing() {
+<<<<<<< HEAD
 		return 1; 	//as dictated by the project description
+=======
+		// return 1 ((as dictated by the project description))
+		return 0;
+>>>>>>> refs/remotes/origin/master
 	}
 	
 	/**
