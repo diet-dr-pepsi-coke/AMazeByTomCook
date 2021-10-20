@@ -361,6 +361,8 @@ public class StatePlaying extends DefaultState {
      * @param dir, only possible values are 1 (forward) and -1 (backward)
      */
     private synchronized void walk(int dir) {
+    	System.out.println(px);
+    	System.out.println(py);
     	// check if there is a wall in the way
         if (!checkMove(dir))
             return;
@@ -374,6 +376,8 @@ public class StatePlaying extends DefaultState {
             slowedDownRedraw();
         }
         setCurrentPosition(px + dir*dx, py + dir*dy) ;
+        System.out.println(px);
+    	System.out.println(py);
         walkStep = 0; // reset counter for next time
         //logPosition(); // debugging
         drawHintIfNecessary();  

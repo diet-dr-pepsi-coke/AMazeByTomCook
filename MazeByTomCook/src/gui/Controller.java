@@ -201,8 +201,8 @@ public class Controller {
         currentState = states[0];
         currentState.start(this, panel);
     }
-    
-    /**
+
+	/**
      * Method incorporates all reactions to keyboard input in original code. 
      * The simple key listener calls this method to communicate input.
      * @param key is the user input 

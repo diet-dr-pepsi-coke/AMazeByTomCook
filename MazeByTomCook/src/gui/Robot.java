@@ -219,8 +219,9 @@ public interface Robot {
 	 * The exit can be in any direction. It is not guaranteed that 
 	 * the robot is facing the exit in a forward direction.
 	 * @return true if robot is at the exit, false otherwise
+	 * @throws Exception 
 	 */
-	boolean isAtExit() ;
+	boolean isAtExit();
 	/**
 	 * Tells if current position is inside a room. 
 	 * @return true if robot is inside a room, false otherwise

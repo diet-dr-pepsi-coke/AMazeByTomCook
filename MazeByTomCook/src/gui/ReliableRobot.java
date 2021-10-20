@@ -1,6 +1,11 @@
 package gui;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import generation.CardinalDirection;
+import generation.Maze;
+import gui.Constants;
+import gui.Constants.UserInput;
 
 /**
  * This interface implements the Robot class and is an auto-generated 
@@ -23,9 +28,11 @@ import generation.CardinalDirection;
 
 public class ReliableRobot implements Robot {
 	
-	// private int batteryLevel
-	// private int odometer
-	// private boolean stopped
+	 private float batteryLevel;
+	 private int odometer;
+	 private boolean stopped;
+	 private Controller controller;
+	 private DistanceSensor directionSensor;
 
 	public ReliableRobot() {
 		// TODO Auto-generated constructor stub
@@ -44,7 +51,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void setController(Controller controller) {
-		// this.controller = controller
+		this.controller = controller;
 
 	}
 
@@ -67,8 +74,8 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void addDistanceSensor(DistanceSensor sensor, Direction mountedDirection) {
-		// DistanceSensor directionSensor = sensor
-		// directionSensor.setSensorDirection(mountedDirection)
+		DistanceSensor directionSensor = sensor;
+		directionSensor.setSensorDirection(mountedDirection);
 
 	}
 
@@ -81,8 +88,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public int[] getCurrentPosition() throws Exception {
-		// return Controller.getCurrentPosition()
-		return null;
+		return controller.getCurrentPosition();
 	}
 
 	/**
@@ -91,8 +97,7 @@ public class ReliableRobot implements Robot {
 	 */	
 	@Override
 	public CardinalDirection getCurrentDirection() {
-		// return Controller.getCurrentDirection()
-		return null;
+		return controller.getCurrentDirection();
 	}
 
 	/**
@@ -106,8 +111,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public float getBatteryLevel() {
-		//this.batteryLevel = batteryLevel
-		return 0;
+		return batteryLevel;
 	}
 
 	/**
@@ -122,7 +126,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void setBatteryLevel(float level) {
-		//this.batteryLevel = level
+		this.batteryLevel = level;
 
 	}
 
@@ -135,7 +139,7 @@ public class ReliableRobot implements Robot {
 	public float getEnergyForFullRotation() {
 		// return 12
 		// (( energy cost of a 90 degree rotation is 3, so 4 90 degree turns = 12 ))
-		return 0;
+		return 12;
 	}
 
 	/**
@@ -149,7 +153,7 @@ public class ReliableRobot implements Robot {
 	public float getEnergyForStepForward() {
 		// return 6
 		// (( as dictated in the project requirements ))
-		return 0;
+		return 6;
 	}
 
 	/** 
@@ -163,8 +167,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public int getOdometerReading() {
-		// return odometer
-		return 0;
+		return odometer;
 	}
 
 	/** 
@@ -172,7 +175,7 @@ public class ReliableRobot implements Robot {
      */
 	@Override
 	public void resetOdometer() {
-		// odometer = 0
+		this.odometer = 0;
 
 	}
 
@@ -184,20 +187,20 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void rotate(Turn turn) {
-		// if (getBatteryLevel > 0 and is not stopped) {
-		// 		switch (turn) {
-		//		case (LEFT) :
-		//			Controller.keyDown(LEFT, value)
-		//			setBatteryLevel(current battery - cost of turn)
-		//		case (RIGHT) :
-		//			Controller.keyDown(RIGHT, value)
-		//			setBatteryLevel(current battery - cost of turn)
-		// 		case (AROUND) :
-		//			Controller.keyDown(LEFT, value)
-		//			Controller.keyDown(LEFT, value)
-		//			setBatteryLevel(current battery - 2*cost of turn) }}
-		// if (getBatteryLevel <= 0) {
-		//		stopped = true }
+		 if (getBatteryLevel() > 0 && !hasStopped()) {
+		 		switch (turn) {
+				case LEFT :
+					controller.keyDown(UserInput.LEFT, 0);
+					setBatteryLevel(getBatteryLevel() - (1/4)*getEnergyForFullRotation());
+				case RIGHT :
+					controller.keyDown(UserInput.RIGHT, 0);
+					setBatteryLevel(getBatteryLevel() - (1/4)*getEnergyForFullRotation());
+		 		case AROUND : // turn left twice
+					controller.keyDown(UserInput.LEFT, 0);
+					controller.keyDown(UserInput.LEFT, 0);
+					setBatteryLevel(getBatteryLevel() - (2/4)*getEnergyForFullRotation()); }}
+		 if (getBatteryLevel() <= 0) {
+				stopped = true; }
 	}
 
 	/**
@@ -213,17 +216,18 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void move(int distance) {
-		// counter for cells moved in = 0
-		//	for range(distance) {
-		//  	if (getBatteryLevel > 0 and is not stopped) {
-		//			Controller.keyDown(UP, value)
-		//			setBatteryLevel(current battery - cost of movement)
-		//			counter ++
-		//	if (counter != distance after the loop) {
-		// 		stopped = true
-		//  if (getBatteryLevel <= 0) {
-		//		stopped = true }
-	}
+		 int counter = 0;
+		 for (int i=0; i<distance; i++) {
+		  	if (getBatteryLevel() > 0 && !hasStopped()) {
+					controller.keyDown(UserInput.UP, 0);
+					setBatteryLevel(getBatteryLevel() - getEnergyForStepForward());
+					counter ++;
+					odometer++;
+			if (counter != distance) {
+		 		stopped = true;}
+			if (getBatteryLevel() <= 0) {
+				stopped = true; }
+	}}}
 
 	/**
 	 * Makes robot move in a forward direction even if there is a wall
@@ -239,12 +243,12 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void jump() {
-		// if (getBatteryLevel > 0 and is not stopped) {
-		//		if (not facing border wall) {
-		//			Controller.keyDown(JUMP, value)
-		//			setBatteryLevel(current battery - cost of jumping)
-		// if (getBatteryLevel <= 0) {
-		//		stopped = true }
+		 if (getBatteryLevel() > 0 && !hasStopped()) {
+			 	// don't need to check if border wall because StatePlaying already does that
+				controller.keyDown(UserInput.JUMP, 0);
+				setBatteryLevel(getBatteryLevel() - 40); // cost of jumping as outlined
+		 if (getBatteryLevel() <= 0) {
+				stopped = true; }}
 
 	}
 
@@ -256,9 +260,12 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean isAtExit() {
-		// maze = Controller.getMazeConfiguration()
-		// supposedExit = maze.getExitPosition()
-		// return assertEquals(supposedExit, getCurrentPosition())
+		 Maze maze = controller.getMazeConfiguration();
+		 int[] supposedExit = maze.getExitPosition();
+		 // auto-generated fix for Exception in getCurrentPosition()
+			if (supposedExit == controller.getCurrentPosition()) {
+				 return true;
+			 }
 		return false;
 	}
 
@@ -268,9 +275,12 @@ public class ReliableRobot implements Robot {
 	 */	
 	@Override
 	public boolean isInsideRoom() {
-		// maze = Controller.getMazeConfiguration()
-		// x = getCurrentPosition()[0]
-		// y = getCurrentPosition()[1]
+		Maze maze = controller.getMazeConfiguration();
+			int x = controller.getCurrentPosition()[0];
+			int y = controller.getCurrentPosition()[1];
+		if (maze.isInRoom(x,y)) {
+			return true;
+		}
 		// return assertEquals(maze.isInRoom(x,y))
 		return false;
 	}
@@ -284,8 +294,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean hasStopped() {
-		// return stopped
-		return false;
+		return stopped;
 	}
 
 	/**
@@ -303,19 +312,27 @@ public class ReliableRobot implements Robot {
 	 * @param direction specifies the direction of interest
 	 * @return number of steps towards obstacle if obstacle is visible 
 	 * in a straight line of sight, Integer.MAX_VALUE otherwise
-	 * @throws UnsupportedOperationException if robot has no sensor in this direction
-	 * or the sensor exists but is  currently not operational
+	 * @throws Exception 
 	 */
 	@Override
-	public int distanceToObstacle(Direction direction) throws UnsupportedOperationException {
-		// if (getBatteryLevel > 0 and is not stopped) {
-		// 
-		// DistanceSensor.distanceToObstacle(getCurrentPosition(),
-		// 	getCurrentDirection(), getBatteryLevel())
-		// setBatteryLevel(current battery - energy cost for sensing)
-		// if (getBatteryLevel <= 0) {
-		//		stopped = true }
-		return 0;
+	public int distanceToObstacle(Direction direction) {
+		 if (getBatteryLevel() > 0 && !hasStopped()) { 
+			 float[] battery = {batteryLevel};
+			 int[] curPos = controller.getCurrentPosition();
+			 CardinalDirection curDir = controller.getCurrentDirection();
+			 // auto-generated fix for unhandled exception type Exception
+			 int dist = 0;
+			try {
+				dist = directionSensor.distanceToObstacle(curPos, curDir, battery);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 setBatteryLevel(getBatteryLevel() - directionSensor.getEnergyConsumptionForSensing());
+			 if (getBatteryLevel() <= 0) {
+				stopped = true; }
+			 return dist; }
+		 return 0;
 	}
 
 	/**
@@ -330,11 +347,10 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException {
-		// if (distanceToObstacle(direction) == Integer.MaxValue) {
-		//		return true }
-		// else {
-		//		return false }
-		return false;
+		 if (distanceToObstacle(direction) == Integer.MAX_VALUE) {
+				return true; }
+		 else {
+				return false; }
 	}
 
 	/**
