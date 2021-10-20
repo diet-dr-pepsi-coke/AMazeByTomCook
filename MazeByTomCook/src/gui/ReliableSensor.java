@@ -1,6 +1,7 @@
 package gui;
 
 import generation.CardinalDirection;
+import generation.Floorplan;
 import generation.Maze;
 import gui.Robot.Direction;
 
@@ -16,13 +17,16 @@ import gui.Robot.Direction;
  * and is also responsible for keeping track of how much using the sensor costs
  * for the energy consumption.
  * 
- * Collaborators: ReliableRobot, Wizard, DistanceSensor, Maze, Distance, Floorplan
+ * Collaborators: ReliableRobot, DistanceSensor, Maze, Distance, Floorplan
  * 
  * @author Tom Cook
  *
  */
 
 public class ReliableSensor implements DistanceSensor {
+	
+	private Maze maze;
+	private Direction sensorDirection;
 
 	public ReliableSensor() {
 		// TODO Auto-generated constructor stub
@@ -59,8 +63,30 @@ public class ReliableSensor implements DistanceSensor {
 	@Override
 	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		 Floorplan floorplan = maze.getFloorplan();
+		 int curX = currentPosition[0];
+		 int curY = currentPosition[1];
+		 int openCells = 0; /////keeps track of how far next wallboard is//////
+		 switch (currentDirection) {
+		////////////// North: CurY--, South: CurY++, West: CurX--, East: CurX++/////////////////
+			case North :
+		 		while (!maze.hasWall(curX, curY, currentDirection)) {
+					openCells ++;
+					 curY--; }
+			case South :
+				while (!maze.hasWall(curX, curY, currentDirection)) {
+					openCells ++;
+					 curY++;  }
+			case West :
+				while (!maze.hasWall(curX, curY, currentDirection)) {
+					openCells ++;
+					 curX--;  }
+			case East :
+				while (!maze.hasWall(curX, curY, currentDirection)) {
+					openCells ++;
+					 curX++;  }
+		 		}
+		return openCells;
 	}
 
 	/**
@@ -72,7 +98,7 @@ public class ReliableSensor implements DistanceSensor {
 	 */
 	@Override
 	public void setMaze(Maze maze) {
-		// TODO Auto-generated method stub
+		this.maze = maze;
 
 	}
 
@@ -87,7 +113,7 @@ public class ReliableSensor implements DistanceSensor {
 	 */
 	@Override
 	public void setSensorDirection(Direction mountedDirection) {
-		// TODO Auto-generated method stub
+		this.sensorDirection = mountedDirection;
 
 	}
 
@@ -99,8 +125,7 @@ public class ReliableSensor implements DistanceSensor {
 	 */
 	@Override
 	public float getEnergyConsumptionForSensing() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1; 	//as dictated by the project description
 	}
 	
 	/**
