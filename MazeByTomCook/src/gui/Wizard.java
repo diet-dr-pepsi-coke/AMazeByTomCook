@@ -24,17 +24,14 @@ import generation.Maze;
 
 public class Wizard implements RobotDriver {
 	
-<<<<<<< HEAD
 	 private int totalEnergyConsumption;
 	 private int totalPathTravelled;
 	 public Robot robot;
 	 public Maze maze;
-=======
 	// private int totalEnergyConsumption
 	// private int totalPathTravelled
 	// public Robot robot
 	// public Maze maze
->>>>>>> refs/remotes/origin/master
 
 	public Wizard() {
 		// TODO Auto-generated constructor stub
@@ -47,11 +44,8 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public void setRobot(Robot r) {
-<<<<<<< HEAD
 		 this.robot = r;
-=======
 		// this.robot = robot
->>>>>>> refs/remotes/origin/master
 
 	}
 	
@@ -111,7 +105,6 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-<<<<<<< HEAD
 		int[] curPos = robot.getCurrentPosition();
 		int[] desiredPos = maze.getNeighborCloserToExit(curPos[0], curPos[1]);
 		// find the difference between the cells (i.e. subtract
@@ -128,8 +121,8 @@ public class Wizard implements RobotDriver {
 			direction = 3; //
 		}
 		 if (robot.getBatteryLevel() > 0) {
-		 	switch ( ) {
-			case (neighbor is ahead of wizard):
+		 //switch ( ) {
+			//case (neighbor is ahead of wizard):
 		// 		ReliableRobot.move(1)
 		//		assertEquals(getCurrentPosition(), where we want to go)
 		//		totalEnergyConsumption += energy cost for movement
@@ -143,8 +136,7 @@ public class Wizard implements RobotDriver {
 		//			totalEnergyConsumption += energy cost for movement }
 		//		assertEquals(getCurrentPosition(), where we want to go)
 		//		totalPathTravelled  ++
-				return true }}
-=======
+				return true; }
 		// where we are now = ReliableRobot.getCurrentPosition() 
 		// where we want to go = Maze.getNeighborCloserToExit()
 		// find the difference between the cells (i.e. subtract
@@ -167,7 +159,6 @@ public class Wizard implements RobotDriver {
 		//		assertEquals(getCurrentPosition(), where we want to go)
 		//		totalPathTravelled  ++
 		//		return true }}
->>>>>>> refs/remotes/origin/master
 		return false;
 	}
 	

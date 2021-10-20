@@ -308,11 +308,8 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public int distanceToObstacle(Direction direction) throws UnsupportedOperationException {
-<<<<<<< HEAD
 		// if (getBatteryLevel > 0 and is not stopped) {
-=======
 		// 
->>>>>>> refs/remotes/origin/master
 		// DistanceSensor.distanceToObstacle(getCurrentPosition(),
 		// 	getCurrentDirection(), getBatteryLevel())
 		// setBatteryLevel(current battery - energy cost for sensing)
