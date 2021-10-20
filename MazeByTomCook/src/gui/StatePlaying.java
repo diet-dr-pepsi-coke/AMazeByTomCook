@@ -106,6 +106,21 @@ public class StatePlaying extends DefaultState {
         	// else: dry-run without graphics, most likely for testing purposes
         	printWarning();
         }
+        Robot robot = controller.getRobot();
+        RobotDriver driver = controller.getDriver();
+        if (driver != null) {
+        	driver.setMaze(getMazeConfiguration());
+        	robot.setController(controller);
+        	driver.setRobot(robot);
+        	try {
+				if (driver.drive2Exit() == true) {
+					controller.switchFromPlayingToWinning(robot.getOdometerReading());
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
     }
     /**
      * Initializes the drawer for the first person view

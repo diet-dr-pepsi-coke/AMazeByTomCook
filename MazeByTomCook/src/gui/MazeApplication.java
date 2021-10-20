@@ -94,6 +94,13 @@ public class MazeApplication extends JFrame {
 	    {
 	    	result.setBuilder(Order.Builder.Boruvka);
 	    }
+	    // Case 5: Wizard
+	    else if ("Wizard".equalsIgnoreCase(parameter))
+	    { 
+	    	ReliableRobot robot = new ReliableRobot();
+	    	Wizard robotDriver = new Wizard();
+	    	result.setRobotAndDriver(robot, robotDriver);
+	    }
 	    // Case 4: a file
 	    else {
 	        File f = new File(parameter) ;
