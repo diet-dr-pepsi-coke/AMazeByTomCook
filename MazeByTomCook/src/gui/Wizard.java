@@ -1,6 +1,11 @@
 package gui;
 
+import static org.junit.Assert.assertEquals;
+
 import generation.Maze;
+import gui.Robot.Direction;
+import gui.Robot.Turn;
+import generation.CardinalDirection;
 
 /**
  * This interface implements the RobotDriver interface for a specific 
@@ -28,11 +33,7 @@ public class Wizard implements RobotDriver {
 	 private int totalPathTravelled;
 	 public Robot robot;
 	 public Maze maze;
-	// private int totalEnergyConsumption
-	// private int totalPathTravelled
-	// public Robot robot
-	// public Maze maze
-
+	 
 	public Wizard() {
 		// TODO Auto-generated constructor stub
 	}
@@ -56,7 +57,7 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public void setMaze(Maze maze) {
-		// this.maze = maze
+		 this.maze = maze;
 
 	}
 	
@@ -77,12 +78,12 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public boolean drive2Exit() throws Exception {
-		// while !isAtExit() {
-		//		drive1Step2Exit()
-		// assertEquals(ReliableRobot.getCurrentPosition(), Maze.getExitPosition())
-		// while !ReliableRobot.canSeeThroughExitIntoEternity(getCurrentDirection())
-		//		ReliableRobot.rotate(LEFT)
-		// return true
+		 while (robot.isAtExit() == false) {
+				drive1Step2Exit();
+				assertEquals(robot.getCurrentPosition(), maze.getExitPosition()); }
+		 while (robot.canSeeThroughTheExitIntoEternity(Direction.FORWARD) == false) {
+				robot.rotate(Turn.LEFT);
+				return true; }
 		///////////// NOT SURE IF REQUIRED YET //////////////////
 		// ReliableRobot.move(1)
 		return false;
@@ -118,49 +119,68 @@ public class Wizard implements RobotDriver {
 			direction = 2; //West
 		}
 		if (desiredPos[1] > curPos[1]) {
-			direction = 3; //
+			direction = 3; //North
+		}
+		if (desiredPos[1] < curPos[1]) {
+			direction = 4; //South
 		}
 		 if (robot.getBatteryLevel() > 0) {
-		 //switch ( ) {
-			//case (neighbor is ahead of wizard):
-		// 		ReliableRobot.move(1)
-		//		assertEquals(getCurrentPosition(), where we want to go)
-		//		totalEnergyConsumption += energy cost for movement
-		//		totalPathTravelled ++
-		//		return true
-		//	case (neighbor is left or right) :
-		//		ReliableRobot.rotate(LEFT/RIGHT)
-		//		totalEnergyConsumption += (1/4)cost for full rotation
-		//		if (ReliableRobot.getBatteryLevel() > 0) {
-		//			ReliableRobot.move(1) 
-		//			totalEnergyConsumption += energy cost for movement }
-		//		assertEquals(getCurrentPosition(), where we want to go)
-		//		totalPathTravelled  ++
-				return true; }
-		// where we are now = ReliableRobot.getCurrentPosition() 
-		// where we want to go = Maze.getNeighborCloserToExit()
-		// find the difference between the cells (i.e. subtract
-		// 	the x and y values from each other) to see which direction
-		// 	the neighbor cell is
-		// if (ReliableRobot.getBatteryLevel() > 0) {
-		// 	switch (direction of neighbor) {
-		//	case (neighbor is ahead of wizard):
-		// 		ReliableRobot.move(1)
-		//		assertEquals(getCurrentPosition(), where we want to go)
-		//		totalEnergyConsumption += energy cost for movement
-		//		totalPathTravelled ++
-		//		return true
-		//	case (neighbor is left or right) :
-		//		ReliableRobot.rotate(LEFT/RIGHT)
-		//		totalEnergyConsumption += (1/4)cost for full rotation
-		//		if (ReliableRobot.getBatteryLevel() > 0) {
-		//			ReliableRobot.move(1) 
-		//			totalEnergyConsumption += energy cost for movement }
-		//		assertEquals(getCurrentPosition(), where we want to go)
-		//		totalPathTravelled  ++
-		//		return true }}
-		return false;
-	}
+		 switch (direction) {
+		 case 3 : // North
+			 // make sure robot is facing the right way before it moves
+			 	while (robot.getCurrentDirection() != CardinalDirection.North) {
+			 		robot.rotate(Turn.LEFT);
+			 		totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
+			 		}
+			 // move one step forward
+			 	if (robot.getCurrentDirection() == CardinalDirection.North) {
+			 		robot.move(1); 
+			 		assertEquals(robot.getCurrentPosition(), desiredPos);
+			 		totalEnergyConsumption += robot.getEnergyForStepForward();
+			 		totalPathTravelled ++;
+			 		return true; }
+		 case 4 : // South
+			// make sure robot is facing the right way before it moves
+			 	while (robot.getCurrentDirection() != CardinalDirection.South) {
+			 		robot.rotate(Turn.LEFT);
+			 		totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
+			 		}
+			 	// move one step forward
+			 	if (robot.getCurrentDirection() == CardinalDirection.South) {
+			 		robot.move(1); 
+			 		assertEquals(robot.getCurrentPosition(), desiredPos);
+			 		totalEnergyConsumption += robot.getEnergyForStepForward();
+			 		totalPathTravelled ++;
+			 		return true; }
+		case 1 : // East
+			// make sure robot is facing the right way before it moves
+				while (robot.getCurrentDirection() != CardinalDirection.East) {
+					robot.rotate(Turn.LEFT);
+					totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
+					}
+				// move one step forward
+				if (robot.getCurrentDirection() == CardinalDirection.East) {
+					robot.move(1); 
+					assertEquals(robot.getCurrentPosition(), desiredPos);
+					totalEnergyConsumption += robot.getEnergyForStepForward();
+					totalPathTravelled ++;
+					return true; }
+		case 2 : // West
+			// make sure robot is facing the right way before it moves
+			while (robot.getCurrentDirection() != CardinalDirection.West) {
+				robot.rotate(Turn.LEFT);
+				totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
+				}
+			// move one step forward
+			if (robot.getCurrentDirection() == CardinalDirection.West) {
+				robot.move(1); 
+				assertEquals(robot.getCurrentPosition(), desiredPos);
+				totalEnergyConsumption += robot.getEnergyForStepForward();
+				totalPathTravelled ++;
+				return true; } } }
+		return false; 
+		} 
+		
 	
 	/**
 	 * Returns the total energy consumption of the journey, i.e.,
@@ -171,8 +191,7 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public float getEnergyConsumption() {
-		// return totalEnergyConsumption
-		return 0;
+		return totalEnergyConsumption;
 	}
 
 	/**
@@ -183,8 +202,7 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public int getPathLength() {
-		// return totalPathTravelled
-		return 0;
+		return totalPathTravelled;
 	}
 
 }

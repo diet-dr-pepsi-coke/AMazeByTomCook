@@ -28,9 +28,9 @@ import gui.Constants.UserInput;
 
 public class ReliableRobot implements Robot {
 	
-	 private float batteryLevel;
-	 private int odometer;
-	 private boolean stopped;
+	 private float batteryLevel = 3500;
+	 private int odometer = 0;
+	 private boolean stopped = false;
 	 private Controller controller;
 	 private DistanceSensor directionSensor;
 
