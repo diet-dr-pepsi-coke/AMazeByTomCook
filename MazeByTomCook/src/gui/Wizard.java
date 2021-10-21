@@ -79,8 +79,8 @@ public class Wizard implements RobotDriver {
 	@Override
 	public boolean drive2Exit() throws Exception {
 		 while (robot.isAtExit() == false) {
-				drive1Step2Exit();
-				assertEquals(robot.getCurrentPosition(), maze.getExitPosition()); }
+				drive1Step2Exit(); }
+				// assertEquals(robot.getCurrentPosition(), maze.getExitPosition()); }
 		 while (robot.canSeeThroughTheExitIntoEternity(Direction.FORWARD) == false) {
 				robot.rotate(Turn.LEFT);
 				return true; }
@@ -106,80 +106,41 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
+		System.out.println(robot.getBatteryLevel());
 		int[] curPos = robot.getCurrentPosition();
 		int[] desiredPos = maze.getNeighborCloserToExit(curPos[0], curPos[1]);
+		System.out.println(curPos[0]);
+		System.out.println(curPos[1]);
+		System.out.println(desiredPos[0]);
+		System.out.println(curPos[1]);
 		// find the difference between the cells (i.e. subtract
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
-		int direction = -1; //determinant for switch statement
-		if (desiredPos[0] > curPos[0]) {
-			direction = 1; //East
-		}
-		if (desiredPos[0] < curPos[0]) {
-			direction = 2; //West
-		}
-		if (desiredPos[1] > curPos[1]) {
-			direction = 3; //North
-		}
-		if (desiredPos[1] < curPos[1]) {
-			direction = 4; //South
-		}
+		int[] direction = {curPos[0] - desiredPos[0], curPos[1] - desiredPos[1]};
+		System.out.println(robot.getCurrentDirection());
+		System.out.println(CardinalDirection.getDirection(direction[0], direction[1]));
 		 if (robot.getBatteryLevel() > 0) {
-		 switch (direction) {
-		 case 3 : // North
 			 // make sure robot is facing the right way before it moves
-			 	while (robot.getCurrentDirection() != CardinalDirection.North) {
-			 		robot.rotate(Turn.LEFT);
-			 		totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
-			 		}
+			 	if (robot.getCurrentDirection() == CardinalDirection.getDirection(direction[0], direction[1]).oppositeDirection().rotateClockwise()) {
+			 			robot.rotate(Turn.LEFT);
+			 			totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
+			 			}
+			 	if (robot.getCurrentDirection() == CardinalDirection.getDirection(direction[0], direction[1]).oppositeDirection()) {
+			 			robot.rotate(Turn.AROUND);
+			 			totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
+			 			}
+			 	if (robot.getCurrentDirection() == CardinalDirection.getDirection(direction[0], direction[1]).rotateClockwise()) {
+			 			robot.rotate(Turn.RIGHT);
+			 			totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
+			 			}
 			 // move one step forward
-			 	if (robot.getCurrentDirection() == CardinalDirection.North) {
+			 	if (robot.getCurrentDirection() == CardinalDirection.getDirection(direction[0], direction[1])) {
 			 		robot.move(1); 
-			 		assertEquals(robot.getCurrentPosition(), desiredPos);
 			 		totalEnergyConsumption += robot.getEnergyForStepForward();
 			 		totalPathTravelled ++;
-			 		return true; }
-		 case 4 : // South
-			// make sure robot is facing the right way before it moves
-			 	while (robot.getCurrentDirection() != CardinalDirection.South) {
-			 		robot.rotate(Turn.LEFT);
-			 		totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
-			 		}
-			 	// move one step forward
-			 	if (robot.getCurrentDirection() == CardinalDirection.South) {
-			 		robot.move(1); 
-			 		assertEquals(robot.getCurrentPosition(), desiredPos);
-			 		totalEnergyConsumption += robot.getEnergyForStepForward();
-			 		totalPathTravelled ++;
-			 		return true; }
-		case 1 : // East
-			// make sure robot is facing the right way before it moves
-				while (robot.getCurrentDirection() != CardinalDirection.East) {
-					robot.rotate(Turn.LEFT);
-					totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
-					}
-				// move one step forward
-				if (robot.getCurrentDirection() == CardinalDirection.East) {
-					robot.move(1); 
-					assertEquals(robot.getCurrentPosition(), desiredPos);
-					totalEnergyConsumption += robot.getEnergyForStepForward();
-					totalPathTravelled ++;
-					return true; }
-		case 2 : // West
-			// make sure robot is facing the right way before it moves
-			while (robot.getCurrentDirection() != CardinalDirection.West) {
-				robot.rotate(Turn.LEFT);
-				totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
-				}
-			// move one step forward
-			if (robot.getCurrentDirection() == CardinalDirection.West) {
-				robot.move(1); 
-				assertEquals(robot.getCurrentPosition(), desiredPos);
-				totalEnergyConsumption += robot.getEnergyForStepForward();
-				totalPathTravelled ++;
-				return true; } } }
-		return false; 
-		} 
+			 		System.out.println("done once");
+			 		return true; } }
+		return false; }
 		
 	
 	/**

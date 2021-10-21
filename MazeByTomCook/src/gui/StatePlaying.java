@@ -113,7 +113,7 @@ public class StatePlaying extends DefaultState {
         	robot.setController(controller);
         	driver.setRobot(robot);
         	try {
-				if (driver.drive2Exit() == true) {
+				if (driver.drive1Step2Exit() == true) {
 					controller.switchFromPlayingToWinning(robot.getOdometerReading());
 				}
 			} catch (Exception e) {
@@ -351,6 +351,7 @@ public class StatePlaying extends DefaultState {
      * @param dir for current direction, values are either 1 or -1
      */
     private synchronized void rotate(int dir) {
+    	System.out.println(getCurrentDirection());
         final int originalAngle = angle;
         final int steps = 4;
 
@@ -376,8 +377,6 @@ public class StatePlaying extends DefaultState {
      * @param dir, only possible values are 1 (forward) and -1 (backward)
      */
     private synchronized void walk(int dir) {
-    	System.out.println(px);
-    	System.out.println(py);
     	// check if there is a wall in the way
         if (!checkMove(dir))
             return;
@@ -391,8 +390,6 @@ public class StatePlaying extends DefaultState {
             slowedDownRedraw();
         }
         setCurrentPosition(px + dir*dx, py + dir*dy) ;
-        System.out.println(px);
-    	System.out.println(py);
         walkStep = 0; // reset counter for next time
         //logPosition(); // debugging
         drawHintIfNecessary();  
