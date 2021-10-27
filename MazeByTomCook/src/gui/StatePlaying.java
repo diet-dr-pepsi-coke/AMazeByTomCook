@@ -5,7 +5,8 @@ import gui.Constants.UserInput;
 import generation.CardinalDirection;
 import generation.Floorplan;
 import generation.Maze;
-
+import gui.ReliableSensor;
+import gui.Robot.Direction;
 
 /**
  * Class handles the user interaction
@@ -60,6 +61,9 @@ public class StatePlaying extends DefaultState {
     //private boolean newGame = false;
 
     boolean started;
+    
+    // for testing purposes in development
+    ReliableSensor sensor = new ReliableSensor();
     
     public StatePlaying() {
         started = false;
@@ -229,6 +233,15 @@ public class StatePlaying extends DefaultState {
             draw() ; 
             break ;
         } // end of internal switch statement for playing state
+      /*  System.out.println(getCurrentDirection());
+        sensor.setMaze(mazeConfig);
+        sensor.setSensorDirection(Direction.LEFT);
+        try {
+			sensor.distanceToObstacle(getCurrentPosition(), getCurrentDirection(), null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} */
         return true;
     }
     /**
@@ -351,7 +364,6 @@ public class StatePlaying extends DefaultState {
      * @param dir for current direction, values are either 1 or -1
      */
     private synchronized void rotate(int dir) {
-    	System.out.println(getCurrentDirection());
         final int originalAngle = angle;
         final int steps = 4;
 

@@ -65,29 +65,32 @@ public class ReliableSensor implements DistanceSensor {
 	@Override
 	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
 			throws Exception {
-		 Floorplan floorplan = maze.getFloorplan();
 		 int curX = currentPosition[0];
 		 int curY = currentPosition[1];
 		 int openCells = 0; /////keeps track of how far next wallboard is//////
-		 switch (currentDirection) {
+		 CardinalDirection newDir = convertMountedToCardinal(sensorDirection, currentDirection);
+		 switch (newDir) {
 		////////////// North: CurY--, South: CurY++, West: CurX--, East: CurX++/////////////////
 			case North :
-		 		while (!maze.hasWall(curX, curY, currentDirection)) {
+		 		while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
 					 curY--; }
 			case South :
-				while (!maze.hasWall(curX, curY, currentDirection)) {
+				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
 					 curY++;  }
 			case West :
-				while (!maze.hasWall(curX, curY, currentDirection)) {
+				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
 					 curX--;  }
 			case East :
-				while (!maze.hasWall(curX, curY, currentDirection)) {
+				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
 					 curX++;  }
 		 		}
+		 System.out.println(openCells);
+		 System.out.println("X " + curX);
+		 System.out.println("Y " + curY);
 		return openCells;
 		// floorplan = maze.getFloorplan()
 		// curX = currentPosition[0]
@@ -144,6 +147,54 @@ public class ReliableSensor implements DistanceSensor {
 		// return 1 ((as dictated by the project description))
 	}
 	
+	public CardinalDirection convertMountedToCardinal(Direction currentMount, CardinalDirection DirofRobot) {
+		CardinalDirection newDir = CardinalDirection.North;
+		if (DirofRobot == CardinalDirection.North) {
+			switch (currentMount) {
+			case FORWARD :
+				newDir = CardinalDirection.North;
+			case BACKWARD :
+				newDir = CardinalDirection.South;
+			case LEFT :
+				newDir = CardinalDirection.West;
+			case RIGHT :
+				newDir = CardinalDirection.East;	
+			}}
+		if (DirofRobot == CardinalDirection.South) {
+			switch (currentMount) {
+			case FORWARD :
+				newDir = CardinalDirection.South;
+			case BACKWARD :
+				newDir = CardinalDirection.North;
+			case LEFT :
+				newDir = CardinalDirection.East;
+			case RIGHT :
+				newDir = CardinalDirection.West;
+			}}
+		if (DirofRobot == CardinalDirection.East) {
+			switch (currentMount) {
+			case FORWARD :
+				newDir = CardinalDirection.East;
+			case BACKWARD :
+				newDir = CardinalDirection.West;
+			case LEFT :
+				newDir = CardinalDirection.North;
+			case RIGHT :
+				newDir = CardinalDirection.South;
+			}}
+		if (DirofRobot == CardinalDirection.West) {
+			switch (currentMount) {
+			case FORWARD :
+				newDir = CardinalDirection.West;
+			case BACKWARD :
+				newDir = CardinalDirection.East;
+			case LEFT :
+				newDir = CardinalDirection.South;
+			case RIGHT :
+				newDir = CardinalDirection.North;
+			}}
+		return newDir;
+	}
 	/**
 	 * Not used in project 3 yet.
 	 * Can leave blank.

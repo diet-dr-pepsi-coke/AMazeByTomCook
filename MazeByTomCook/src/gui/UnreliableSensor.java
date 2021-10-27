@@ -26,38 +26,13 @@ import gui.Robot.Direction;
  * @author Tom Cook
  *
  */
-public class UnreliableSensor implements DistanceSensor {
+public class UnreliableSensor extends ReliableSensor {
 
 	/**
 	 * 
 	 */
 	public UnreliableSensor() {
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setMaze(Maze maze) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setSensorDirection(Direction mountedDirection) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public float getEnergyConsumptionForSensing() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
