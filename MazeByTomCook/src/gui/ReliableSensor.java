@@ -88,9 +88,6 @@ public class ReliableSensor implements DistanceSensor {
 					openCells ++;
 					 curX++;  }
 		 		}
-		 System.out.println(openCells);
-		 System.out.println("X " + curX);
-		 System.out.println("Y " + curY);
 		return openCells;
 		// floorplan = maze.getFloorplan()
 		// curX = currentPosition[0]

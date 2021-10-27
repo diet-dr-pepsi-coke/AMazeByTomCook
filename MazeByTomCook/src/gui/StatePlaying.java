@@ -233,15 +233,6 @@ public class StatePlaying extends DefaultState {
             draw() ; 
             break ;
         } // end of internal switch statement for playing state
-      /*  System.out.println(getCurrentDirection());
-        sensor.setMaze(mazeConfig);
-        sensor.setSensorDirection(Direction.LEFT);
-        try {
-			sensor.distanceToObstacle(getCurrentPosition(), getCurrentDirection(), null);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} */
         return true;
     }
     /**
