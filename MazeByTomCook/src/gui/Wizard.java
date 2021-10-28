@@ -1,6 +1,7 @@
 package gui;
 
 import static org.junit.Assert.assertEquals;
+import java.lang.Math;
 
 import generation.Maze;
 import gui.Robot.Direction;
@@ -106,41 +107,63 @@ public class Wizard implements RobotDriver {
 	 */
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-		System.out.println(robot.getBatteryLevel());
 		int[] curPos = robot.getCurrentPosition();
 		int[] desiredPos = maze.getNeighborCloserToExit(curPos[0], curPos[1]);
-		System.out.println(curPos[0]);
-		System.out.println(curPos[1]);
-		System.out.println(desiredPos[0]);
-		System.out.println(curPos[1]);
+		//System.out.println(curPos[0]);
+		//System.out.println(curPos[1]);
+		//System.out.println(desiredPos[0]);
+		//System.out.println(desiredPos[1]);
 		// find the difference between the cells (i.e. subtract
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
 		int[] direction = {curPos[0] - desiredPos[0], curPos[1] - desiredPos[1]};
-		System.out.println(robot.getCurrentDirection());
-		System.out.println(CardinalDirection.getDirection(direction[0], direction[1]));
-		 if (robot.getBatteryLevel() > 0) {
-			 // make sure robot is facing the right way before it moves
-			 	if (robot.getCurrentDirection() == CardinalDirection.getDirection(direction[0], direction[1]).oppositeDirection().rotateClockwise()) {
-			 			robot.rotate(Turn.LEFT);
-			 			totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
-			 			}
-			 	if (robot.getCurrentDirection() == CardinalDirection.getDirection(direction[0], direction[1]).oppositeDirection()) {
-			 			robot.rotate(Turn.AROUND);
-			 			totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
-			 			}
-			 	if (robot.getCurrentDirection() == CardinalDirection.getDirection(direction[0], direction[1]).rotateClockwise()) {
-			 			robot.rotate(Turn.RIGHT);
-			 			totalEnergyConsumption += (1/4)*robot.getEnergyForFullRotation();
-			 			}
-			 // move one step forward
-			 	if (robot.getCurrentDirection() == CardinalDirection.getDirection(direction[0], direction[1])) {
-			 		robot.move(1); 
-			 		totalEnergyConsumption += robot.getEnergyForStepForward();
-			 		totalPathTravelled ++;
-			 		System.out.println("done once");
-			 		return true; } }
-		return false; }
+		CardinalDirection desiredDir = CardinalDirection.getDirection(direction[0], direction[1]);
+		System.out.println("desired " + desiredDir);
+		System.out.println("current " + robot.getCurrentDirection());
+		switch (desiredDir) {
+		case North :
+			if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+				robot.move(1);
+				return true; }
+			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+				robot.rotate(Turn.RIGHT); }
+			else if (robot.getCurrentDirection() == desiredDir) {
+				robot.rotate(Turn.AROUND); }
+			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
+				robot.rotate(Turn.LEFT); }
+		case South :
+			if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+				robot.move(1); 
+				return true; }
+			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+				robot.rotate(Turn.RIGHT); }
+			else if (robot.getCurrentDirection() == desiredDir) {
+				robot.rotate(Turn.AROUND); }
+			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
+				robot.rotate(Turn.LEFT); }
+		case East :
+			if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+				robot.move(1);
+				return true; }
+			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+				robot.rotate(Turn.RIGHT); }
+			else if (robot.getCurrentDirection() == desiredDir) {
+				robot.rotate(Turn.AROUND); }
+			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
+				robot.rotate(Turn.LEFT); }
+		case West :
+			if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+				robot.move(1);
+				return true; }
+			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+				robot.rotate(Turn.RIGHT); }
+			else if (robot.getCurrentDirection() == desiredDir) {
+				robot.rotate(Turn.AROUND); }
+			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
+				robot.rotate(Turn.LEFT); }
+		}
+		return false; 
+	}
 		
 	
 	/**

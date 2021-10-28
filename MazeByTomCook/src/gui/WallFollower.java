@@ -1,6 +1,8 @@
 package gui;
 
 import generation.Maze;
+import gui.UnreliableRobot;
+import gui.UnreliableSensor;
 
 /**
  * This interface is a subclass of the RobotDriver class and
@@ -18,45 +20,51 @@ import generation.Maze;
  */
 
 public class WallFollower implements RobotDriver {
+	private Robot robot;
+	private Maze mazeConfig;
+	private int totalPath = 0;
+	private int totalEnergy = 0;
 
 	public WallFollower() {
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	@Override
 	public void setRobot(Robot r) {
-		// TODO Auto-generated method stub
+		this.robot = r;
 
 	}
 
 	@Override
 	public void setMaze(Maze maze) {
-		// TODO Auto-generated method stub
+		this.mazeConfig = maze;
 
 	}
 
 	@Override
 	public boolean drive2Exit() throws Exception {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-		// TODO Auto-generated method stub
+		if (!robot.isAtExit()) {
+			
+		}
 		return false;
 	}
 
 	@Override
 	public float getEnergyConsumption() {
 		// TODO Auto-generated method stub
-		return 0;
+		return totalEnergy;
 	}
 
 	@Override
 	public int getPathLength() {
 		// TODO Auto-generated method stub
-		return 0;
+		return totalPath;
 	}
 
 }

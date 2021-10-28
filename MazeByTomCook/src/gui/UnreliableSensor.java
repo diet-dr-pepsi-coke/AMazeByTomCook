@@ -28,9 +28,20 @@ import gui.Robot.Direction;
  */
 public class UnreliableSensor extends ReliableSensor {
 
-	/**
-	 * 
-	 */
+	private boolean operational = true;
+	
+	public static class NonOperational implements Runnable {
+		public void run() {
+			try {
+				System.out.println("Failure: Repairing in 2 seconds");
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+		}		
+	}
+	
 	public UnreliableSensor() {
 		// TODO Auto-generated constructor stub
 	}
@@ -38,13 +49,13 @@ public class UnreliableSensor extends ReliableSensor {
 	@Override
 	public void startFailureAndRepairProcess(int meanTimeBetweenFailures, int meanTimeToRepair)
 			throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
+		Thread notOp = new Thread(new NonOperational());
+		notOp.start();
 
 	}
 
 	@Override
 	public void stopFailureAndRepairProcess() throws UnsupportedOperationException {
-		// TODO Auto-generated method stub
 
 	}
 
