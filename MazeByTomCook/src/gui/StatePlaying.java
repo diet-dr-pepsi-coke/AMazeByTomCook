@@ -61,9 +61,7 @@ public class StatePlaying extends DefaultState {
     //private boolean newGame = false;
 
     boolean started;
-    
-    // for testing purposes in development
-    ReliableSensor sensor = new ReliableSensor();
+
     
     public StatePlaying() {
         started = false;
@@ -113,18 +111,19 @@ public class StatePlaying extends DefaultState {
         Robot robot = controller.getRobot();
         RobotDriver driver = controller.getDriver();
         if (driver != null) {
-        	driver.setMaze(getMazeConfiguration());
-        	robot.setController(controller);
         	driver.setRobot(robot);
+        	driver.setMaze(mazeConfig);
+        	driver.setSensorMazes();
+        	robot.setController(controller);
         	try {
-				if (driver.drive1Step2Exit() == true) {
+				if (driver.drive2Exit() == true) {
 					controller.switchFromPlayingToWinning(robot.getOdometerReading());
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-        }
+				System.out.println("Robot is null");
+			} 
+    	} 
     }
     /**
      * Initializes the drawer for the first person view
@@ -186,7 +185,7 @@ public class StatePlaying extends DefaultState {
             }
             break;
         case LEFT: // turn left
-            rotate(1);
+        	rotate(1);
             break;
         case RIGHT: // turn right
             rotate(-1);
@@ -233,6 +232,18 @@ public class StatePlaying extends DefaultState {
             draw() ; 
             break ;
         } // end of internal switch statement for playing state
+       /* int[] curPos = getCurrentPosition();
+		int[] desiredPos = mazeConfig.getNeighborCloserToExit(curPos[0], curPos[1]);
+		System.out.println(curPos[0]);
+		System.out.println(curPos[1]);
+		System.out.println(desiredPos[0]);
+		System.out.println(desiredPos[1]);
+		// find the difference between the cells (i.e. subtract
+		// 	the x and y values from each other) to see which direction
+		// 	the neighbor cell is
+		int[] direction = {curPos[0] - desiredPos[0], curPos[1] - desiredPos[1]};
+		System.out.println(getCurrentDirection());
+		System.out.println(CardinalDirection.getDirection(direction[0], direction[1])); */
         return true;
     }
     /**

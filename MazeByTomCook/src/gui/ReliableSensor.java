@@ -113,8 +113,8 @@ public class ReliableSensor implements DistanceSensor {
 	public void setMaze(Maze maze) {
 		this.maze = maze;
 		// this.maze = maze
-
 	}
+
 
 	/**
 	 * Provides the angle, the relative direction at which this 

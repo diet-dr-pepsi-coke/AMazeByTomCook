@@ -192,13 +192,16 @@ public class ReliableRobot implements Robot {
 				case LEFT :
 					controller.keyDown(UserInput.LEFT, 0);
 					setBatteryLevel(getBatteryLevel() - (1/4)*getEnergyForFullRotation());
+					break;
 				case RIGHT :
 					controller.keyDown(UserInput.RIGHT, 0);
 					setBatteryLevel(getBatteryLevel() - (1/4)*getEnergyForFullRotation());
+					break;
 		 		case AROUND : // turn left twice
 					controller.keyDown(UserInput.LEFT, 0);
 					controller.keyDown(UserInput.LEFT, 0);
-					setBatteryLevel(getBatteryLevel() - (2/4)*getEnergyForFullRotation()); }}
+					setBatteryLevel(getBatteryLevel() - (2/4)*getEnergyForFullRotation());
+					break; }}
 		 if (getBatteryLevel() <= 0) {
 				stopped = true; }
 	}

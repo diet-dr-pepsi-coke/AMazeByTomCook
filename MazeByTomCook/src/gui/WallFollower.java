@@ -1,6 +1,8 @@
 package gui;
 
 import generation.Maze;
+import gui.Robot.Direction;
+import gui.Robot.Turn;
 import gui.UnreliableRobot;
 import gui.UnreliableSensor;
 
@@ -24,9 +26,20 @@ public class WallFollower implements RobotDriver {
 	private Maze mazeConfig;
 	private int totalPath = 0;
 	private int totalEnergy = 0;
+	ReliableSensor Fsensor;
+	ReliableSensor Bsensor;
+	ReliableSensor Lsensor;
+	ReliableSensor Rsensor;
 
 	public WallFollower() {
-	
+		Fsensor = new ReliableSensor();
+		Bsensor = new ReliableSensor();
+		Lsensor = new ReliableSensor();
+		Rsensor = new ReliableSensor();
+		Fsensor.setSensorDirection(Direction.FORWARD);
+		Bsensor.setSensorDirection(Direction.BACKWARD);
+		Lsensor.setSensorDirection(Direction.LEFT);
+		Rsensor.setSensorDirection(Direction.RIGHT);
 	}
 
 	@Override
@@ -37,19 +50,43 @@ public class WallFollower implements RobotDriver {
 
 	@Override
 	public void setMaze(Maze maze) {
-		this.mazeConfig = maze;
+		mazeConfig = maze;
 
+	}
+	public void setSensorMazes() {
+		Fsensor.setMaze(mazeConfig);
+		Bsensor.setMaze(mazeConfig);
+		Lsensor.setMaze(mazeConfig);
+		Rsensor.setMaze(mazeConfig);
 	}
 
 	@Override
 	public boolean drive2Exit() throws Exception {
-
+		while (!robot.isAtExit()) {
+			drive1Step2Exit();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
 		if (!robot.isAtExit()) {
+			if (Lsensor.distanceToObstacle(robot.getCurrentPosition(), robot.getCurrentDirection(), null) == 0) {
+				if (Fsensor.distanceToObstacle(robot.getCurrentPosition(), robot.getCurrentDirection(), null) == 0) {
+					robot.rotate(Turn.RIGHT);
+				}
+				else {
+					robot.move(1);
+					return true;
+				}
+			}
+			else {
+				robot.rotate(Turn.LEFT);
+				robot.move(1);
+				return true;
+			}
+		}
+		else {
 			
 		}
 		return false;

@@ -116,51 +116,65 @@ public class Wizard implements RobotDriver {
 		// find the difference between the cells (i.e. subtract
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
-		int[] direction = {curPos[0] - desiredPos[0], curPos[1] - desiredPos[1]};
+		int[] direction = {desiredPos[0] - curPos[0], desiredPos[1] - curPos[1]};
+		// North : (0,-1)
+		// South : (0,1)
+		// East : (1,0)
+		// West : (-1,0)
 		CardinalDirection desiredDir = CardinalDirection.getDirection(direction[0], direction[1]);
-		System.out.println("desired " + desiredDir);
-		System.out.println("current " + robot.getCurrentDirection());
 		switch (desiredDir) {
 		case North :
-			if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+			if (robot.getCurrentDirection() == desiredDir) {
 				robot.move(1);
 				return true; }
-			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
-				robot.rotate(Turn.RIGHT); }
-			else if (robot.getCurrentDirection() == desiredDir) {
-				robot.rotate(Turn.AROUND); }
+			 if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+				robot.rotate(Turn.LEFT); 
+				break; }
+			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+				robot.rotate(Turn.AROUND); 
+				break; }
 			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
-				robot.rotate(Turn.LEFT); }
+				robot.rotate(Turn.RIGHT); 
+				break; }
 		case South :
-			if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+			if (robot.getCurrentDirection() == desiredDir) {
 				robot.move(1); 
 				return true; }
-			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
-				robot.rotate(Turn.RIGHT); }
-			else if (robot.getCurrentDirection() == desiredDir) {
-				robot.rotate(Turn.AROUND); }
+			 if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+				robot.rotate(Turn.LEFT);
+				break; }
+			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+				robot.rotate(Turn.AROUND);
+				break; }
 			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
-				robot.rotate(Turn.LEFT); }
+				robot.rotate(Turn.RIGHT); 
+				break; }
 		case East :
-			if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+			if (robot.getCurrentDirection() == desiredDir) {
 				robot.move(1);
 				return true; }
-			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
-				robot.rotate(Turn.RIGHT); }
-			else if (robot.getCurrentDirection() == desiredDir) {
-				robot.rotate(Turn.AROUND); }
+			 if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+				robot.rotate(Turn.LEFT);
+				break; }
+			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+				robot.rotate(Turn.AROUND);
+				break; }
 			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
-				robot.rotate(Turn.LEFT); }
+				robot.rotate(Turn.RIGHT); 
+				break; }
 		case West :
-			if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+			if (robot.getCurrentDirection() == desiredDir) {
 				robot.move(1);
 				return true; }
-			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
-				robot.rotate(Turn.RIGHT); }
-			else if (robot.getCurrentDirection() == desiredDir) {
-				robot.rotate(Turn.AROUND); }
+			 if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+				robot.rotate(Turn.LEFT);
+				break; }
+			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+				robot.rotate(Turn.AROUND); 
+				break; }
 			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
-				robot.rotate(Turn.LEFT); }
+				robot.rotate(Turn.RIGHT); 
+				break; }
 		}
 		return false; 
 	}
@@ -187,6 +201,12 @@ public class Wizard implements RobotDriver {
 	@Override
 	public int getPathLength() {
 		return totalPathTravelled;
+	}
+
+	@Override
+	public void setSensorMazes() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -183,7 +183,6 @@ public class Controller {
     public void switchFromGeneratingToPlaying(Maze config) {
         currentState = states[2];
         currentState.setMazeConfiguration(config);
-        Wizard driver = new Wizard();
         this.setRobotAndDriver(robot, driver);
         currentState.start(this, panel);
     }
@@ -239,7 +238,7 @@ public class Controller {
      */
     public void setRobotAndDriver(Robot robot, RobotDriver robotdriver) {
         this.robot = robot;
-        driver = robotdriver;
+        this.driver = robotdriver;
         
     }
     /**
