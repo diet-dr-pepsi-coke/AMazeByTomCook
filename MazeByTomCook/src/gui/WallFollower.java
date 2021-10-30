@@ -36,10 +36,6 @@ public class WallFollower implements RobotDriver {
 		Bsensor = new ReliableSensor();
 		Lsensor = new ReliableSensor();
 		Rsensor = new ReliableSensor();
-		Fsensor.setSensorDirection(Direction.FORWARD);
-		Bsensor.setSensorDirection(Direction.BACKWARD);
-		Lsensor.setSensorDirection(Direction.LEFT);
-		Rsensor.setSensorDirection(Direction.RIGHT);
 	}
 
 	@Override
@@ -58,6 +54,10 @@ public class WallFollower implements RobotDriver {
 		Bsensor.setMaze(mazeConfig);
 		Lsensor.setMaze(mazeConfig);
 		Rsensor.setMaze(mazeConfig);
+		Fsensor.setSensorDirection(Direction.FORWARD);
+		Bsensor.setSensorDirection(Direction.BACKWARD);
+		Lsensor.setSensorDirection(Direction.LEFT);
+		Rsensor.setSensorDirection(Direction.RIGHT);
 	}
 
 	@Override
@@ -73,17 +73,15 @@ public class WallFollower implements RobotDriver {
 		if (robot.isAtExit() == false) {
 			if (Lsensor.distanceToObstacle(robot.getCurrentPosition(), robot.getCurrentDirection(), null) == 0) {
 				if (Fsensor.distanceToObstacle(robot.getCurrentPosition(), robot.getCurrentDirection(), null) == 0) {
-					System.out.println("turning right because wallboard ahead");
 					robot.rotate(Turn.RIGHT);
+					return true;
 				}
 				else {
-					System.out.println("moving forward bc no wallboard ahead");
 					robot.move(1);
 					return true;
 				}
 			}
 			else {
-				System.out.println("turning left because no wallboard to my left");
 				robot.rotate(Turn.LEFT);
 				robot.move(1);
 				return true;

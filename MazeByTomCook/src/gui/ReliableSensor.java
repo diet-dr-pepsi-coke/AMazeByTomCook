@@ -26,7 +26,7 @@ import gui.Robot.Direction;
 public class ReliableSensor implements DistanceSensor {
 	
 	private Maze maze;
-	private Direction sensorDirection;
+	public Direction sensorDirection;
 	// private Maze maze
 	// private Direction sensorDirection
 
@@ -150,45 +150,61 @@ public class ReliableSensor implements DistanceSensor {
 			switch (currentMount) {
 			case FORWARD :
 				newDir = CardinalDirection.North;
+				break;
 			case BACKWARD :
 				newDir = CardinalDirection.South;
+				break;
 			case LEFT :
-				newDir = CardinalDirection.West;
+				newDir = CardinalDirection.East;
+				break;
 			case RIGHT :
-				newDir = CardinalDirection.East;	
+				newDir = CardinalDirection.West;	
+				break;
 			}}
 		if (DirofRobot == CardinalDirection.South) {
 			switch (currentMount) {
 			case FORWARD :
 				newDir = CardinalDirection.South;
+				break;
 			case BACKWARD :
 				newDir = CardinalDirection.North;
+				break;
 			case LEFT :
-				newDir = CardinalDirection.East;
-			case RIGHT :
 				newDir = CardinalDirection.West;
+				break;
+			case RIGHT :
+				newDir = CardinalDirection.East;
+				break;
 			}}
 		if (DirofRobot == CardinalDirection.East) {
 			switch (currentMount) {
 			case FORWARD :
 				newDir = CardinalDirection.East;
+				break;
 			case BACKWARD :
 				newDir = CardinalDirection.West;
+				break;
 			case LEFT :
-				newDir = CardinalDirection.North;
-			case RIGHT :
 				newDir = CardinalDirection.South;
+				break;
+			case RIGHT :
+				newDir = CardinalDirection.North;
+				break;
 			}}
 		if (DirofRobot == CardinalDirection.West) {
 			switch (currentMount) {
 			case FORWARD :
 				newDir = CardinalDirection.West;
+				break;
 			case BACKWARD :
 				newDir = CardinalDirection.East;
+				break;
 			case LEFT :
-				newDir = CardinalDirection.South;
-			case RIGHT :
 				newDir = CardinalDirection.North;
+				break;
+			case RIGHT :
+				newDir = CardinalDirection.South;
+				break;
 			}}
 		return newDir;
 	}
