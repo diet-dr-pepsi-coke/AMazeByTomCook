@@ -70,17 +70,20 @@ public class WallFollower implements RobotDriver {
 
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-		if (!robot.isAtExit()) {
+		if (robot.isAtExit() == false) {
 			if (Lsensor.distanceToObstacle(robot.getCurrentPosition(), robot.getCurrentDirection(), null) == 0) {
 				if (Fsensor.distanceToObstacle(robot.getCurrentPosition(), robot.getCurrentDirection(), null) == 0) {
+					System.out.println("turning right because wallboard ahead");
 					robot.rotate(Turn.RIGHT);
 				}
 				else {
+					System.out.println("moving forward bc no wallboard ahead");
 					robot.move(1);
 					return true;
 				}
 			}
 			else {
+				System.out.println("turning left because no wallboard to my left");
 				robot.rotate(Turn.LEFT);
 				robot.move(1);
 				return true;
