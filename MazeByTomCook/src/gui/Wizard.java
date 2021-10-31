@@ -87,7 +87,7 @@ public class Wizard implements RobotDriver {
 				return true; }
 		///////////// NOT SURE IF REQUIRED YET //////////////////
 		// ReliableRobot.move(1)
-		return false;
+		return true;
 	}
 	
 	/**

@@ -144,6 +144,13 @@ public class ReliableSensor implements DistanceSensor {
 		// return 1 ((as dictated by the project description))
 	}
 	
+	/*
+	 * This method takes the direction of the robot and the supposed mounted
+	 * direction of the sensor and converts the mounted direction into a 
+	 * cardinal direction for use in determining which wall to look at.
+	 * @param currentMount is the sensor's relative direction on the robot
+	 * @param DirofRobot is the cardinal direction the robot is facing.
+	 */
 	public CardinalDirection convertMountedToCardinal(Direction currentMount, CardinalDirection DirofRobot) {
 		CardinalDirection newDir = CardinalDirection.North;
 		if (DirofRobot == CardinalDirection.North) {

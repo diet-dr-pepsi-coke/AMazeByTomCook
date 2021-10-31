@@ -74,7 +74,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void addDistanceSensor(DistanceSensor sensor, Direction mountedDirection) {
-		DistanceSensor directionSensor = sensor;
+		DistanceSensor directionSensor = new ReliableSensor();
 		directionSensor.setSensorDirection(mountedDirection);
 
 	}
@@ -266,9 +266,14 @@ public class ReliableRobot implements Robot {
 		 Maze maze = controller.getMazeConfiguration();
 		 int[] supposedExit = maze.getExitPosition();
 		 // auto-generated fix for Exception in getCurrentPosition()
-			if (supposedExit == controller.getCurrentPosition()) {
-				 return true;
-			 }
+			try {
+				if (supposedExit == getCurrentPosition()) {
+					 return true;
+				 }
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		return false;
 	}
 

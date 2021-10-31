@@ -181,7 +181,7 @@ public class StatePlaying extends DefaultState {
             walk(1);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
-                control.switchFromPlayingToWinning(0);
+                control.switchFromPlayingToWinning(control.getRobot().getOdometerReading());
             }
             break;
         case LEFT: // turn left

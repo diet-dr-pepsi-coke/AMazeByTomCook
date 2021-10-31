@@ -38,7 +38,7 @@ public class MazeApplication extends JFrame {
 	 * Constructor
 	 */
 	public MazeApplication() {
-		init(null);
+		init(null, null, null);
 	}
 
 	/**
@@ -46,8 +46,8 @@ public class MazeApplication extends JFrame {
 	 * @param parameter can identify a generation method (Prim, Kruskal, Eller)
      * or a filename that stores an already generated maze that is then loaded, or can be null
 	 */
-	public MazeApplication(String parameter) {
-		init(parameter);
+	public MazeApplication(String generation, String driver, String sensors) {
+		init(generation, driver, sensors);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class MazeApplication extends JFrame {
 	 * or can be null
 	 * @return the newly instantiated and configured controller
 	 */
-	 Controller createController(String parameter) {
+	 Controller createController(String generation, String driver, String sensors) {
 	    // need to instantiate a controller to return as a result in any case
 	    Controller result = new Controller() ;
 	    // can decide if user repeatedly plays the same mazes or 
@@ -70,39 +70,39 @@ public class MazeApplication extends JFrame {
 	    	result.setDeterministic(false);
 	    String msg = null; // message for feedback
 	    // Case 1: no input
-	    if (parameter == null) {
+	    if (generation == null) {
 	        msg = "MazeApplication: maze will be generated with a randomized algorithm."; 
 	    }
 	    // Case 2: Prim
-	    else if ("Prim".equalsIgnoreCase(parameter))
+	    if ("Prim".equalsIgnoreCase(generation))
 	    {
 	        msg = "MazeApplication: generating random maze with Prim's algorithm.";
 	        result.setBuilder(Order.Builder.Prim);
 	    }
 	    // Case 3 a and b: Eller, Kruskal, Boruvka or some other generation algorithm
-	    else if ("Kruskal".equalsIgnoreCase(parameter))
+	    if ("Kruskal".equalsIgnoreCase(generation))
 	    {
 	    	// TODO: for P2 assignment, please add code to set the builder accordingly
 	        throw new RuntimeException("Don't know anybody named Kruskal ...");
 	    }
-	    else if ("Eller".equalsIgnoreCase(parameter))
+	    if ("Eller".equalsIgnoreCase(generation))
 	    {
 	    	// TODO: for P2 assignment, please add code to set the builder accordingly
 	        throw new RuntimeException("Don't know anybody named Eller ...");
 	    }
-	    else if ("Boruvka".equalsIgnoreCase(parameter))
+	    if ("Boruvka".equalsIgnoreCase(generation))
 	    {
 	    	result.setBuilder(Order.Builder.Boruvka);
 	    }
 	    // Case 5: Wizard
-	    else if ("Wizard".equalsIgnoreCase(parameter))
+	    if ("Wizard".equalsIgnoreCase(driver))
 	    { 
 	    	ReliableRobot robot = new ReliableRobot();
 	    	Wizard robotDriver = new Wizard();
 	    	result.setRobotAndDriver(robot, robotDriver);
 	    }
 	    // Case 6: WallFollower
-	    	else if ("WallFollower".equalsIgnoreCase(parameter))
+	    if ("WallFollower".equalsIgnoreCase(driver))
 	    	{
 	    		ReliableRobot robot = new ReliableRobot();
 	    		WallFollower robotDriver = new WallFollower();
@@ -110,16 +110,16 @@ public class MazeApplication extends JFrame {
 	    	}
 	    // Case 4: a file
 	    else {
-	        File f = new File(parameter) ;
+	        File f = new File(generation) ;
 	        if (f.exists() && f.canRead())
 	        {
-	            msg = "MazeApplication: loading maze from file: " + parameter;
-	            result.setFileName(parameter);
+	            msg = "MazeApplication: loading maze from file: " + generation;
+	            result.setFileName(generation);
 	            return result;
 	        }
 	        else {
 	            // None of the predefined strings and not a filename either: 
-	            msg = "MazeApplication: unknown parameter value: " + parameter + " ignored, operating in default mode.";
+	            msg = "MazeApplication: unknown parameter value: " + generation + " ignored, operating in default mode.";
 	        }
 	    }
 	    // controller instanted and attributes set according to given input parameter
@@ -133,9 +133,9 @@ public class MazeApplication extends JFrame {
 	 * @param parameter can identify a generation method (Prim, Kruskal, Eller)
      * or a filename that contains a generated maze that is then loaded, or can be null
 	 */
-	private void init(String parameter) {
+	private void init(String generation, String driver, String sensors) {
 	    // instantiate a game controller and add it to the JFrame
-	    Controller controller = createController(parameter);
+	    Controller controller = createController(generation, driver, sensors);
 		add(controller.getPanel()) ;
 		// instantiate a key listener that feeds keyboard input into the controller
 		// and add it to the JFrame
@@ -165,15 +165,46 @@ public class MazeApplication extends JFrame {
 	 * the name of a file that stores a maze in XML format
 	 */
 	public static void main(String[] args) {
+		 int i = 0, j;
+	     String arg;
+	     char flag;
+	     boolean vflag = false;
+	     String outputfile = "";
+	     String generationAlgorithm = "";
+	     String driver = "";
+	     String reliableSensors = "";
+
 	    JFrame app ; 
-		switch (args.length) {
-		case 1 : app = new MazeApplication(args[0]);
-		break ;
-		case 0 : 
-		default : app = new MazeApplication() ;
-		break ;
+	    if (args.length == 0) {
+			app = new MazeApplication();
+			app.repaint() ;
 		}
+	    else {
+	        while (i < args.length && args[i].startsWith("-")) {
+	            arg = args[i++];
+	            for (j = 1; j<arg.length(); j++) {
+	            	flag = arg.charAt(j);
+	            	switch (flag) {
+	            	case 'g':
+	            		generationAlgorithm = args[i++];
+	            		System.out.println(generationAlgorithm);
+	            		break;
+	            	case 'd':
+	            		driver = args[i++];
+	            		System.out.println(driver);
+	            		break;
+	            	case 'r':
+	            		reliableSensors = args[i++];
+	            		System.out.println(reliableSensors);
+	            		break;
+	            	}
+	            }
+
+	    
+	    }
+	    app = new MazeApplication(generationAlgorithm, driver, reliableSensors);
 		app.repaint() ;
 	}
 
+}
 }
