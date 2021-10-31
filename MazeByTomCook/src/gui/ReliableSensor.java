@@ -31,7 +31,7 @@ public class ReliableSensor implements DistanceSensor {
 	// private Direction sensorDirection
 
 	public ReliableSensor() {
-		// TODO Auto-generated constructor stub
+		System.out.println("i am reliable");
 	}
 
 	 /**Tells the distance to an obstacle (a wallboard) that the sensor

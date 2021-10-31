@@ -44,16 +44,8 @@ public class WallFollower implements RobotDriver {
 	private Maze mazeConfig;
 	private int totalPath = 0;
 	private int totalEnergy = 0;
-	ReliableSensor Fsensor;
-	ReliableSensor Bsensor;
-	ReliableSensor Lsensor;
-	ReliableSensor Rsensor;
 
 	public WallFollower() {
-		Fsensor = new ReliableSensor();
-		Bsensor = new ReliableSensor();
-		Lsensor = new ReliableSensor();
-		Rsensor = new ReliableSensor();
 	}
 
 	@Override
@@ -67,25 +59,9 @@ public class WallFollower implements RobotDriver {
 		mazeConfig = maze;
 
 	}
-	/*
-	 * This method initializes the distance sensors by providing them a maze
-	 * object to use for distance calculations and a mounted direction to 
-	 * tell them in which direction to look for walls. 
-	 */
-	public void setSensorMazes() {
-		Fsensor.setMaze(mazeConfig);
-		Bsensor.setMaze(mazeConfig);
-		Lsensor.setMaze(mazeConfig);
-		Rsensor.setMaze(mazeConfig);
-		Fsensor.setSensorDirection(Direction.FORWARD);
-		Bsensor.setSensorDirection(Direction.BACKWARD);
-		Lsensor.setSensorDirection(Direction.LEFT);
-		Rsensor.setSensorDirection(Direction.RIGHT);
-	}
-
+	
 	@Override
 	public boolean drive2Exit() throws Exception {
-		robot.addDistanceSensor(Fsensor, Direction.FORWARD);
 		while (!robot.isAtExit()) {
 			drive1Step2Exit();
 		}
@@ -101,8 +77,8 @@ public class WallFollower implements RobotDriver {
 			System.out.println("here");
 		}
 		if (robot.isAtExit() == false) {
-			if (Lsensor.distanceToObstacle(robot.getCurrentPosition(), robot.getCurrentDirection(), null) == 0) {
-				if (Fsensor.distanceToObstacle(robot.getCurrentPosition(), robot.getCurrentDirection(), null) == 0) {
+			if (robot.distanceToObstacle(Direction.LEFT) == 0) {
+				if (robot.distanceToObstacle(Direction.FORWARD) == 0) {
 					robot.rotate(Turn.RIGHT);
 					//System.out.println(robot.distanceToObstacle(Direction.FORWARD));
 					return true;
@@ -140,5 +116,6 @@ public class WallFollower implements RobotDriver {
 		// TODO Auto-generated method stub
 		return robot.getOdometerReading();
 	}
+
 
 }

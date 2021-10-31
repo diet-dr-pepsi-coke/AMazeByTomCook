@@ -32,7 +32,10 @@ public class ReliableRobot implements Robot {
 	 private int odometer = 0;
 	 private boolean stopped = false;
 	 private Controller controller;
-	 private DistanceSensor directionSensor;
+	 private DistanceSensor frontSensor;
+	 private DistanceSensor leftSensor;
+	 private DistanceSensor rightSensor;
+	 private DistanceSensor backSensor;
 
 	public ReliableRobot() {
 		// TODO Auto-generated constructor stub
@@ -74,10 +77,39 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void addDistanceSensor(DistanceSensor sensor, Direction mountedDirection) {
-		DistanceSensor directionSensor = new ReliableSensor();
-		directionSensor.setSensorDirection(mountedDirection);
+		switch (mountedDirection) {
+		case FORWARD:
+			frontSensor = sensor;
+			frontSensor.setSensorDirection(mountedDirection);
+			break;
+		case LEFT:
+			leftSensor = sensor;
+			leftSensor.setSensorDirection(mountedDirection);
+			break;
+		case RIGHT:
+			rightSensor = sensor;
+			rightSensor.setSensorDirection(mountedDirection);
+			break;
+		case BACKWARD:
+			backSensor = sensor;
+			backSensor.setSensorDirection(mountedDirection);
+			break;
+		}
 
 	}
+	
+	/*
+	 * This method initializes the distance sensors by providing them a maze
+	 * object to use for distance calculations and a mounted direction to 
+	 * tell them in which direction to look for walls. 
+	 */
+	public void setSensorMazes() {
+			frontSensor.setMaze(controller.getMazeConfiguration());
+			leftSensor.setMaze(controller.getMazeConfiguration());
+			rightSensor.setMaze(controller.getMazeConfiguration());
+			backSensor.setMaze(controller.getMazeConfiguration());
+	}
+
 
 	/**
 	 * Provides the current position as (x,y) coordinates for 
@@ -330,13 +362,26 @@ public class ReliableRobot implements Robot {
 			 CardinalDirection curDir = controller.getCurrentDirection();
 			 // auto-generated fix for unhandled exception type Exception
 			 int dist = 0;
-			try {
-				dist = directionSensor.distanceToObstacle(curPos, curDir, battery);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			switch (direction) {
+			case FORWARD:
+				dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
+				break;
+			case LEFT:
+				dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
+				break;
+			case RIGHT:
+				dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
+				break;
+			case BACKWARD:
+				dist = backSensor.distanceToObstacle(curPos, curDir, battery);
+				break;
 			}
-			 setBatteryLevel(getBatteryLevel() - directionSensor.getEnergyConsumptionForSensing());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+			 setBatteryLevel(getBatteryLevel() - 1);
 			 if (getBatteryLevel() <= 0) {
 				stopped = true; }
 			 return dist; }

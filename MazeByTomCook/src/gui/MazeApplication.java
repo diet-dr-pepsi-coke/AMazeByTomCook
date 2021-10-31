@@ -4,6 +4,7 @@
 package gui;
 
 import generation.Order;
+import gui.Robot.Direction;
 
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -60,6 +61,8 @@ public class MazeApplication extends JFrame {
 	 Controller createController(String generation, String driver, String sensors) {
 	    // need to instantiate a controller to return as a result in any case
 	    Controller result = new Controller() ;
+	    Robot robot = null;
+	    RobotDriver robotDriver = null;
 	    // can decide if user repeatedly plays the same mazes or 
 	    // if mazes are different each and every time
 	    // set to true for testing purposes
@@ -97,17 +100,53 @@ public class MazeApplication extends JFrame {
 	    // Case 5: Wizard
 	    if ("Wizard".equalsIgnoreCase(driver))
 	    { 
-	    	ReliableRobot robot = new ReliableRobot();
-	    	Wizard robotDriver = new Wizard();
+	    	robot = new ReliableRobot();
+	    	robotDriver = new Wizard();
 	    	result.setRobotAndDriver(robot, robotDriver);
 	    }
 	    // Case 6: WallFollower
 	    if ("WallFollower".equalsIgnoreCase(driver))
 	    	{
-	    		ReliableRobot robot = new ReliableRobot();
-	    		WallFollower robotDriver = new WallFollower();
+	    		robot = new UnreliableRobot();
+	    		robotDriver = new WallFollower();
 	    		result.setRobotAndDriver(robot, robotDriver);
 	    	}
+	    // Case 7: Reliable/Unreliable sensors
+	    if (!"".equalsIgnoreCase(sensors)) { //make sure it is not empty
+	    	if (sensors.charAt(0) == '0') {
+	    		UnreliableSensor Fsensor = new UnreliableSensor();
+	    		robot.addDistanceSensor(Fsensor, Direction.FORWARD);
+	    	}
+	    		else {
+	    		ReliableSensor Fsensor = new ReliableSensor();
+	    		robot.addDistanceSensor(Fsensor, Direction.FORWARD);
+	    		}
+	    	if (sensors.charAt(1) == '0') {
+	    		UnreliableSensor Lsensor = new UnreliableSensor();
+	    		robot.addDistanceSensor(Lsensor, Direction.LEFT);
+	    	}
+	    		else {
+	    		ReliableSensor Lsensor = new ReliableSensor();
+	    		robot.addDistanceSensor(Lsensor, Direction.LEFT);
+	    		}
+	    	if (sensors.charAt(2) == '0') {
+	    		UnreliableSensor Rsensor = new UnreliableSensor();
+	    		robot.addDistanceSensor(Rsensor, Direction.RIGHT);
+	    	}
+	    		else {
+	    		ReliableSensor Rsensor = new ReliableSensor();
+	    		robot.addDistanceSensor(Rsensor, Direction.RIGHT);
+	    		}
+	    	if (sensors.charAt(3) == '0') {
+	    		UnreliableSensor Bsensor = new UnreliableSensor();
+	    		robot.addDistanceSensor(Bsensor, Direction.BACKWARD);
+	    	}
+	    		else {
+	    		ReliableSensor Bsensor = new ReliableSensor();
+	    		robot.addDistanceSensor(Bsensor, Direction.BACKWARD);
+	    		}
+	    	result.setRobotAndDriver(robot, robotDriver);
+	    }
 	    // Case 4: a file
 	    else {
 	        File f = new File(generation) ;
@@ -187,15 +226,12 @@ public class MazeApplication extends JFrame {
 	            	switch (flag) {
 	            	case 'g':
 	            		generationAlgorithm = args[i++];
-	            		System.out.println(generationAlgorithm);
 	            		break;
 	            	case 'd':
 	            		driver = args[i++];
-	            		System.out.println(driver);
 	            		break;
 	            	case 'r':
 	            		reliableSensors = args[i++];
-	            		System.out.println(reliableSensors);
 	            		break;
 	            	}
 	            }

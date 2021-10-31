@@ -99,6 +99,13 @@ public interface Robot {
 	 */
 	void addDistanceSensor(DistanceSensor sensor, Direction mountedDirection);
 	
+	/*
+	 * This method initializes the distance sensors by providing them a maze
+	 * object to use for distance calculations and a mounted direction to 
+	 * tell them in which direction to look for walls. 
+	 */
+	void setSensorMazes();
+	
 	///////////////////////////////////////////////////////////////////
 	/////////////////// Current location in game   ////////////////////
 	///////////////////////////////////////////////////////////////////

@@ -113,8 +113,8 @@ public class StatePlaying extends DefaultState {
         if (driver != null) {
         	driver.setRobot(robot);
         	driver.setMaze(mazeConfig);
-        	driver.setSensorMazes();
         	robot.setController(controller);
+        	robot.setSensorMazes();
         	try {
 				if (driver.drive2Exit() == true) {
 					controller.switchFromPlayingToWinning(robot.getOdometerReading());
