@@ -43,7 +43,6 @@ public class UnreliableSensor extends ReliableSensor {
 	}
 	
 	public UnreliableSensor() {
-		System.out.println("i am unreliable");
 	}
 
 	@Override

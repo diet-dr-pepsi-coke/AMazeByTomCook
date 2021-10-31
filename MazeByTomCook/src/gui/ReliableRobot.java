@@ -78,6 +78,8 @@ public class ReliableRobot implements Robot {
 	@Override
 	public void addDistanceSensor(DistanceSensor sensor, Direction mountedDirection) {
 		switch (mountedDirection) {
+		// depending on the direction, initialize the mounted sensor on that side to look
+		// that direction
 		case FORWARD:
 			frontSensor = sensor;
 			frontSensor.setSensorDirection(mountedDirection);
@@ -104,6 +106,7 @@ public class ReliableRobot implements Robot {
 	 * tell them in which direction to look for walls. 
 	 */
 	public void setSensorMazes() {
+		// get the maze configuration from the controller
 			frontSensor.setMaze(controller.getMazeConfiguration());
 			leftSensor.setMaze(controller.getMazeConfiguration());
 			rightSensor.setMaze(controller.getMazeConfiguration());
@@ -219,6 +222,7 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void rotate(Turn turn) {
+		// check to make sure we have not stopped and we have battery left
 		 if (getBatteryLevel() > 0 && !hasStopped()) {
 		 		switch (turn) {
 				case LEFT :
@@ -229,11 +233,13 @@ public class ReliableRobot implements Robot {
 					controller.keyDown(UserInput.RIGHT, 0);
 					setBatteryLevel(getBatteryLevel() - (1/4)*getEnergyForFullRotation());
 					break;
-		 		case AROUND : // turn left twice
+		 		case AROUND : 
+		 			// turn left twice
 					controller.keyDown(UserInput.LEFT, 0);
 					controller.keyDown(UserInput.LEFT, 0);
 					setBatteryLevel(getBatteryLevel() - (2/4)*getEnergyForFullRotation());
 					break; }}
+		 // check to see if we used the last of our battery to make the turn
 		 if (getBatteryLevel() <= 0) {
 				stopped = true; }
 	}
@@ -251,13 +257,20 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void move(int distance) {
+		// foo variable to keep track of how many steps we took to compare
+		// with the distance we were supposed to travel
 		 int counter = 0;
+		 // loop for however many cells we are supposed to traverse
 		 for (int i=0; i<distance; i++) {
 		  	if (getBatteryLevel() > 0 && !hasStopped()) {
 					controller.keyDown(UserInput.UP, 0);
 					setBatteryLevel(getBatteryLevel() - getEnergyForStepForward());
+					// increment counter if we did move the step
 					counter ++;
 					odometer++;
+			// make sure the counter of actual steps moved is equal to
+			// the amount of steps we called to move, and if it is not 
+			// equal, then we must have stopped for some reason
 			if (counter != distance) {
 		 		stopped = true;}
 			if (getBatteryLevel() <= 0) {
@@ -297,13 +310,12 @@ public class ReliableRobot implements Robot {
 	public boolean isAtExit() {
 		 Maze maze = controller.getMazeConfiguration();
 		 int[] supposedExit = maze.getExitPosition();
-		 // auto-generated fix for Exception in getCurrentPosition()
 			try {
-				if (supposedExit == getCurrentPosition()) {
+				// check the maze's exit cell with the current position cell to see if they match
+				if (supposedExit[0] == getCurrentPosition()[0] && supposedExit[1] == getCurrentPosition()[1]) {
 					 return true;
 				 }
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		return false;
@@ -356,13 +368,15 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public int distanceToObstacle(Direction direction) {
+		// check to make sure we haven't stopped and battery is still good
 		 if (getBatteryLevel() > 0 && !hasStopped()) { 
 			 float[] battery = {batteryLevel};
 			 int[] curPos = controller.getCurrentPosition();
 			 CardinalDirection curDir = controller.getCurrentDirection();
-			 // auto-generated fix for unhandled exception type Exception
+			 // the distance to obstacle:: what we want to return in the end
 			 int dist = 0;
 		try {
+			// which sensor we use depends on the direction we are looking
 			switch (direction) {
 			case FORWARD:
 				dist = frontSensor.distanceToObstacle(curPos, curDir, battery);

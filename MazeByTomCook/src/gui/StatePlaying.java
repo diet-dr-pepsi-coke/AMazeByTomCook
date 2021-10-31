@@ -108,12 +108,18 @@ public class StatePlaying extends DefaultState {
         	// else: dry-run without graphics, most likely for testing purposes
         	printWarning();
         }
+        // bring the robot and driver from controller into this game state
         Robot robot = controller.getRobot();
         RobotDriver driver = controller.getDriver();
+        // when we have a driver (Wizard, WallFollower)
         if (driver != null) {
+        	// give the robot and driver the pertinent information for distance sensing,
+        	// room sensing, and exit sensing, etc.
         	driver.setRobot(robot);
         	driver.setMaze(mazeConfig);
         	robot.setController(controller);
+        	// this method must be called after the robot has its controller set to the 
+        	// one pertaining to this maze
         	robot.setSensorMazes();
         	try {
 				if (driver.drive2Exit() == true) {

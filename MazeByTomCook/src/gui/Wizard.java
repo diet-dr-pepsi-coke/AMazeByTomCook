@@ -109,10 +109,6 @@ public class Wizard implements RobotDriver {
 	public boolean drive1Step2Exit() throws Exception {
 		int[] curPos = robot.getCurrentPosition();
 		int[] desiredPos = maze.getNeighborCloserToExit(curPos[0], curPos[1]);
-		//System.out.println(curPos[0]);
-		//System.out.println(curPos[1]);
-		//System.out.println(desiredPos[0]);
-		//System.out.println(desiredPos[1]);
 		// find the difference between the cells (i.e. subtract
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
@@ -203,10 +199,5 @@ public class Wizard implements RobotDriver {
 		return totalPathTravelled;
 	}
 
-	@Override
-	public void setSensorMazes() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

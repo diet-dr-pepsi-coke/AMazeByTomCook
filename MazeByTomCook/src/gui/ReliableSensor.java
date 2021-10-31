@@ -31,7 +31,6 @@ public class ReliableSensor implements DistanceSensor {
 	// private Direction sensorDirection
 
 	public ReliableSensor() {
-		System.out.println("i am reliable");
 	}
 
 	 /**Tells the distance to an obstacle (a wallboard) that the sensor
@@ -74,32 +73,38 @@ public class ReliableSensor implements DistanceSensor {
 			case North :
 		 		while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
-					 curY--; }
+					 curY--; 
+					 if (curY < 0) {
+						 openCells = Integer.MAX_VALUE;
+						 break;}}
+		 		break;
 			case South :
 				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
-					 curY++;  }
+					 curY++; 
+					 if (curY > maze.getHeight()) {
+						 openCells = Integer.MAX_VALUE;
+						 break;}}
+				break;
 			case West :
 				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
-					 curX--;  }
+					 curX--;  
+					 if (curX < 0) {
+						 openCells = Integer.MAX_VALUE;
+						 break;}}
+				break;
 			case East :
 				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
-					 curX++;  }
+					 curX++;
+					 if (curX > maze.getWidth()) {
+						 openCells = Integer.MAX_VALUE;
+						 break;}}
+				break;
 		 		}
+		 System.out.println(openCells);
 		return openCells;
-		// floorplan = maze.getFloorplan()
-		// curX = currentPosition[0]
-		// curY = currentPosition[1]
-		// openCells = 0 /////keeps track of how far next wallboard is//////
-		// switch (currentDirection) {
-		//	case (North/East/South/West) :
-		// 		while (!maze.hasWall(curX, curY, currentDirection)) {
-		//			openCells ++
-		//			CurX ++/-- || CurY++/-- ///////depending on the switch statement///
-		////////////// North: CurY--, South: CurY++, West: CurX--, East: CurX++/////////////////
-		// return openCells
 	}
 
 	/**

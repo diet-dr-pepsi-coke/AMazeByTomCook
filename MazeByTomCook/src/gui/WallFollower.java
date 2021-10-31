@@ -62,35 +62,48 @@ public class WallFollower implements RobotDriver {
 	
 	@Override
 	public boolean drive2Exit() throws Exception {
+		// before robot gets to the exit, keep driving 1 step
 		while (!robot.isAtExit()) {
 			drive1Step2Exit();
 		}
+		// when at the exit, print line to see when this is returning
 		if (robot.isAtExit() == true) {
 			System.out.println("here");
 		}
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
+		// check to see if we are looking at the exit, and if so, make a break for it
+		if (robot.canSeeThroughTheExitIntoEternity(Direction.FORWARD)) {
+			while (!robot.isAtExit()) {
+				robot.move(1);
+				return true;
+			}
+		}
+		// we want to know when the robot is at the exit so we do not pass it
 		if (robot.isAtExit() == true) {
-			System.out.println("here");
+			return true;
 		}
 		if (robot.isAtExit() == false) {
+			// first check if there is a wall to your left
 			if (robot.distanceToObstacle(Direction.LEFT) == 0) {
+				// if not, check if there is a wall ahead
 				if (robot.distanceToObstacle(Direction.FORWARD) == 0) {
+					// walls in front and to the left so we must turn right
 					robot.rotate(Turn.RIGHT);
-					//System.out.println(robot.distanceToObstacle(Direction.FORWARD));
 					return true;
 				}
 				else {
+					// no wall in front of us so we move up one step
 					robot.move(1);
-					//System.out.println(robot.distanceToObstacle(Direction.FORWARD));
 					totalPath ++;
 					return true;
 				}
 			}
 			else {
+				// no wall to our left so we turn left before anything else and also take a step
 				robot.rotate(Turn.LEFT);
 				robot.move(1);
 				//System.out.println(robot.distanceToObstacle(Direction.FORWARD));
@@ -99,7 +112,6 @@ public class WallFollower implements RobotDriver {
 			}
 		}
 		else {
-			System.out.println("here");
 			
 		}
 		return false;
