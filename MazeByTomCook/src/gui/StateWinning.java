@@ -55,11 +55,15 @@ public class StateWinning extends DefaultState {
     		System.out.println("StateWinning.start: warning: no panel, dry-run game without graphics!");
     		return;
     	}
+        if (control.getRobot().hasStopped()) {
+        	view.redrawFinishLoss(panel);
+        }
         // otherwise show finish screen with winning message
         // draw content on panel
         view.redrawFinish(panel);
         // update screen with panel content
         panel.update();
+        System.out.println(pathLength);
 
     }
     

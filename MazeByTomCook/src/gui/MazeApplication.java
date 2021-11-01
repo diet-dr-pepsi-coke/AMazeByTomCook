@@ -6,6 +6,8 @@ package gui;
 import generation.Order;
 import gui.Robot.Direction;
 
+import static org.junit.Assert.assertEquals;
+
 import java.awt.event.KeyListener;
 import java.io.File;
 
@@ -59,6 +61,9 @@ public class MazeApplication extends JFrame {
 	 * @return the newly instantiated and configured controller
 	 */
 	 Controller createController(String generation, String driver, String sensors) {
+		 //System.out.println(sensors);
+		 //System.out.println(driver);
+		 //System.out.println(generation);
 	    // need to instantiate a controller to return as a result in any case
 	    Controller result = new Controller() ;
 	    Robot robot = null;
@@ -72,47 +77,100 @@ public class MazeApplication extends JFrame {
 	    else
 	    	result.setDeterministic(false);
 	    String msg = null; // message for feedback
+	    
 	    // Case 1: no input
-	    if (generation == null) {
+	    if (generation == "") {
 	        msg = "MazeApplication: maze will be generated with a randomized algorithm."; 
 	    }
+	    
 	    // Case 2: Prim
-	    if ("Prim".equalsIgnoreCase(generation))
+	    else if ("Prim".equalsIgnoreCase(generation))
 	    {
 	        msg = "MazeApplication: generating random maze with Prim's algorithm.";
 	        result.setBuilder(Order.Builder.Prim);
 	    }
+	    
 	    // Case 3 a and b: Eller, Kruskal, Boruvka or some other generation algorithm
-	    if ("Kruskal".equalsIgnoreCase(generation))
+	    else if ("Kruskal".equalsIgnoreCase(generation))
 	    {
 	    	// TODO: for P2 assignment, please add code to set the builder accordingly
 	        throw new RuntimeException("Don't know anybody named Kruskal ...");
 	    }
-	    if ("Eller".equalsIgnoreCase(generation))
+	    else if ("Eller".equalsIgnoreCase(generation))
 	    {
 	    	// TODO: for P2 assignment, please add code to set the builder accordingly
 	        throw new RuntimeException("Don't know anybody named Eller ...");
 	    }
-	    if ("Boruvka".equalsIgnoreCase(generation))
+	    else if ("Boruvka".equalsIgnoreCase(generation))
 	    {
 	    	result.setBuilder(Order.Builder.Boruvka);
 	    }
+	 // Case 9: a file
+	    else {
+	        File f = new File(generation) ;
+	        if (f.exists() && f.canRead())
+	        {
+	            msg = "MazeApplication: loading maze from file: " + generation;
+	            result.setFileName(generation);
+	            //return result;
+	        }
+	        else {
+	            // None of the predefined strings and not a filename either: 
+	            msg = "MazeApplication: unknown parameter value: " + generation + " ignored, operating in default mode.";
+	        }
+	    }
+	    
+	    // Case 4: No driver input
+	    if (driver == "") {
+	    	msg = "No driver selected: maze will be ran in Manual mode.";
+	    }
+	    
 	    // Case 5: Wizard
-	    if ("Wizard".equalsIgnoreCase(driver))
+	    else if ("Wizard".equalsIgnoreCase(driver))
 	    { 
+	    	msg = "MazeApplication: running maze with Wizard driver.";
 	    	robot = new ReliableRobot();
 	    	robotDriver = new Wizard();
 	    	result.setRobotAndDriver(robot, robotDriver);
 	    }
+	    
 	    // Case 6: WallFollower
-	    if ("WallFollower".equalsIgnoreCase(driver))
-	    	{
-	    		robot = new UnreliableRobot();
-	    		robotDriver = new WallFollower();
-	    		result.setRobotAndDriver(robot, robotDriver);
-	    	}
-	    // Case 7: Reliable/Unreliable sensors
-	    if (!"".equalsIgnoreCase(sensors)) { //make sure it is not empty
+	    else if ("WallFollower".equalsIgnoreCase(driver))
+	    {
+	    	msg = "MazeApplication: running maze with WallFollower driver.";
+	    	robot = new UnreliableRobot();
+	    	robotDriver = new WallFollower();
+	    	result.setRobotAndDriver(robot, robotDriver);
+	    }
+
+	    // Case 7: No sensor input
+	    if (sensors == "") {
+	    	System.out.println("No Sensor Information: Initializing ReliableSensors");
+	    	robot = new ReliableRobot();
+	    	// initialize all sensors as reliable on default
+	    	ReliableSensor Fsensor = new ReliableSensor();
+    		robot.addDistanceSensor(Fsensor, Direction.FORWARD);
+    		ReliableSensor Lsensor = new ReliableSensor();
+    		robot.addDistanceSensor(Lsensor, Direction.LEFT);
+    		ReliableSensor Rsensor = new ReliableSensor();
+    		robot.addDistanceSensor(Rsensor, Direction.RIGHT);
+    		ReliableSensor Bsensor = new ReliableSensor();
+    		robot.addDistanceSensor(Bsensor, Direction.BACKWARD);
+    		// since we have just altered the robot, we must make sure 
+	    	// the controller has access to the robot with all four sensors.
+    		result.setRobotAndDriver(robot, robotDriver);
+	    }
+	    
+	    // Case 8: Sensor input
+	    else if (!"".equalsIgnoreCase(sensors)) { //make sure it is not empty
+	    	
+	    	// the next four characters represent the possible sensors 
+	    	// on the robot in the order of front, left, right, and back.
+	    	// if the character is a 0, this means the sensor should be
+	    	// unreliable so we construct an unreliable sensor on that side.
+	    	// if the character is a 1, we construct a reliable sensor.
+	    	// Either way, we add the sensor to the robot and give it its
+	    	// supposed direction.
 	    	if (sensors.charAt(0) == '0') {
 	    		UnreliableSensor Fsensor = new UnreliableSensor();
 	    		robot.addDistanceSensor(Fsensor, Direction.FORWARD);
@@ -145,23 +203,11 @@ public class MazeApplication extends JFrame {
 	    		ReliableSensor Bsensor = new ReliableSensor();
 	    		robot.addDistanceSensor(Bsensor, Direction.BACKWARD);
 	    		}
+	    	// since we have just altered the robot, we must make sure 
+	    	// the controller has access to the robot with all four sensors.
 	    	result.setRobotAndDriver(robot, robotDriver);
 	    }
-	    // Case 4: a file
-	    else {
-	        File f = new File(generation) ;
-	        if (f.exists() && f.canRead())
-	        {
-	            msg = "MazeApplication: loading maze from file: " + generation;
-	            result.setFileName(generation);
-	            return result;
-	        }
-	        else {
-	            // None of the predefined strings and not a filename either: 
-	            msg = "MazeApplication: unknown parameter value: " + generation + " ignored, operating in default mode.";
-	        }
-	    }
-	    // controller instanted and attributes set according to given input parameter
+	    // controller instantiated and attributes set according to given input parameter
 	    // output message and return controller
 	    System.out.println(msg);
 	    return result;

@@ -40,6 +40,7 @@ public class UnreliableSensor extends ReliableSensor {
 	}
 	
 	public static class NonOperational implements Runnable {
+		
 		public void run() {
 			try {
 				System.out.println("Failure: Repairing in 2 seconds");
@@ -50,11 +51,21 @@ public class UnreliableSensor extends ReliableSensor {
 			}		
 		}		
 	}
+	
+	public boolean isOperational() {
+		return operational;
+	}
 
 	@Override
 	public void startFailureAndRepairProcess(int meanTimeBetweenFailures, int meanTimeToRepair) throws UnsupportedOperationException {
-		Thread notOp = new Thread(new NonOperational());
+		operational = false;
+	    Thread notOp = new Thread(new NonOperational());
 		notOp.start();
+		try {
+			notOp.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 	}
 

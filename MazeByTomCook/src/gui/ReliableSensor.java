@@ -74,7 +74,7 @@ public class ReliableSensor implements DistanceSensor {
 		 		while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
 					 curY--; 
-					 if (curY < 0) {
+					 if (curY <= 0) {
 						 openCells = Integer.MAX_VALUE;
 						 break;}}
 		 		break;
@@ -82,7 +82,7 @@ public class ReliableSensor implements DistanceSensor {
 				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
 					 curY++; 
-					 if (curY > maze.getHeight()) {
+					 if (curY >= maze.getHeight()) {
 						 openCells = Integer.MAX_VALUE;
 						 break;}}
 				break;
@@ -90,7 +90,7 @@ public class ReliableSensor implements DistanceSensor {
 				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
 					 curX--;  
-					 if (curX < 0) {
+					 if (curX <= 0) {
 						 openCells = Integer.MAX_VALUE;
 						 break;}}
 				break;
@@ -98,12 +98,11 @@ public class ReliableSensor implements DistanceSensor {
 				while (!maze.hasWall(curX, curY, newDir)) {
 					openCells ++;
 					 curX++;
-					 if (curX > maze.getWidth()) {
+					 if (curX >= maze.getWidth()) {
 						 openCells = Integer.MAX_VALUE;
 						 break;}}
 				break;
 		 		}
-		 System.out.println(openCells);
 		return openCells;
 	}
 
@@ -239,6 +238,12 @@ public class ReliableSensor implements DistanceSensor {
 	public void stopFailureAndRepairProcess() throws UnsupportedOperationException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean isOperational() {
+		// it is reliable, thus always operational
+		return true;
 	}
 
 }

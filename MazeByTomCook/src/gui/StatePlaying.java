@@ -118,11 +118,16 @@ public class StatePlaying extends DefaultState {
         	driver.setRobot(robot);
         	driver.setMaze(mazeConfig);
         	robot.setController(controller);
+        	robot.setBatteryLevel(3500);
+        	robot.resetOdometer();
         	// this method must be called after the robot has its controller set to the 
         	// one pertaining to this maze
         	robot.setSensorMazes();
         	try {
 				if (driver.drive2Exit() == true) {
+					controller.switchFromPlayingToWinning(robot.getOdometerReading());
+				}
+				else {
 					controller.switchFromPlayingToWinning(robot.getOdometerReading());
 				}
 			} catch (Exception e) {
@@ -187,7 +192,12 @@ public class StatePlaying extends DefaultState {
             walk(1);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
+            	if (control.getRobot() == null) {
+            		control.switchFromPlayingToWinning(0);
+            	}
+            	else {
                 control.switchFromPlayingToWinning(control.getRobot().getOdometerReading());
+            	}
             }
             break;
         case LEFT: // turn left

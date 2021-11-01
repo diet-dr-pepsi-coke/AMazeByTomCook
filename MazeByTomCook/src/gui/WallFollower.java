@@ -64,6 +64,9 @@ public class WallFollower implements RobotDriver {
 	public boolean drive2Exit() throws Exception {
 		// before robot gets to the exit, keep driving 1 step
 		while (!robot.isAtExit()) {
+			if (robot.hasStopped()) {
+				return false;
+			}
 			drive1Step2Exit();
 		}
 		return true;
@@ -72,24 +75,26 @@ public class WallFollower implements RobotDriver {
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
 		// check to see if we are looking at the exit, and if so, make a break for it
-		if (robot.canSeeThroughTheExitIntoEternity(Direction.FORWARD)) {
+	/*	if (robot.canSeeThroughTheExitIntoEternity(Direction.FORWARD) == true) {
+			System.out.println("can see");
 			while (!robot.isAtExit()) {
 				robot.move(1);
 				return true;
 			}
-		}
+		} */
 		// we want to know when the robot is at the exit so we do not pass it
 		if (robot.isAtExit() == true) {
 			return true;
 		}
 		if (robot.isAtExit() == false) {
+			System.out.println(robot.getBatteryLevel());
 			// first check if there is a wall to your left
 			if (robot.distanceToObstacle(Direction.LEFT) == 0) {
 				// if not, check if there is a wall ahead
 				if (robot.distanceToObstacle(Direction.FORWARD) == 0) {
 					// walls in front and to the left so we must turn right
 					robot.rotate(Turn.RIGHT);
-					return true;
+					return false;
 				}
 				else {
 					// no wall in front of us so we move up one step

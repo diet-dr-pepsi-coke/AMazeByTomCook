@@ -137,6 +137,39 @@ public class SimpleScreens {
 		gc.setColor(blackWM);
 		centerString(gc, "Hit any key to restart", 300);
 	}
+	
+	/**
+     * Draws the finish screen, screen content is hard coded
+     * This case handles when the robot loses
+     * @param panel holds the graphics for the off-screen image
+     */
+	void redrawFinishLoss(MazePanel panel) {
+		Graphics g = panel.getBufferGraphics() ;
+        if (null == g) {
+            System.out.println(errorMsg) ;
+        }
+        else {
+            redrawFinishLoss(g);
+        }
+	}
+	/**
+	 * Helper method for redraw to draw final screen, screen is hard coded
+	 * This screen handles the case of a loss
+	 * @param gc graphics is the off-screen image
+	 */
+	private void redrawFinishLoss(Graphics gc) {
+		// produce blue background
+		drawBackground(gc);
+		// write the title 
+		updateFontAndColor(gc, largeBannerFont, goldWM);
+		centerString(gc, "You lost!", 100);
+		// write some extra blurb
+		updateFontAndColor(gc, smallBannerFont, greenWM);
+		centerString(gc, "Better luck next time!", 160);
+		// write the instructions
+		gc.setColor(blackWM);
+		centerString(gc, "Hit any key to restart", 300);
+	}
     /**
      * Draws the generating screen, screen content is hard coded
      * @param panel holds the graphics for the off-screen image

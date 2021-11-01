@@ -32,10 +32,10 @@ public class ReliableRobot implements Robot {
 	 private int odometer = 0;
 	 private boolean stopped = false;
 	 private Controller controller;
-	 private DistanceSensor frontSensor;
-	 private DistanceSensor leftSensor;
-	 private DistanceSensor rightSensor;
-	 private DistanceSensor backSensor;
+	 public DistanceSensor frontSensor;
+	 public DistanceSensor leftSensor;
+	 public DistanceSensor rightSensor;
+	 public DistanceSensor backSensor;
 
 	public ReliableRobot() {
 		// TODO Auto-generated constructor stub
@@ -257,17 +257,17 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public void move(int distance) {
+		if (getBatteryLevel() > 0 && !hasStopped()) {
 		// foo variable to keep track of how many steps we took to compare
 		// with the distance we were supposed to travel
 		 int counter = 0;
 		 // loop for however many cells we are supposed to traverse
-		 for (int i=0; i<distance; i++) {
-		  	if (getBatteryLevel() > 0 && !hasStopped()) {
+		 	for (int i=0; i<distance; i++) {
 					controller.keyDown(UserInput.UP, 0);
 					setBatteryLevel(getBatteryLevel() - getEnergyForStepForward());
 					// increment counter if we did move the step
 					counter ++;
-					odometer++;
+					odometer++; }
 			// make sure the counter of actual steps moved is equal to
 			// the amount of steps we called to move, and if it is not 
 			// equal, then we must have stopped for some reason
@@ -275,7 +275,7 @@ public class ReliableRobot implements Robot {
 		 		stopped = true;}
 			if (getBatteryLevel() <= 0) {
 				stopped = true; }
-	}}}
+	}}
 
 	/**
 	 * Makes robot move in a forward direction even if there is a wall
@@ -379,17 +379,138 @@ public class ReliableRobot implements Robot {
 			// which sensor we use depends on the direction we are looking
 			switch (direction) {
 			case FORWARD:
-				dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
-				break;
+				// must make sure sensor is working before we try to use it
+				if (frontSensor.isOperational()) {
+					dist = frontSensor.distanceToObstacle(curPos, curDir, battery); 
+					break; }
+				else {
+					System.out.println("had to switch");
+					// check to see which sensor is working and rotate to have that
+					// sensor look in the current direction, then rotate the robot back
+					// to its original position
+					if (leftSensor.isOperational()) {
+						rotate(Turn.RIGHT);
+						dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.LEFT);
+						break; }
+					else if (rightSensor.isOperational()) {
+						rotate(Turn.LEFT);
+						dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.RIGHT);
+						break; }
+					else if (backSensor.isOperational()) {
+						rotate(Turn.AROUND);
+						dist = backSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.AROUND);
+						break; }
+					else {
+						// if there are no operational sensors, we simply wait for the
+						// original sensor to be repaired and then use that one again
+						while (!frontSensor.isOperational()) {
+							System.out.println("Waiting for sensor to be repaired");
+							continue; }
+						dist = frontSensor.distanceToObstacle(curPos, curDir, battery); 
+						break; }
+					}
 			case LEFT:
-				dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
-				break;
+				if (leftSensor.isOperational()) {
+					dist = leftSensor.distanceToObstacle(curPos, curDir, battery); 
+					break; }
+				else {
+					System.out.println("had to switch");
+					// check to see which sensor is working and rotate to have that
+					// sensor look in the current direction, then rotate the robot back
+					// to its original position
+					if (backSensor.isOperational()) {
+						rotate(Turn.RIGHT);
+						dist = backSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.LEFT);
+						break; }
+					else if (frontSensor.isOperational()) {
+						rotate(Turn.LEFT);
+						dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.RIGHT);
+						break; }
+					else if (rightSensor.isOperational()) {
+						rotate(Turn.AROUND);
+						dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.AROUND);
+						break; }
+					else {
+						// if there are no operational sensors, we simply wait for the
+						// original sensor to be repaired and then use that one again
+						while (!leftSensor.isOperational()) {
+							System.out.println("Waiting for sensor to be repaired");
+							continue; }
+						dist = leftSensor.distanceToObstacle(curPos, curDir, battery); 
+						break; }
+					}
 			case RIGHT:
-				dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
-				break;
+				if (rightSensor.isOperational()) {
+					dist = rightSensor.distanceToObstacle(curPos, curDir, battery); 
+					break; }
+				else {
+					System.out.println("had to switch");
+					// check to see which sensor is working and rotate to have that
+					// sensor look in the current direction, then rotate the robot back
+					// to its original position
+					if (frontSensor.isOperational()) {
+						rotate(Turn.RIGHT);
+						dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.LEFT);
+						break; }
+					else if (backSensor.isOperational()) {
+						rotate(Turn.LEFT);
+						dist = backSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.RIGHT);
+						break; }
+					else if (leftSensor.isOperational()) {
+						rotate(Turn.AROUND);
+						dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.AROUND);
+						break; }
+					else {
+						// if there are no operational sensors, we simply wait for the
+						// original sensor to be repaired and then use that one again
+						while (!rightSensor.isOperational()) {
+							System.out.println("Waiting for sensor to be repaired");
+							continue; }
+						dist = rightSensor.distanceToObstacle(curPos, curDir, battery); 
+						break; }
+					}
 			case BACKWARD:
-				dist = backSensor.distanceToObstacle(curPos, curDir, battery);
-				break;
+				if (backSensor.isOperational()) {
+					dist = backSensor.distanceToObstacle(curPos, curDir, battery); 
+					break; }
+				else {
+					System.out.println("had to switch");
+					// check to see which sensor is working and rotate to have that
+					// sensor look in the current direction, then rotate the robot back
+					// to its original position
+					if (rightSensor.isOperational()) {
+						rotate(Turn.RIGHT);
+						dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.LEFT);
+						break; }
+					else if (leftSensor.isOperational()) {
+						rotate(Turn.LEFT);
+						dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.RIGHT);
+						break; }
+					else if (frontSensor.isOperational()) {
+						rotate(Turn.AROUND);
+						dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
+						rotate(Turn.AROUND);
+						break; }
+					else {
+						// if there are no operational sensors, we simply wait for the
+						// original sensor to be repaired and then use that one again
+						while (!backSensor.isOperational()) {
+							System.out.println("Waiting for sensor to be repaired");
+							continue; }
+						dist = backSensor.distanceToObstacle(curPos, curDir, battery); 
+						break; }
+					}
 			}
 		}
 		catch(Exception e) {
@@ -397,8 +518,10 @@ public class ReliableRobot implements Robot {
 		}
 			 setBatteryLevel(getBatteryLevel() - 1);
 			 if (getBatteryLevel() <= 0) {
-				stopped = true; }
+				stopped = true; 
+				return 0;}
 			 return dist; }
+		 System.out.println("Stopped.");
 		 return 0;
 	}
 
@@ -437,6 +560,10 @@ public class ReliableRobot implements Robot {
 	public void stopFailureAndRepairProcess(Direction direction) throws UnsupportedOperationException {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public boolean checkSensorWorking(DistanceSensor sensor) {	
+		return sensor.isOperational();
 	}
 
 }
