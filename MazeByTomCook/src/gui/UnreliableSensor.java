@@ -21,6 +21,9 @@ import gui.Robot.Direction;
  * not be usable until it is repaired, so it adds another layer of challenge onto 
  * the automatic traversal of the maze.
  * 
+ * It implements a runnable object that runs when the sensor is down. Multithreading
+ * is responsible for working all the sensors together.
+ * 
  * Collaborators: ReliableRobot, Wizard, DistanceSensor, Maze, Distance, Floorplan
  * 
  * @author Tom Cook
@@ -29,6 +32,12 @@ import gui.Robot.Direction;
 public class UnreliableSensor extends ReliableSensor {
 
 	private boolean operational = true;
+	
+	/* Constructor method
+	 * 
+	 */
+	public UnreliableSensor() {
+	}
 	
 	public static class NonOperational implements Runnable {
 		public void run() {
@@ -41,13 +50,9 @@ public class UnreliableSensor extends ReliableSensor {
 			}		
 		}		
 	}
-	
-	public UnreliableSensor() {
-	}
 
 	@Override
-	public void startFailureAndRepairProcess(int meanTimeBetweenFailures, int meanTimeToRepair)
-			throws UnsupportedOperationException {
+	public void startFailureAndRepairProcess(int meanTimeBetweenFailures, int meanTimeToRepair) throws UnsupportedOperationException {
 		Thread notOp = new Thread(new NonOperational());
 		notOp.start();
 

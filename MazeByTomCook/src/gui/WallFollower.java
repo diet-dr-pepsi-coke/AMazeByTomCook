@@ -66,10 +66,6 @@ public class WallFollower implements RobotDriver {
 		while (!robot.isAtExit()) {
 			drive1Step2Exit();
 		}
-		// when at the exit, print line to see when this is returning
-		if (robot.isAtExit() == true) {
-			System.out.println("here");
-		}
 		return true;
 	}
 
