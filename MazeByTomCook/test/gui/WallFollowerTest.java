@@ -1,80 +1,103 @@
 package gui;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+
 import generation.Maze;
+import gui.Robot.Direction;
 
 public class WallFollowerTest {
+	private WallFollower wallFollower;
+	private ReliableRobot robot;
+	private Controller controller;
+	private Maze mazeConfig;
+	private StatePlaying testState;
 
 	public WallFollowerTest() {
 		// TODO Auto-generated constructor stub
+	}	
+	
+	@Before
+	public void setUp() {
+		MazeFileReader mfr = new MazeFileReader("test/data/input.xml");
+		mazeConfig = mfr.getMazeConfiguration();
+		robot = new ReliableRobot();
+			robot.setMaze(mazeConfig);
+			ReliableSensor Fsensor = new ReliableSensor();
+			robot.addDistanceSensor(Fsensor, Direction.FORWARD);
+			ReliableSensor Lsensor = new ReliableSensor();
+			robot.addDistanceSensor(Lsensor, Direction.LEFT);
+			ReliableSensor Rsensor = new ReliableSensor();
+			robot.addDistanceSensor(Rsensor, Direction.RIGHT);
+			ReliableSensor Bsensor = new ReliableSensor();
+			robot.addDistanceSensor(Bsensor, Direction.BACKWARD);
+		wallFollower = new WallFollower();
+			wallFollower.setRobot(robot);
+		controller = new Controller();
+			controller.setRobotAndDriver(robot, wallFollower);
+		testState = new StatePlaying();
+			testState.setMazeConfiguration(mazeConfig);
+			testState.start(controller, null);
+		System.out.println("setup " + mazeConfig);
 	}
-
-	/*
-	 * Makes sure the WallFollower is appropriately having its robot set. 
+	/**
+	 Test case: Ensure the WallFollower can get to the exit
+	 * <p>
+	 * Method under test: drive2Exit()
+	 * <p>
+	 * It is correct if the WallFollower ends at the exit position
 	 */
-	void testSetRobot() {
+	@Test
+	public void testDrive2Exit(){
+		robot.setController(controller);
+		wallFollower.setMaze(mazeConfig);
+		System.out.println("wall follower " + testState.getMazeConfiguration());
+		try {
+			wallFollower.drive2Exit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		assertTrue(robot.isAtExit());
+		}
 	}
 	
 	/**
-	 * Provides the robot driver with the maze information.
-	 * Only some drivers such as the wizard rely on this information to find the exit.
-	 * @param maze represents the maze, must be non-null and a fully functional maze object.
+	 Test case: See if the WallFollower has moved a step towards the exit
+	 * <p>
+	 * Method under test: drive1Step2Exit()
+	 * <p>
+	 * It is correct if the WallFollower is in a different position than
+	 * where it began.
 	 */
-	void testSetMaze() {
-	}
-	
-	
-	/**
-	 * Drives the robot towards the exit following
-	 * its solution strategy and given the exit exists and  
-	 * given the robot's energy supply lasts long enough. 
-	 * When the robot reached the exit position and its forward
-	 * direction points to the exit the search terminates and 
-	 * the method returns true.
-	 * If the robot failed due to lack of energy or crashed, the method
-	 * throws an exception.
-	 * If the method determines that it is not capable of finding the
-	 * exit it returns false, for instance, if it determines it runs
-	 * in a cycle and can't resolve this.
-	 * @return true if driver successfully reaches the exit, false otherwise
-	 * @throws Exception thrown if robot stopped due to some problem, e.g. lack of energy
-	 */
-	void testDrive2Exit(){
+	@Test
+	public void testDrive1Step2Exit(){
 	}
 	
 	/**
-	 * Drives the robot one step towards the exit following
-	 * its solution strategy and given the exists and 
-	 * given the robot's energy supply lasts long enough.
-	 * It returns true if the driver successfully moved
-	 * the robot from its current location to an adjacent
-	 * location.
-	 * At the exit position, it rotates the robot 
-	 * such that if faces the exit in its forward direction
-	 * and returns false. 
-	 * If the robot failed due to lack of energy or crashed, the method
-	 * throws an exception. 
-	 * @return true if it moved the robot to an adjacent cell, false otherwise
-	 * @throws Exception thrown if robot stopped due to some problem, e.g. lack of energy
+	Test case: Check the return of its energy consumption
+	 * <p>
+	 * Method under test: getEnergyConsumption()
+	 * <p>
+	 * It is correct if energy consumption after driving to the exit
+	 * is equal to 2415.
 	 */
-	void testDrive1Step2Exit(){
+	@Test
+	public void testGetEnergyConsumption() {
 	}
 	
 	/**
-	 * Returns the total energy consumption of the journey, i.e.,
-	 * the difference between the robot's initial energy level at
-	 * the starting position and its energy level at the exit position. 
-	 * This is used as a measure of efficiency for a robot driver.
-	 * @return the total energy consumption of the journey
+	 Test case: See if the path length correctly measures how 
+	 far the robot has traveled.
+	 * <p>
+	 * Method under test: getPathLength()
+	 * <p>
+	 * It is correct if the pathLength at the end of drive2Exit()
+	 * is equal to 291.
 	 */
-	void testGetEnergyConsumption() {
-	}
-	
-	/**
-	 * Returns the total length of the journey in number of cells traversed. 
-	 * Being at the initial position counts as 0. 
-	 * This is used as a measure of efficiency for a robot driver.
-	 * @return the total length of the journey in number of cells traversed
-	 */
-	void testGetPathLength() {
+	@Test
+	public void testGetPathLength() {
 	}
 }

@@ -36,6 +36,7 @@ public class ReliableRobot implements Robot {
 	 public DistanceSensor leftSensor;
 	 public DistanceSensor rightSensor;
 	 public DistanceSensor backSensor;
+	 public Maze maze;
 
 	public ReliableRobot() {
 		// TODO Auto-generated constructor stub
@@ -56,6 +57,13 @@ public class ReliableRobot implements Robot {
 	public void setController(Controller controller) {
 		this.controller = controller;
 
+	}
+	/**
+	 * Provides the robot with a definitive maze to work with.
+	 * @param maze is the maze configuration
+	 */
+	public void setMaze(Maze maze) {
+		this.maze = maze;
 	}
 
 	/**
@@ -308,8 +316,14 @@ public class ReliableRobot implements Robot {
 	 */
 	@Override
 	public boolean isAtExit() {
-		 Maze maze = controller.getMazeConfiguration();
-		 int[] supposedExit = maze.getExitPosition();
+		Maze maze = controller.getMazeConfiguration();
+		int[] supposedExit = null;
+		if (this.maze != null) {
+			supposedExit = this.maze.getExitPosition();
+		}
+		else {
+		 supposedExit = maze.getExitPosition();
+		}
 			try {
 				// check the maze's exit cell with the current position cell to see if they match
 				if (supposedExit[0] == getCurrentPosition()[0] && supposedExit[1] == getCurrentPosition()[1]) {

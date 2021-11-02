@@ -133,7 +133,7 @@ public class StatePlaying extends DefaultState {
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Robot is null");
-			} 
+			}  
     	} 
     }
     /**
