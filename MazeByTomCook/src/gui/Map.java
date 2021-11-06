@@ -3,6 +3,8 @@
  */
 package gui;
 
+import gui.Controller;
+
 import generation.CardinalDirection;
 import generation.Floorplan;
 import generation.Maze;
@@ -59,6 +61,10 @@ public class Map {
 	 * width and height of the maze
 	 */
 	final Maze maze ;
+	
+	Controller controller;
+	
+	MazePanel Panel;
 
 	/**
 	 * Constructor 
@@ -398,7 +404,7 @@ public class Map {
 		// width and height is simply the diameter
 		gc.fillOval(centerX-diameter/2, centerY-diameter/2, diameter, diameter);
 		// draw a red arrow with the oval to show current direction
-		drawArrow(gc, viewDX, viewDY, centerX, centerY);
+		drawArrow(Panel, viewDX, viewDY, centerX, centerY);
 	}
 
 	/**
@@ -409,14 +415,14 @@ public class Map {
 	 * @param startX is the x coordinate of the starting point
 	 * @param startY is the y coordinate of the starting point
 	 */
-	private void drawArrow(Graphics gc, int viewDX, int viewDY, 
+	private void drawArrow(MazePanel Panel, int viewDX, int viewDY, 
 			final int startX, final int startY) {
 		// calculate length and coordinates for main line
 		final int arrowLength = mapScale*7/16; // arrow length, about 1/2 map_scale
 		final int tipX = startX + mapToOffset(arrowLength, viewDX);
 		final int tipY = startY - mapToOffset(arrowLength, viewDY);
 		// draw main line, goes from starting (x,y) to end (tipX,tipY)
-		gc.drawLine(startX, startY, tipX, tipY);
+		Panel.addLine(startX, startY, tipX, tipY);
 		// calculate length and positions for 2 lines pointing towards (tipX,tipY)
 		// find intermediate point (tmpX,tmpY) on main line
 		final int length = mapScale/4;
@@ -432,8 +438,8 @@ public class Map {
 		final int offsetX = mapToOffset(length, -viewDY);
 		final int offsetY = mapToOffset(length, -viewDX);
 		// draw two lines, starting at tip of arrow
-		gc.drawLine(tipX, tipY, tmpX + offsetX, tmpY + offsetY);
-		gc.drawLine(tipX, tipY, tmpX - offsetX, tmpY - offsetY);
+		Panel.addLine(tipX, tipY, tmpX + offsetX, tmpY + offsetY);
+		Panel.addLine(tipX, tipY, tmpX - offsetX, tmpY - offsetY);
 	}
 
 
@@ -511,5 +517,10 @@ public class Map {
 	private void dbg(String str) {
 		// TODO: change this to a logger
 		System.out.println("MapDrawer:"+ str);
+	}
+	
+	public void setControllerAndPanel(Controller controller) {
+		this.controller = controller;
+		this.Panel = controller.getPanel();
 	}
 }

@@ -107,8 +107,9 @@ public class MazePanel extends Panel implements P5PanelF21  {
 	}
 	
     public void addLine(int startX, int startY, int endX, int endY) {
-    	graphics.drawLine(startX, startY, endX, endY);
-		graphics.drawLine(startX, startY, endX, endY);
+    	Graphics g = this.getBufferGraphics();
+    	g.drawLine(startX, startY, endX, endY);
+		g.drawLine(startX, startY, endX, endY);
     }
 
 	@Override

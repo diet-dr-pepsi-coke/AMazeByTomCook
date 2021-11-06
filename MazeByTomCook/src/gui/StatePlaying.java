@@ -66,6 +66,7 @@ public class StatePlaying extends DefaultState {
     public StatePlaying() {
         started = false;
     }
+   
     @Override
     public void setMazeConfiguration(Maze config) {
         mazeConfig = config;
@@ -146,6 +147,7 @@ public class StatePlaying extends DefaultState {
 				Constants.VIEW_HEIGHT, Constants.MAP_UNIT,
 				Constants.STEP_SIZE, seenCells, mazeConfig.getRootnode()) ;
 		mapView = new Map(seenCells, 15, mazeConfig) ;
+		mapView.setControllerAndPanel(control);
 		// draw the initial screen for this state
 		draw();
 	}
