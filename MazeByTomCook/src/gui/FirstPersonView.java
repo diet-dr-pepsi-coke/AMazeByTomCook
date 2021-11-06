@@ -3,9 +3,6 @@
  */
 package gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.List;
 
 import generation.BSPBranch;
@@ -78,7 +75,6 @@ public class FirstPersonView {
 	 * with the current buffer image is the responsibility of
 	 * the StatePlaying class.
 	 */
-	private Graphics2D gc;
 	private MazePanel Panel;
 	private Controller controller;
 	
@@ -159,13 +155,11 @@ public class FirstPersonView {
 	 */
 	public void draw(MazePanel panel, int x, int y, int walkStep, int ang, float percentToExit) {
 		// obtain a Graphics2D object we can draw on
-		Graphics g = panel.getBufferGraphics() ;
         // viewers draw on the buffer graphics
-        if (null == g) {
+        if (null == panel.getBufferGraphics()) {
             System.out.println("FirstPersonDrawer.draw: can't get graphics object to draw on, skipping redraw operation") ;
             return;
         }
-        gc = (Graphics2D) g ;
         
         // update fields angle, viewx, viewy for current position and viewing angle
         angle = ang ;
@@ -175,7 +169,7 @@ public class FirstPersonView {
         // draw background figure: lightGrey to green on bottom half, yellow to gold on top half
         drawBackground(Panel, percentToExit);
         // set color to white and draw what ever can be seen from the current position
-        g.setColor(Color.white);
+        Panel.setColor(0xFFFFFF);
         // reset the set of ranges to a single new element (0,width-1)
         // to cover the full width of the view 
         // as we have not drawn any polygons (walls) yet.
