@@ -146,6 +146,7 @@ public class StatePlaying extends DefaultState {
 		firstPersonView = new FirstPersonView(Constants.VIEW_WIDTH,
 				Constants.VIEW_HEIGHT, Constants.MAP_UNIT,
 				Constants.STEP_SIZE, seenCells, mazeConfig.getRootnode()) ;
+		firstPersonView.setControllerAndPanel(control);
 		mapView = new Map(seenCells, 15, mazeConfig) ;
 		mapView.setControllerAndPanel(control);
 		// draw the initial screen for this state

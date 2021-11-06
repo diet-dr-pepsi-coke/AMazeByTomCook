@@ -263,12 +263,14 @@ public class FirstPersonView {
 			return sndColor;
 		if (weightFstColor > 0.95)
 			return fstColor;
-	    double r = weightFstColor * fstColor.getRed() + (1-weightFstColor) * sndColor.getRed();
-	    double g = weightFstColor * fstColor.getGreen() + (1-weightFstColor) * sndColor.getGreen();
-	    double b = weightFstColor * fstColor.getBlue() + (1-weightFstColor) * sndColor.getBlue();
-	    double a = Math.max(fstColor.getAlpha(), sndColor.getAlpha());
-
-	    return new Color((int) r, (int) g, (int) b, (int) a);
+		String fstHex = Integer.toString(fstColor);
+		String sndHex = Integer.toString(sndColor);
+	    double r = weightFstColor * Integer.parseInt(fstHex.substring(2,3)) + (1-weightFstColor) * Integer.parseInt(sndHex.substring(2,3));
+	    double g = weightFstColor * Integer.parseInt(fstHex.substring(4,5)) + (1-weightFstColor) * Integer.parseInt(sndHex.substring(4,5));
+	    double b = weightFstColor * Integer.parseInt(fstHex.substring(6,7)) + (1-weightFstColor) * Integer.parseInt(fstHex.substring(6,7));
+	    String newHex = Integer.toString((int) r) + Integer.toString((int) g) + Integer.toString((int) b);
+	    System.out.println("newHex: " + newHex);
+	    return Integer.parseInt(newHex,16);
 	  }
 	/**
 	 * Recursive method to explore tree of BSP nodes and draw all walls in leaf nodes 
