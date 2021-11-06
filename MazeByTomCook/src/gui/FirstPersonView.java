@@ -40,9 +40,9 @@ public class FirstPersonView {
 	private final int stepSize;   // = map_unit/4;
 	// map scale may be adjusted by user input, controlled in StatePlaying
 	// colors for background
-	static final Color greenWM = Color.decode("#115740");
-	static final Color goldWM = Color.decode("#916f41");
-	static final Color yellowWM = Color.decode("#FFFF99");
+	static final int greenWM = 0x115740;
+	static final int goldWM = 0x916f41;
+	static final int yellowWM = 0xFFFF99;
 	
 	/**
 	 * A data structure to store which wallboards have been visible during
