@@ -143,7 +143,7 @@ public class Map {
         }
         final int viewDX = getViewDX(angle); 
         final int viewDY = getViewDY(angle);
-        drawMap(g, x, y, walkStep, viewDX, viewDY, showMaze, showSolution) ;
+        drawMap(Panel, x, y, walkStep, viewDX, viewDY, showMaze, showSolution) ;
         drawCurrentLocation(Panel, viewDX, viewDY) ;
 	}
 	//////////////////////////////// private, internal methods //////////////////////////////
@@ -182,13 +182,13 @@ public class Map {
 	 * @param showMaze is the flag to show the walls
 	 * @param showSolution  is the flag to show the solution, the yellow line to the exit
 	 */
-	private void drawMap(Graphics g, int px, int py, int walkStep, 
+	private void drawMap(MazePanel Panel, int px, int py, int walkStep, 
 			int viewDX, int viewDY, boolean showMaze, boolean showSolution) {
 		// dimensions of the maze in terms of cell ids
 		final int mazeWidth = maze.getWidth() ;
 		final int mazeHeight = maze.getHeight() ;
 		
-		g.setColor(Color.white);
+		Panel.setColor(0xFFFFFF);
 		
 		// note: 1/2 of width and height is the center of the screen
 		// the whole map is centered at the current position
