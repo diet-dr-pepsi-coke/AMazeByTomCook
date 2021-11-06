@@ -173,7 +173,7 @@ public class FirstPersonView {
         
         // update graphics
         // draw background figure: lightGrey to green on bottom half, yellow to gold on top half
-        drawBackground(g, percentToExit);
+        drawBackground(Panel, percentToExit);
         // set color to white and draw what ever can be seen from the current position
         g.setColor(Color.white);
         // reset the set of ranges to a single new element (0,width-1)
@@ -220,17 +220,17 @@ public class FirstPersonView {
 	 * @param graphics to draw on, must be not null
 	 * @param percentToExit gives the distance to exit
 	 */
-	private void drawBackground(Graphics graphics, float percentToExit) {
+	private void drawBackground(MazePanel Panel, float percentToExit) {
 		// black rectangle in upper half of screen
 		// graphics.setColor(Color.black);
 		// dynamic color setting: 
-		graphics.setColor(getBackgroundColor(percentToExit, true));
-		graphics.fillRect(0, 0, viewWidth, viewHeight/2);
+		Panel.setColor(getBackgroundColor(percentToExit, true));
+		Panel.addFilledRectangle(0, 0, viewWidth, viewHeight/2);
 		// grey rectangle in lower half of screen
 		// graphics.setColor(Color.darkGray);
 		// dynamic color setting: 
-		graphics.setColor(getBackgroundColor(percentToExit, false));
-		graphics.fillRect(0, viewHeight/2, viewWidth, viewHeight/2);
+		Panel.setColor(getBackgroundColor(percentToExit, false));
+		Panel.addFilledRectangle(0, viewHeight/2, viewWidth, viewHeight/2);
 	}
 	/**
 	 * Determine the background color for the top and bottom
@@ -241,9 +241,9 @@ public class FirstPersonView {
 	 * @param top is true for the top rectangle, false for the bottom
 	 * @return the color to use for the background rectangle
 	 */
-	private Color getBackgroundColor(float percentToExit, boolean top) {
+	private int getBackgroundColor(float percentToExit, boolean top) {
 		return top? blend(yellowWM, goldWM, percentToExit) : 
-			blend(Color.lightGray, greenWM, percentToExit);
+			blend(0xD3D3D3, greenWM, percentToExit);
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class FirstPersonView {
 	 * @param weightFstColor is the weight of fstColor, {@code 0.0 <= weightFstColor <= 1.0}
 	 * @return blend of both colors as weighted average of their rgb values
 	 */
-	private Color blend(Color fstColor, Color sndColor, double weightFstColor) {
+	private int blend(int fstColor, int sndColor, double weightFstColor) {
 		if (weightFstColor < 0.1)
 			return sndColor;
 		if (weightFstColor > 0.95)
