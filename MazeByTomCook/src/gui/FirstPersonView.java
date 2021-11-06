@@ -78,7 +78,9 @@ public class FirstPersonView {
 	 * with the current buffer image is the responsibility of
 	 * the StatePlaying class.
 	 */
-	private Graphics2D gc; 
+	private Graphics2D gc;
+	private MazePanel Panel;
+	private Controller controller;
 	
 	/**
 	 * The current position (x,y) scaled by map_unit and 
@@ -562,7 +564,7 @@ public class FirstPersonView {
 			// debug
 			//System.out.println("polygon-x: " + xps[0] + ", " + xps[1] + ", " + xps[2] + ", " + xps[3]) ;
 			//System.out.println("polygon-y: " + yps[0] + ", " + yps[1] + ", " + yps[2] + ", " + yps[3]) ;
-			gc.fillPolygon(xps, yps, 4);
+			Panel.addFilledPolygon(xps, yps, 4);
 			// for debugging purposes, code will draw a red line around polygon
 			// this makes individual walls visible
 			/*
@@ -601,6 +603,11 @@ public class FirstPersonView {
 	private void dbg(String str) {
 		// TODO: change this into a logger
 		System.out.println("FirstPersonView:"+ str);
+	}
+	
+	public void setControllerAndPanel(Controller controller) {
+		this.controller = controller;
+		this.Panel = controller.getPanel();
 	}
 
 	/**

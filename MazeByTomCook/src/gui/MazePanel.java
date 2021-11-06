@@ -154,7 +154,8 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-		// TODO Auto-generated method stub
+		Graphics g = this.getBufferGraphics();
+		g.fillPolygon(xPoints, yPoints, nPoints);
 		
 	}
 
