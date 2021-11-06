@@ -148,7 +148,8 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void addFilledRectangle(int x, int y, int width, int height) {
-		// TODO Auto-generated method stub
+		Graphics g = this.getBufferGraphics();
+		g.fillRect(x, y, width, height);
 		
 	}
 
