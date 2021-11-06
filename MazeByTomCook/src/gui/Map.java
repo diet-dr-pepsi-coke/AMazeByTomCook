@@ -144,7 +144,7 @@ public class Map {
         final int viewDX = getViewDX(angle); 
         final int viewDY = getViewDY(angle);
         drawMap(g, x, y, walkStep, viewDX, viewDY, showMaze, showSolution) ;
-        drawCurrentLocation(g, viewDX, viewDY) ;
+        drawCurrentLocation(Panel, viewDX, viewDY) ;
 	}
 	//////////////////////////////// private, internal methods //////////////////////////////
 	/**
@@ -392,8 +392,8 @@ public class Map {
 	 * @param viewDX is the current viewing direction, x coordinate
 	 * @param viewDY is the current viewing direction, y coordinate
 	 */
-	private void drawCurrentLocation(Graphics gc, int viewDX, int viewDY) {
-		gc.setColor(Color.red);
+	private void drawCurrentLocation(MazePanel Panel, int viewDX, int viewDY) {
+		Panel.setColor(0xFF0000);
 		// draw oval of appropriate size at the center of the screen
 		int centerX = viewWidth/2; // center x
 		int centerY = viewHeight/2; // center y
@@ -402,7 +402,7 @@ public class Map {
 		// and its width and height to draw the circle
 		// top left corner is (centerX-radius, centerY-radius)
 		// width and height is simply the diameter
-		gc.fillOval(centerX-diameter/2, centerY-diameter/2, diameter, diameter);
+		Panel.addFilledOval(centerX-diameter/2, centerY-diameter/2, diameter, diameter);
 		// draw a red arrow with the oval to show current direction
 		drawArrow(Panel, viewDX, viewDY, centerX, centerY);
 	}

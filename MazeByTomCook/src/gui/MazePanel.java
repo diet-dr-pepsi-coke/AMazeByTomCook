@@ -166,7 +166,8 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void addFilledOval(int x, int y, int width, int height) {
-		// TODO Auto-generated method stub
+		Graphics g = this.getBufferGraphics();
+		g.fillOval(x, y, width, height);
 		
 	}
 
