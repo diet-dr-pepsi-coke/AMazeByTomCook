@@ -3,13 +3,9 @@
  */
 package gui;
 
-import gui.Controller;
-
 import generation.CardinalDirection;
 import generation.Floorplan;
 import generation.Maze;
-import java.awt.Color;
-import java.awt.Graphics;
 
 /**
  * This class encapsulates all functionality to draw a map of the overall maze,
@@ -135,9 +131,8 @@ public class Map {
 	 */
 	public void draw(MazePanel panel, int x, int y, int angle, int walkStep,
 			boolean showMaze, boolean showSolution) {
-		Graphics g = panel.getBufferGraphics() ;
         // viewers draw on the buffer graphics
-        if (null == g) {
+        if (null == Panel.getBufferGraphics()) {
             System.out.println("MapDrawer.draw: can't get graphics object to draw on, skipping draw operation") ;
             return;
         }
