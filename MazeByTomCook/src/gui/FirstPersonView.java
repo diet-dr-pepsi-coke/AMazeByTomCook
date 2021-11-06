@@ -40,9 +40,9 @@ public class FirstPersonView {
 	private final int stepSize;   // = map_unit/4;
 	// map scale may be adjusted by user input, controlled in StatePlaying
 	// colors for background
-	static final int greenWM = 0x115740;
-	static final int goldWM = 0x916f41;
-	static final int yellowWM = 0xFFFF99;
+	static final String greenWM = "115740";
+	static final String goldWM = "916f41";
+	static final String yellowWM = "FFFF99";
 	
 	/**
 	 * A data structure to store which wallboards have been visible during
@@ -243,7 +243,7 @@ public class FirstPersonView {
 	 */
 	private int getBackgroundColor(float percentToExit, boolean top) {
 		return top? blend(yellowWM, goldWM, percentToExit) : 
-			blend(0xD3D3D3, greenWM, percentToExit);
+			blend("D3D3D3", greenWM, percentToExit);
 	}
 
 	/**
@@ -258,17 +258,15 @@ public class FirstPersonView {
 	 * @param weightFstColor is the weight of fstColor, {@code 0.0 <= weightFstColor <= 1.0}
 	 * @return blend of both colors as weighted average of their rgb values
 	 */
-	private int blend(int fstColor, int sndColor, double weightFstColor) {
+	private int blend(String fstColor, String sndColor, double weightFstColor) {
 		if (weightFstColor < 0.1)
-			return sndColor;
+			return Integer.parseInt(sndColor, 16);
 		if (weightFstColor > 0.95)
-			return fstColor;
-		String fstHex = Integer.toString(fstColor);
-		String sndHex = Integer.toString(sndColor);
-	    double r = weightFstColor * Integer.parseInt(fstHex.substring(2,3)) + (1-weightFstColor) * Integer.parseInt(sndHex.substring(2,3));
-	    double g = weightFstColor * Integer.parseInt(fstHex.substring(4,5)) + (1-weightFstColor) * Integer.parseInt(sndHex.substring(4,5));
-	    double b = weightFstColor * Integer.parseInt(fstHex.substring(6,7)) + (1-weightFstColor) * Integer.parseInt(fstHex.substring(6,7));
-	    String newHex = Integer.toString((int) r) + Integer.toString((int) g) + Integer.toString((int) b);
+			return Integer.parseInt(fstColor, 16);
+	    double r = weightFstColor * Integer.parseInt(fstColor.substring(0,2), 16) + (1-weightFstColor) * Integer.parseInt(sndColor.substring(0,2), 16);
+	    double g = weightFstColor * Integer.parseInt(fstColor.substring(2,4), 16) + (1-weightFstColor) * Integer.parseInt(sndColor.substring(2,4), 16);
+	    double b = weightFstColor * Integer.parseInt(fstColor.substring(4,6), 16) + (1-weightFstColor) * Integer.parseInt(fstColor.substring(4,6), 16);
+	    String newHex = Integer.toHexString((int) r) + Integer.toHexString((int) g) + Integer.toHexString((int) b);
 	    System.out.println("newHex: " + newHex);
 	    return Integer.parseInt(newHex,16);
 	  }

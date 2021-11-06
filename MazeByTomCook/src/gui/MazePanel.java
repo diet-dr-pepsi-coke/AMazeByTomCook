@@ -133,6 +133,18 @@ public class MazePanel extends Panel implements P5PanelF21  {
 		g.setColor(c);
 		
 	}
+	
+	/**
+	 * Provides an alternate way to set the color used for drawing
+	 * @param r the red value 0-255
+	 * @param g the green value 0-255
+	 * @param b the blue value 0-255
+	 */
+	public void setColor(int r, int g, int b) {
+		Graphics gc = this.getBufferGraphics();
+		Color c = new Color(r, g, b);
+		gc.setColor(c);
+	}
 
 	@Override
 	public int getColor() {
