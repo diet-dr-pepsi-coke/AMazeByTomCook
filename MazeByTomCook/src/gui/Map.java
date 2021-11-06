@@ -214,7 +214,7 @@ public class Map {
 				int startX = mapToCoordinateX(x, offsetX);
 				int startY = mapToCoordinateY(y, offsetY);
 				if (x < mazeWidth)
-					drawHorizontalLine(g, showMaze, x, y, startX, startY);
+					drawHorizontalLine(Panel, showMaze, x, y, startX, startY);
 				if (y < mazeHeight)
 					drawVerticalLine(g, showMaze, x, y, startX, startY);
 			}
@@ -262,11 +262,11 @@ public class Map {
 	 * @param startX the x coordinate for drawing
 	 * @param startY the y coordinate for drawing
 	 */
-	private void drawHorizontalLine(Graphics g, boolean showMaze, int x, int y, int startX,
+	private void drawHorizontalLine(MazePanel Panel, boolean showMaze, int x, int y, int startX,
 			int startY) {
 		if (hasAHorizontalWall(x, y) && (seenWalls.hasWall(x,y, CardinalDirection.North) || showMaze) ) {
-			g.setColor(seenWalls.hasWall(x,y, CardinalDirection.North) ? Color.white : Color.gray);
-			g.drawLine(startX, startY, startX + mapScale, startY); 
+			Panel.setColor(seenWalls.hasWall(x,y, CardinalDirection.North) ? 0xFFFFFF : 0x808080);
+			Panel.addLine(startX, startY, startX + mapScale, startY); 
 		}
 	}
 	
