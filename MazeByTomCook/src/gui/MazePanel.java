@@ -13,7 +13,7 @@ import java.awt.RenderingHints;
  * @author Peter Kemper
  *
  */
-public class MazePanel extends Panel  {
+public class MazePanel extends Panel implements P5PanelF21  {
 	private static final long serialVersionUID = 2787329533730973905L;
 	/* Panel operates a double buffer see
 	 * http://www.codeproject.com/Articles/2136/Double-buffer-in-standard-Java-AWT
@@ -104,6 +104,83 @@ public class MazePanel extends Panel  {
 			}
 		}
 		return graphics;
+	}
+	
+    public void addLine(int startX, int startY, int endX, int endY) {
+    	graphics.drawLine(startX, startY, endX, endY);
+		graphics.drawLine(startX, startY, endX, endY);
+    }
+
+	@Override
+	public void commit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOperational() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setColor(int rgb) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getColor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void addBackground(float percentToExit) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addFilledRectangle(int x, int y, int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addFilledOval(int x, int y, int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addMarker(float x, float y, String str) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRenderingHint(P5RenderingHints hintKey, P5RenderingHints hintValue) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
