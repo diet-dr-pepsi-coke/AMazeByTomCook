@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -26,6 +27,7 @@ public class MazePanel extends Panel implements P5PanelF21  {
 	private Graphics2D graphics; // obtained from bufferImage, 
 	// graphics is stored to allow clients to draw on the same graphics object repeatedly
 	// has benefits if color settings should be remembered for subsequent drawing operations
+	private Graphics gc;
 	
 	/**
 	 * Constructor. Object is not focusable.
@@ -126,7 +128,9 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void setColor(int rgb) {
-		// TODO Auto-generated method stub
+		Graphics g = this.getBufferGraphics();
+		Color c = new Color(rgb);
+		g.setColor(c);
 		
 	}
 

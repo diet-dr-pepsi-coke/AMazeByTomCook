@@ -220,7 +220,7 @@ public class Map {
 			}
 		
 		if (showSolution) {
-			drawSolution(g, offsetX, offsetY, px, py) ;
+			drawSolution(Panel, offsetX, offsetY, px, py) ;
 		}
 	}
 
@@ -456,7 +456,7 @@ public class Map {
 	 * @param px is the current position, an index x for a cell
 	 * @param py is the current position, an index y for a cell
 	 */
-	private void drawSolution(Graphics gc, int offsetX, int offsetY, int px, int py) {
+	private void drawSolution(MazePanel Panel, int offsetX, int offsetY, int px, int py) {
 
 		if (!maze.isValidPosition(px, py)) {
 			dbg(" Parameter error: position out of bounds: (" + px + "," + 
@@ -469,7 +469,7 @@ public class Map {
 		int sy = py;
 		int distance = maze.getDistanceToExit(sx, sy);
 		
-		gc.setColor(Color.yellow);
+		Panel.setColor(0xFFFF00);
 		
 		// while we are more than 1 step away from the final position
 		while (distance > 1) {
@@ -499,7 +499,7 @@ public class Map {
 			//int ny2 = view_height-1-(neighbor[1]*map_scale + offy) - map_scale/2;
 			int nx2 = mapToCoordinateX(neighbor[0],offsetX) + mapScale/2;
 			int ny2 = mapToCoordinateY(neighbor[1],offsetY) - mapScale/2;
-			gc.drawLine(nx1, ny1, nx2, ny2);
+			Panel.addLine(nx1, ny1, nx2, ny2);
 			
 			// update loop variables for current position (sx,sy)
 			// and distance d for next iteration
