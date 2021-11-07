@@ -148,8 +148,9 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public int getColor() {
-		// TODO Auto-generated method stub
-		return 0;
+		Graphics g = this.getBufferGraphics();
+		Color col = g.getColor();
+		return col.getRGB();
 	}
 
 	@Override
