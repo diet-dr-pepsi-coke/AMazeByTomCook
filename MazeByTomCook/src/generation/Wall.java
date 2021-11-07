@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import gui.Controller;
 import gui.MazeFileWriter;
 import gui.MazePanel;
+import gui.P5PanelF21;
 
 /**
  * A wall is a continuous sequence of wallboards in the maze.
@@ -151,33 +152,7 @@ public class Wall {
      *            obscure
      */
     private int createColor(final int distance, final int cc) {
-        final int d = distance / 4;
-        // mod used to limit the number of colors to 6
-        final int rgbValue = calculateRGBValue(d);
-        //System.out.println("Initcolor rgb: " + rgbValue);
-        switch (((d >> 3) ^ cc) % 6) {
-        case 0:
-        	Panel.setColor(rgbValue, RGB_DEF, RGB_DEF);
-            return Panel.getColor();
-        case 1:
-        	Panel.setColor(RGB_DEF, RGB_DEF, RGB_DEF);
-            return Panel.getColor();
-        case 2:
-        	Panel.setColor(RGB_DEF, RGB_DEF, rgbValue);
-            return Panel.getColor();
-        case 3:
-        	Panel.setColor(rgbValue, RGB_DEF_GREEN, RGB_DEF);
-        	return Panel.getColor();
-        case 4:
-        	Panel.setColor(RGB_DEF, RGB_DEF_GREEN, rgbValue);
-        	return Panel.getColor();
-        case 5:
-        	Panel.setColor(rgbValue, RGB_DEF, rgbValue);
-        	return Panel.getColor();
-        default:
-        	Panel.setColor(RGB_DEF, RGB_DEF, RGB_DEF);
-        	return Panel.getColor();
-        }
+       return P5PanelF21.getWallColor(distance, cc, dx);
     }
 
     /**
