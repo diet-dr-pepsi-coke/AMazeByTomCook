@@ -5,9 +5,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import gui.Controller;
 import gui.MazeFileWriter;
-import gui.MazePanel;
 import gui.P5PanelF21;
 
 /**
@@ -76,9 +74,7 @@ public class Wall {
      * already by the user on its path through the maze.
      */
     private boolean seen;
-    
-    private Controller controller;
-    private MazePanel Panel;
+
 
     /**
      * Constructor assigns parameter values to instance variables.
@@ -121,7 +117,7 @@ public class Wall {
         partition = false;
         seen = false;
         // determine color
-        Panel.setColor(createColor(distance, cc));
+        setColor(createColor(distance, cc));
         // all fields initialized
     }
 
@@ -223,7 +219,7 @@ public class Wall {
         MazeFileWriter.appendChild(doc, mazeXML, "ySeg_" + number + "_" + i,
                 getStartPositionY());
         MazeFileWriter.appendChild(doc, mazeXML, "colSeg_" + number + "_" + i,
-                Panel.getColor());
+                getColor());
     }
 
     /**
@@ -327,6 +323,21 @@ public class Wall {
         return col;
     }
 
+    /**
+     * @param color
+     *            the color to set
+     */
+    public void setColor(final int color) {
+        /*
+         * for debugging: use random color settings such that all walls look
+         * different
+         * int r = SingleRandom.getRandom().nextIntWithinInterval(20,240) ;
+         * int g = SingleRandom.getRandom().nextIntWithinInterval(20,240) ;
+         * int b = SingleRandom.getRandom().nextIntWithinInterval(20,240) ;
+         * this.col = new Color(r,g,b); return ;
+         */
+        col = color;
+    }
 
     /**
      * @return the x
@@ -581,8 +592,4 @@ public class Wall {
 		return (num < 0) ? -1 : (num > 0) ? 1 : 0;
 	}
 	
-	public void setControllerAndPanel(Controller controller) {
-		this.controller = controller;
-		this.Panel = controller.getPanel();
-	}
 }
