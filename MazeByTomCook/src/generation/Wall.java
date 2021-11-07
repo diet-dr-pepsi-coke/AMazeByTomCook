@@ -122,18 +122,6 @@ public class Wall {
     }
 
     /**
-     * @param pdx
-     *            direction and length of wall in x coordinate
-     * @param pdy
-     *            direction and length of wall in y coordinate
-     * @return the matching cardinal direction
-     */
-    private static CardinalDirection getCD(final int pdx, final int pdy) {
-        return CardinalDirection.getDirection((int) Math.signum(pdx),
-                (int) Math.signum(pdy));
-    }
-
-    /**
      * Determine the color for this wall.
      *
      * @param distance
