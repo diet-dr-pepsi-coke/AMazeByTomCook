@@ -6,7 +6,9 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import gui.Controller;
 import gui.MazeFileWriter;
+import gui.MazePanel;
 
 /**
  * A wall is a continuous sequence of wallboards in the maze.
@@ -74,6 +76,9 @@ public class Wall {
      * already by the user on its path through the maze.
      */
     private boolean seen;
+    
+    private Controller controller;
+    private MazePanel Panel;
 
     /**
      * Constructor assigns parameter values to instance variables.
@@ -116,7 +121,7 @@ public class Wall {
         partition = false;
         seen = false;
         // determine color
-        setColor(createColor(distance, cc));
+        Panel.setColor(createColor(distance, cc));
         // all fields initialized
     }
 
@@ -145,26 +150,33 @@ public class Wall {
      * @param cc
      *            obscure
      */
-    private Color createColor(final int distance, final int cc) {
+    private int createColor(final int distance, final int cc) {
         final int d = distance / 4;
         // mod used to limit the number of colors to 6
         final int rgbValue = calculateRGBValue(d);
         //System.out.println("Initcolor rgb: " + rgbValue);
         switch (((d >> 3) ^ cc) % 6) {
         case 0:
-            return(new Color(rgbValue, RGB_DEF, RGB_DEF));
+        	Panel.setColor(rgbValue, RGB_DEF, RGB_DEF);
+            return Panel.getColor();
         case 1:
-        	return(new Color(RGB_DEF, RGB_DEF_GREEN, RGB_DEF));
+        	Panel.setColor(RGB_DEF, RGB_DEF, RGB_DEF);
+            return Panel.getColor();
         case 2:
-        	return(new Color(RGB_DEF, RGB_DEF, rgbValue));
+        	Panel.setColor(RGB_DEF, RGB_DEF, rgbValue);
+            return Panel.getColor();
         case 3:
-        	return(new Color(rgbValue, RGB_DEF_GREEN, RGB_DEF));
+        	Panel.setColor(rgbValue, RGB_DEF_GREEN, RGB_DEF);
+        	return Panel.getColor();
         case 4:
-        	return(new Color(RGB_DEF, RGB_DEF_GREEN, rgbValue));
+        	Panel.setColor(RGB_DEF, RGB_DEF_GREEN, rgbValue);
+        	return Panel.getColor();
         case 5:
-        	return(new Color(rgbValue, RGB_DEF, rgbValue));
+        	Panel.setColor(rgbValue, RGB_DEF, rgbValue);
+        	return Panel.getColor();
         default:
-        	return(new Color(RGB_DEF, RGB_DEF, RGB_DEF));
+        	Panel.setColor(RGB_DEF, RGB_DEF, RGB_DEF);
+        	return Panel.getColor();
         }
     }
 
@@ -629,5 +641,10 @@ public class Wall {
 	 */
 	static int getSign(int num) {
 		return (num < 0) ? -1 : (num > 0) ? 1 : 0;
+	}
+	
+	public void setControllerAndPanel(Controller controller) {
+		this.controller = controller;
+		this.Panel = controller.getPanel();
 	}
 }
