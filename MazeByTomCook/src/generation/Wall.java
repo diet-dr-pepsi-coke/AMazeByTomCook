@@ -1,6 +1,5 @@
 package generation;
 
-import java.awt.Color;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -62,7 +61,7 @@ public class Wall {
     /**
      * color of wall, only set by constructor and file reader.
      */
-    private Color col;
+    private int col;
     /**
      * partition flag, initially set to false. 
      * BSPBuilder code sets it to true for border case
@@ -137,12 +136,7 @@ public class Wall {
         return CardinalDirection.getDirection((int) Math.signum(pdx),
                 (int) Math.signum(pdy));
     }
- 
-    /**
-     * Default minimum value for RGB values.
-     */
-    private static final int RGB_DEF = 20;
-    private static final int RGB_DEF_GREEN = 60;
+
     /**
      * Determine the color for this wall.
      *
@@ -229,7 +223,7 @@ public class Wall {
         MazeFileWriter.appendChild(doc, mazeXML, "ySeg_" + number + "_" + i,
                 getStartPositionY());
         MazeFileWriter.appendChild(doc, mazeXML, "colSeg_" + number + "_" + i,
-                getColor().getRGB());
+                Panel.getColor());
     }
 
     /**
@@ -259,7 +253,7 @@ public class Wall {
             return false;
         }
         if ((dist != o.dist) || (partition != o.partition) || (seen != o.seen)
-                || (col.getRGB() != o.col.getRGB())) {
+                || (col != o.col)) {
             return false;
         }
         // all fields are equal, so both objects are equal
@@ -329,25 +323,10 @@ public class Wall {
     /**
      * @return the color
      */
-    public Color getColor() {
+    public int getColor() {
         return col;
     }
 
-    /**
-     * @param color
-     *            the color to set
-     */
-    public void setColor(final Color color) {
-        /*
-         * for debugging: use random color settings such that all walls look
-         * different
-         * int r = SingleRandom.getRandom().nextIntWithinInterval(20,240) ;
-         * int g = SingleRandom.getRandom().nextIntWithinInterval(20,240) ;
-         * int b = SingleRandom.getRandom().nextIntWithinInterval(20,240) ;
-         * this.col = new Color(r,g,b); return ;
-         */
-        col = color;
-    }
 
     /**
      * @return the x
