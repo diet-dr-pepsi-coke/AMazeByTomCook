@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+
 /**
  * Provides an adapter for a graphics object for the first person view
  * and the map view to draw on. 
@@ -38,8 +40,30 @@ public interface P5PanelF21 {
 	     * @return the rgb value for the color of the wall
 	     */
 	    public static int getWallColor(int distance, int cc, int extensionX) {
-	    	// YOUR CODE IS MISSING HERE
-	    	return 0; // THIS IS JUST TO MAKE THE COMPILER HAPPY YOU NEED TO FIX THIS
+	    	final int d = distance / 4;
+	        // mod used to limit the number of colors to 6
+	        final int part1 = distance & 7;
+	        final int add = (extensionX != 0) ? 1 : 0;
+	        final int rgbValue =  ((part1 + 2 + add) * 70) / 8 + 80;
+	        //System.out.println("Initcolor rgb: " + rgbValue);
+	        switch (((d >> 3) ^ cc) % 6) {
+	        case 0:
+	        	
+	            return(new Color(rgbValue, 20, 20).getRGB());
+	        case 1:
+	        	return(new Color(20, 60, 20).getRGB());
+	        case 2:
+	        	return(new Color(20, 20, rgbValue).getRGB());
+	        case 3:
+	        	return(new Color(rgbValue, 60, 20).getRGB());
+	        case 4:
+	        	return(new Color(20, 60, rgbValue).getRGB());
+	        case 5:
+	        	return(new Color(rgbValue, 20, rgbValue).getRGB());
+	        default:
+	        	return(new Color(20, 20, 20).getRGB());
+	        }
+
 	    };
 		
 		
