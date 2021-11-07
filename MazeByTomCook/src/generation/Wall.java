@@ -156,22 +156,6 @@ public class Wall {
     }
 
     /**
-     * Computes an RGB value based on the given numerical value.
-     *
-     * @param distance
-     *            value to select color
-     * @return the calculated RGB value
-     */
-    private int calculateRGBValue(final int distance) {
-        // compute rgb value, depends on distance and x direction
-        // 7 in binary is 0...0111
-        // use AND to get last 3 digits of distance
-        final int part1 = distance & 7;
-        final int add = (getExtensionX() != 0) ? 1 : 0;
-        return ((part1 + 2 + add) * 70) / 8 + 80;
-    }
-
-    /**
      * Computes specific integer values for the X,Y directions.
      * If x direction matters, it returns the inverse direction,
      * either -1 or 1.
