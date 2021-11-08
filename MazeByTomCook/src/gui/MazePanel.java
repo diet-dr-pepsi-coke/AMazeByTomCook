@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.RenderingHints;
+import java.awt.RenderingHints.Key;
 
 /**
  * Add functionality for double buffering to an AWT Panel class.
@@ -207,8 +208,34 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void setRenderingHint(P5RenderingHints hintKey, P5RenderingHints hintValue) {
-		// TODO Auto-generated method stub
+		Graphics2D g = (Graphics2D) this.getBufferGraphics();
+		g.setRenderingHint(convertP5toGraphicHint(hintKey), hintValue);
 		
+	}
+	
+	private RenderingHints.Key convertP5toGraphicHint(P5RenderingHints hintKey) {
+		RenderingHints.Key result = null;
+		switch (hintKey) {
+		case KEY_ANTIALIASING:
+			result = RenderingHints.KEY_ANTIALIASING;
+			break;
+		case KEY_INTERPOLATION:
+			result = RenderingHints.KEY_INTERPOLATION;
+			break;
+		case KEY_RENDERING:
+			result = RenderingHints.KEY_RENDERING;
+			break;
+		case VALUE_ANTIALIAS_ON:
+			result = (Key) RenderingHints.VALUE_ANTIALIAS_ON;
+			break;
+		case VALUE_INTERPOLATION_BILINEAR:
+			result = (Key) RenderingHints.VALUE_INTERPOLATION_BILINEAR;
+			break;
+		case VALUE_RENDER_QUALITY:
+			result = (Key) RenderingHints.VALUE_RENDER_QUALITY;
+			break;		
+		}
+		return result;
 	}
 
 }
