@@ -462,7 +462,7 @@ public class StatePlaying extends DefaultState {
     	else {
     		// draw compass rose
     		cr.setCurrentDirection(getCurrentDirection());
-    		cr.paintComponent(panel.getBufferGraphics());
+    		cr.paintComponent(panel);
     	}
     	panel.update();
     }

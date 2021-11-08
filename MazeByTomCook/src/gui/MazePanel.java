@@ -161,8 +161,7 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void addBackground(float percentToExit) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -181,7 +180,8 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void addPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-		// TODO Auto-generated method stub
+		Graphics g = this.getBufferGraphics();
+		g.drawPolygon(xPoints, yPoints, nPoints);
 		
 	}
 
@@ -194,7 +194,8 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void addArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-		// TODO Auto-generated method stub
+		Graphics g = this.getBufferGraphics();
+		g.drawArc(x, y, width, height, startAngle, arcAngle);
 		
 	}
 
