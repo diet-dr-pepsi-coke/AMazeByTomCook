@@ -256,139 +256,29 @@ public class ReliableRobot implements Robot {
 					dist = frontSensor.distanceToObstacle(curPos, curDir, battery); 
 					break; }
 				else {
-					System.out.println("had to switch");
-					// check to see which sensor is working and rotate to have that
-					// sensor look in the current direction, then rotate the robot back
-					// to its original position
-					if (leftSensor.isOperational()) {
-						rotate(Turn.RIGHT);
-						dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.LEFT);
-						break; }
-					else if (rightSensor.isOperational()) {
-						rotate(Turn.LEFT);
-						dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.RIGHT);
-						break; }
-					else if (backSensor.isOperational()) {
-						rotate(Turn.AROUND);
-						dist = backSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.AROUND);
-						break; }
-					else {
-						// if there are no operational sensors, we simply wait for the
-						// original sensor to be repaired and then use that one again
-						while (!frontSensor.isOperational()) {
-							System.out.println("Waiting for sensor to be repaired");
-							continue; }
-						dist = frontSensor.distanceToObstacle(curPos, curDir, battery); 
-						break; }
-					}
+					switchFrontSensor(curPos, curDir, battery); }
 			case LEFT:
 				if (leftSensor.isOperational()) {
 					dist = leftSensor.distanceToObstacle(curPos, curDir, battery); 
 					break; }
 				else {
-					System.out.println("had to switch");
-					// check to see which sensor is working and rotate to have that
-					// sensor look in the current direction, then rotate the robot back
-					// to its original position
-					if (backSensor.isOperational()) {
-						rotate(Turn.RIGHT);
-						dist = backSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.LEFT);
-						break; }
-					else if (frontSensor.isOperational()) {
-						rotate(Turn.LEFT);
-						dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.RIGHT);
-						break; }
-					else if (rightSensor.isOperational()) {
-						rotate(Turn.AROUND);
-						dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.AROUND);
-						break; }
-					else {
-						// if there are no operational sensors, we simply wait for the
-						// original sensor to be repaired and then use that one again
-						while (!leftSensor.isOperational()) {
-							System.out.println("Waiting for sensor to be repaired");
-							continue; }
-						dist = leftSensor.distanceToObstacle(curPos, curDir, battery); 
-						break; }
-					}
+					switchLeftSensor(curPos, curDir, battery); }
 			case RIGHT:
 				if (rightSensor.isOperational()) {
 					dist = rightSensor.distanceToObstacle(curPos, curDir, battery); 
 					break; }
 				else {
-					System.out.println("had to switch");
-					// check to see which sensor is working and rotate to have that
-					// sensor look in the current direction, then rotate the robot back
-					// to its original position
-					if (frontSensor.isOperational()) {
-						rotate(Turn.RIGHT);
-						dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.LEFT);
-						break; }
-					else if (backSensor.isOperational()) {
-						rotate(Turn.LEFT);
-						dist = backSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.RIGHT);
-						break; }
-					else if (leftSensor.isOperational()) {
-						rotate(Turn.AROUND);
-						dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.AROUND);
-						break; }
-					else {
-						// if there are no operational sensors, we simply wait for the
-						// original sensor to be repaired and then use that one again
-						while (!rightSensor.isOperational()) {
-							System.out.println("Waiting for sensor to be repaired");
-							continue; }
-						dist = rightSensor.distanceToObstacle(curPos, curDir, battery); 
-						break; }
-					}
+					switchRightSensor(curPos, curDir, battery); }
 			case BACKWARD:
 				if (backSensor.isOperational()) {
 					dist = backSensor.distanceToObstacle(curPos, curDir, battery); 
 					break; }
 				else {
-					System.out.println("had to switch");
-					// check to see which sensor is working and rotate to have that
-					// sensor look in the current direction, then rotate the robot back
-					// to its original position
-					if (rightSensor.isOperational()) {
-						rotate(Turn.RIGHT);
-						dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.LEFT);
-						break; }
-					else if (leftSensor.isOperational()) {
-						rotate(Turn.LEFT);
-						dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.RIGHT);
-						break; }
-					else if (frontSensor.isOperational()) {
-						rotate(Turn.AROUND);
-						dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
-						rotate(Turn.AROUND);
-						break; }
-					else {
-						// if there are no operational sensors, we simply wait for the
-						// original sensor to be repaired and then use that one again
-						while (!backSensor.isOperational()) {
-							System.out.println("Waiting for sensor to be repaired");
-							continue; }
-						dist = backSensor.distanceToObstacle(curPos, curDir, battery); 
-						break; }
-					}
+					switchBackSensor(curPos, curDir, battery); }
 			}
 		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-			 setBatteryLevel(getBatteryLevel() - 1);
+		catch(Exception e) {e.printStackTrace(); }
+			 batteryLevel -= 1;
 			 if (getBatteryLevel() <= 0) {
 				stopped = true; 
 				return 0;}
@@ -397,6 +287,168 @@ public class ReliableRobot implements Robot {
 		 return 0;
 	}
 
+	/**
+	 * Method to turn the robot so that another sensor can calculate the distance
+	 * to an obstacle in the event that the front sensor fails
+	 * @param curPos current position of the robot
+	 * @param curDir current direction of the robot
+	 * @param battery current battery level
+	 * @return distance to wallboard in this direction
+	 */
+	public int switchFrontSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
+		int dist = 0;
+		// check to see which sensor is working and rotate to have that
+		// sensor look in the current direction, then rotate the robot back
+		// to its original position
+		try {
+		if (leftSensor.isOperational()) {
+			rotate(Turn.RIGHT);
+			dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
+			rotate(Turn.LEFT);
+			batteryLevel -= (1/2)*getEnergyForFullRotation();
+			}
+		else if (rightSensor.isOperational()) {
+			rotate(Turn.LEFT);
+			dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
+			rotate(Turn.RIGHT);
+			batteryLevel -= (1/2)*getEnergyForFullRotation();
+			}
+		else if (backSensor.isOperational()) {
+			rotate(Turn.AROUND);
+			dist = backSensor.distanceToObstacle(curPos, curDir, battery);
+			rotate(Turn.AROUND);
+			batteryLevel -= getEnergyForFullRotation();
+			}
+		else {
+			// if there are no operational sensors, we simply wait for the
+			// original sensor to be repaired and then use that one again
+			while (!frontSensor.isOperational()) {
+				System.out.println("Waiting for sensor to be repaired");
+				continue; }
+			dist = frontSensor.distanceToObstacle(curPos, curDir, battery); 
+			} }
+		catch (Exception e) {}
+		return dist;
+	}
+	
+	/**
+	 * Method to turn the robot so that another sensor can calculate the distance
+	 * to an obstacle in the event that the left sensor fails
+	 * @param curPos current position of the robot
+	 * @param curDir current direction of the robot
+	 * @param battery current battery level
+	 * @return distance to wallboard in this direction
+	 */
+	public int switchLeftSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
+		int dist = 0;
+		try {
+		if (backSensor.isOperational()) {
+			rotate(Turn.RIGHT);
+			dist = backSensor.distanceToObstacle(curPos, curDir, battery);
+			rotate(Turn.LEFT);
+			batteryLevel -= (1/2)*getEnergyForFullRotation();
+			}
+		else if (frontSensor.isOperational()) {
+			rotate(Turn.LEFT);
+			dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
+			rotate(Turn.RIGHT);
+			batteryLevel -= (1/2)*getEnergyForFullRotation();
+			}
+		else if (rightSensor.isOperational()) {
+			rotate(Turn.AROUND);
+			dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
+			rotate(Turn.AROUND);
+			batteryLevel -= getEnergyForFullRotation();
+			}
+		else {
+			while (!leftSensor.isOperational()) {
+				System.out.println("Waiting for sensor to be repaired");
+				continue; }
+			dist = leftSensor.distanceToObstacle(curPos, curDir, battery); 
+			} }
+		catch (Exception e) {}
+		return dist;
+	}
+	
+	/**
+	 * Method to turn the robot so that another sensor can calculate the distance
+	 * to an obstacle in the event that the right sensor fails
+	 * @param curPos current position of the robot
+	 * @param curDir current direction of the robot
+	 * @param battery current battery level
+	 * @return distance to wallboard in this direction
+	 */
+	public int switchRightSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
+		int dist = 0;
+		try {
+			if (frontSensor.isOperational()) {
+				rotate(Turn.RIGHT);
+				dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
+				rotate(Turn.LEFT);
+				batteryLevel -= (1/2)*getEnergyForFullRotation();
+				}
+			else if (backSensor.isOperational()) {
+				rotate(Turn.LEFT);
+				dist = backSensor.distanceToObstacle(curPos, curDir, battery);
+				rotate(Turn.RIGHT);
+				batteryLevel -= (1/2)*getEnergyForFullRotation();
+				}
+			else if (leftSensor.isOperational()) {
+				rotate(Turn.AROUND);
+				dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
+				rotate(Turn.AROUND);
+				batteryLevel -= getEnergyForFullRotation();
+				}
+			else {
+				while (!rightSensor.isOperational()) {
+					System.out.println("Waiting for sensor to be repaired");
+					continue; }
+				dist = rightSensor.distanceToObstacle(curPos, curDir, battery); 
+				 } }
+		catch (Exception e) {}
+		return dist;
+		}
+	
+	/**
+	 * Method to turn the robot so that another sensor can calculate the distance
+	 * to an obstacle in the event that the back sensor fails
+	 * @param curPos current position of the robot
+	 * @param curDir current direction of the robot
+	 * @param battery current battery level
+	 * @return distance to wallboard in this direction
+	 */
+	public int switchBackSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
+		int dist = 0;
+		try {
+			if (rightSensor.isOperational()) {
+				rotate(Turn.RIGHT);
+				dist = rightSensor.distanceToObstacle(curPos, curDir, battery);
+				rotate(Turn.LEFT);
+				batteryLevel -= (1/2)*getEnergyForFullRotation();
+				}
+			else if (leftSensor.isOperational()) {
+				rotate(Turn.LEFT);
+				dist = leftSensor.distanceToObstacle(curPos, curDir, battery);
+				rotate(Turn.RIGHT);
+				batteryLevel -= (1/2)*getEnergyForFullRotation();
+				}
+			else if (frontSensor.isOperational()) {
+				rotate(Turn.AROUND);
+				dist = frontSensor.distanceToObstacle(curPos, curDir, battery);
+				rotate(Turn.AROUND);
+				batteryLevel -= getEnergyForFullRotation();
+				}
+			else {
+				// if there are no operational sensors, we simply wait for the
+				// original sensor to be repaired and then use that one again
+				while (!backSensor.isOperational()) {
+					System.out.println("Waiting for sensor to be repaired");
+					continue; }
+				dist = backSensor.distanceToObstacle(curPos, curDir, battery); 
+				}} 
+		catch (Exception e) {}
+		return dist;
+	}
 	@Override
 	public boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException {
 		 if (distanceToObstacle(direction) == Integer.MAX_VALUE) {
