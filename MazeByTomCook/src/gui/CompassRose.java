@@ -22,11 +22,11 @@ public class CompassRose {
 	private static final long serialVersionUID = 1916497172430988388L;
 	
 	// some fixed color settings
-	private static final Color greenWM = Color.decode("#115740");
-	private static final Color goldWM = Color.decode("#916f41");
+	private static final int greenWM = 0x115740;
+	private static final int goldWM = 0x916f41;
 	
 	// fixed configuration for arms
-    private static final Color MAIN_COLOR = greenWM; //new Color(0.4f, 0.4f, 1.0f);
+    private static final int MAIN_COLOR = greenWM; //new Color(0.4f, 0.4f, 1.0f);
     private static final float MAIN_LENGTH = 0.95f;
     private static final float MAIN_WIDTH = 0.15f;
     
@@ -38,7 +38,7 @@ public class CompassRose {
     //Color.decode("#115740").brighter(); //new Color(0.0f, 0.0f, 0.0f, 0.2f); 
     
     // fixed configuration for letters used to indicate direction
-    private static final Color MARKER_COLOR = Color.black;  
+    private static final int MARKER_COLOR = 0x000000;  
     /**
      * The font used to write letters N,E,S,W on compass rose. 
      * There is little need for flexibility, 
@@ -149,7 +149,7 @@ public class CompassRose {
      * @param length The length of an arm
      * @param width The width of an arm
      */
-	private void drawArms(final Graphics2D g2, final int length, final int width) {
+	private void drawArms(MazePanel Panel, final int length, final int width) {
 		// Each arm of the compass rose is a symbol created
         // with 2 triangles, one filled, the other one not
         // The first point in the triangle is always the center point.
@@ -161,12 +161,12 @@ public class CompassRose {
         x[0] = centerX;
         y[0] = centerY;
         // use the same color for all arms
-        g2.setColor(MAIN_COLOR);
+        Panel.setColor(MAIN_COLOR);
         // draw each arm
-        drawArmNorth(g2, length, width, x, y);
-        drawArmEast(g2, length, width, x, y);
-        drawArmSouth(g2, length, width, x, y);
-        drawArmWest(g2, length, width, x, y);
+        drawArmNorth(Panel, length, width, x, y);
+        drawArmEast(Panel, length, width, x, y);
+        drawArmSouth(Panel, length, width, x, y);
+        drawArmWest(Panel, length, width, x, y);
 	}
 
     /**
@@ -194,17 +194,17 @@ public class CompassRose {
 	 * @param x For the x coordinates of the triangle points, first entry given and fixed
 	 * @param y For the y coordinates of the triangle points, first entry given and fixed
 	 */
-	private void drawArmWest(Graphics2D g2, int length, int width, int[] x, int[] y) {
+	private void drawArmWest(MazePanel Panel, int length, int width, int[] x, int[] y) {
 		// x[0] and y[0] are already set to the coordinates of the center point
 		// set coordinates for 2nd and 3rd point and draw filled triangle
 		x[1] = centerX - length;
         y[1] = centerY;
         x[2] = centerX - width;
         y[2] = centerY + width;
-        g2.fillPolygon(x, y, 3);
+        Panel.addFilledPolygon(x, y, 3);
         // adjust coordinate for 2nd point and draw 2nd triangle
         y[2] = centerY - width;
-        g2.drawPolygon(x, y, 3);
+        Panel.addPolygon(x, y, 3);
 	}
 	/**
 	 * Draw an arm in east direction.
@@ -214,11 +214,11 @@ public class CompassRose {
 	 * @param x For the x coordinates of the triangle points, first entry given and fixed
 	 * @param y For the y coordinates of the triangle points, first entry given and fixed
 	 */
-	private void drawArmEast(Graphics2D g2, int length, int width, int[] x, int[] y) {
+	private void drawArmEast(MazePanel Panel, int length, int width, int[] x, int[] y) {
 		// observation: the 2 triangles to the right are drawn the same
 		// way as for the left if one inverts the sign for length and width
 		// i.e., exchanges addition and subtraction
-		drawArmWest(g2, -length, -width, x, y);
+		drawArmWest(Panel, -length, -width, x, y);
 	}
 	/**
 	 * Draw an arm in south direction.
@@ -228,17 +228,17 @@ public class CompassRose {
 	 * @param x For the x coordinates of the triangle points, first entry given and fixed
 	 * @param y For the y coordinates of the triangle points, first entry given and fixed
 	 */
-	private void drawArmSouth(Graphics2D g2, int length, int width, int[] x, int[] y) {
+	private void drawArmSouth(MazePanel Panel, int length, int width, int[] x, int[] y) {
 		// x[0] and y[0] are already set to the coordinates of the center point
 		// set coordinates for 2nd and 3rd point and draw filled triangle
 		x[1] = centerX;
         y[1] = centerY + length;
         x[2] = centerX + width;
         y[2] = centerY + width;
-        g2.fillPolygon(x, y, 3);
+        Panel.addFilledPolygon(x, y, 3);
         // adjust coordinate for 2nd point and draw 2nd triangle
         x[2] = centerX - width;
-        g2.drawPolygon(x, y, 3);
+        Panel.addPolygon(x, y, 3);
 	}
 	/**
 	 * Draw an arm in north direction.
@@ -248,11 +248,11 @@ public class CompassRose {
 	 * @param x For the x coordinates of the triangle points, first entry given and fixed
 	 * @param y For the y coordinates of the triangle points, first entry given and fixed
 	 */
-	private void drawArmNorth(Graphics2D g2, int length, int width, int[] x, int[] y) {
+	private void drawArmNorth(MazePanel Panel, int length, int width, int[] x, int[] y) {
 		// observation: the 2 triangles to the top are drawn the same
 		// way as for the bottom if one inverts the sign for length and width
 		// i.e., exchanges addition and subtraction
-		drawArmSouth(g2, -length, -width, x, y);
+		drawArmSouth(Panel, -length, -width, x, y);
 	}
 
 	/**
