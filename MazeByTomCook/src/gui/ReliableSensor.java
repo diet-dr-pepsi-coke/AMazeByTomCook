@@ -26,7 +26,7 @@ import gui.Robot.Direction;
 public class ReliableSensor implements DistanceSensor {
 	
 	private Maze maze;
-	public Direction sensorDirection;
+	private Direction sensorDirection;
 	// private Maze maze
 	// private Direction sensorDirection
 
@@ -62,8 +62,7 @@ public class ReliableSensor implements DistanceSensor {
 	 * ({@code powersupply < 0} ) 
 	 */
 	@Override
-	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply)
-			throws Exception {
+	public int distanceToObstacle(int[] currentPosition, CardinalDirection currentDirection, float[] powersupply) throws Exception {
 		 int curX = currentPosition[0];
 		 int curY = currentPosition[1];
 		 int openCells = 0; /////keeps track of how far next wallboard is//////
