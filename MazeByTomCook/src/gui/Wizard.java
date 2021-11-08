@@ -32,8 +32,8 @@ public class Wizard implements RobotDriver {
 	
 	 private int totalEnergyConsumption;
 	 private int totalPathTravelled;
-	 public Robot robot;
-	 public Maze maze;
+	 private Robot robot;
+	 private Maze maze;
 	 
 	public Wizard() {
 		// TODO Auto-generated constructor stub
@@ -85,8 +85,6 @@ public class Wizard implements RobotDriver {
 		 while (robot.canSeeThroughTheExitIntoEternity(Direction.FORWARD) == false) {
 				robot.rotate(Turn.LEFT);
 				return true; }
-		///////////// NOT SURE IF REQUIRED YET //////////////////
-		// ReliableRobot.move(1)
 		return true;
 	}
 	
@@ -113,65 +111,20 @@ public class Wizard implements RobotDriver {
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
 		int[] direction = {desiredPos[0] - curPos[0], desiredPos[1] - curPos[1]};
-		// North : (0,-1)
-		// South : (0,1)
-		// East : (1,0)
-		// West : (-1,0)
+		// North : (0,-1) South : (0,1) East : (1,0) West : (-1,0)
 		CardinalDirection desiredDir = CardinalDirection.getDirection(direction[0], direction[1]);
-		switch (desiredDir) {
-		case North :
-			if (robot.getCurrentDirection() == desiredDir) {
-				robot.move(1);
-				return true; }
-			 if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
-				robot.rotate(Turn.LEFT); 
-				break; }
-			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
-				robot.rotate(Turn.AROUND); 
-				break; }
-			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
-				robot.rotate(Turn.RIGHT); 
-				break; }
-		case South :
-			if (robot.getCurrentDirection() == desiredDir) {
-				robot.move(1); 
-				return true; }
-			 if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
-				robot.rotate(Turn.LEFT);
-				break; }
-			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
-				robot.rotate(Turn.AROUND);
-				break; }
-			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
-				robot.rotate(Turn.RIGHT); 
-				break; }
-		case East :
-			if (robot.getCurrentDirection() == desiredDir) {
-				robot.move(1);
-				return true; }
-			 if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
-				robot.rotate(Turn.LEFT);
-				break; }
-			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
-				robot.rotate(Turn.AROUND);
-				break; }
-			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
-				robot.rotate(Turn.RIGHT); 
-				break; }
-		case West :
-			if (robot.getCurrentDirection() == desiredDir) {
-				robot.move(1);
-				return true; }
-			 if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
-				robot.rotate(Turn.LEFT);
-				break; }
-			else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
-				robot.rotate(Turn.AROUND); 
-				break; }
-			else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
-				robot.rotate(Turn.RIGHT); 
-				break; }
-		}
+		if (robot.getCurrentDirection() == desiredDir) {
+			robot.move(1);
+			return true; }
+	    if (robot.getCurrentDirection() == desiredDir.oppositeDirection().rotateClockwise()) {
+			robot.rotate(Turn.LEFT); 
+			return true; }
+		else if (robot.getCurrentDirection() == desiredDir.oppositeDirection()) {
+			robot.rotate(Turn.AROUND); 
+			return true; }
+		else if (robot.getCurrentDirection() == desiredDir.rotateClockwise()) {
+			robot.rotate(Turn.RIGHT); 
+			return true; }
 		return false; 
 	}
 		
