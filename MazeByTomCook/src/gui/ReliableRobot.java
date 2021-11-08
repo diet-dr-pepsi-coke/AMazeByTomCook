@@ -295,7 +295,7 @@ public class ReliableRobot implements Robot {
 	 * @param battery current battery level
 	 * @return distance to wallboard in this direction
 	 */
-	public int switchFrontSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
+	private int switchFrontSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
 		int dist = 0;
 		// check to see which sensor is working and rotate to have that
 		// sensor look in the current direction, then rotate the robot back
@@ -339,7 +339,7 @@ public class ReliableRobot implements Robot {
 	 * @param battery current battery level
 	 * @return distance to wallboard in this direction
 	 */
-	public int switchLeftSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
+	private int switchLeftSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
 		int dist = 0;
 		try {
 		if (backSensor.isOperational()) {
@@ -378,7 +378,7 @@ public class ReliableRobot implements Robot {
 	 * @param battery current battery level
 	 * @return distance to wallboard in this direction
 	 */
-	public int switchRightSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
+	private int switchRightSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
 		int dist = 0;
 		try {
 			if (frontSensor.isOperational()) {
@@ -417,7 +417,7 @@ public class ReliableRobot implements Robot {
 	 * @param battery current battery level
 	 * @return distance to wallboard in this direction
 	 */
-	public int switchBackSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
+	private int switchBackSensor(int[] curPos, CardinalDirection curDir, float[] battery) {
 		int dist = 0;
 		try {
 			if (rightSensor.isOperational()) {
@@ -449,6 +449,7 @@ public class ReliableRobot implements Robot {
 		catch (Exception e) {}
 		return dist;
 	}
+	
 	@Override
 	public boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException {
 		 if (distanceToObstacle(direction) == Integer.MAX_VALUE) {

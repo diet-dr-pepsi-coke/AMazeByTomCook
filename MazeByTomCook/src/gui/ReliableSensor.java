@@ -154,7 +154,7 @@ public class ReliableSensor implements DistanceSensor {
 	 * @param currentMount is the sensor's relative direction on the robot
 	 * @param DirofRobot is the cardinal direction the robot is facing.
 	 */
-	public CardinalDirection convertMountedToCardinal(Direction currentMount, CardinalDirection DirofRobot) {
+	private CardinalDirection convertMountedToCardinal(Direction currentMount, CardinalDirection DirofRobot) {
 		CardinalDirection newDir = CardinalDirection.North;
 		if (DirofRobot == CardinalDirection.North) {
 			switch (currentMount) {
