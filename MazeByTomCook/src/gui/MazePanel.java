@@ -1,12 +1,15 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.RenderingHints;
 import java.awt.RenderingHints.Key;
+import java.awt.font.GlyphVector;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Add functionality for double buffering to an AWT Panel class.
@@ -29,6 +32,7 @@ public class MazePanel extends Panel implements P5PanelF21  {
 	// graphics is stored to allow clients to draw on the same graphics object repeatedly
 	// has benefits if color settings should be remembered for subsequent drawing operations
 	private Graphics gc;
+	private Font markerFont;
 	
 	/**
 	 * Constructor. Object is not focusable.
@@ -202,8 +206,15 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void addMarker(float x, float y, String str) {
-		// TODO Auto-generated method stub
-		
+		Graphics2D g = (Graphics2D) this.getBufferGraphics();
+		GlyphVector gv = markerFont.createGlyphVector(g.getFontRenderContext(), str);
+		 Rectangle2D rect = gv.getVisualBounds();
+	        // need to update x, y by half of rectangle width, height
+	        // to serve as x, y coordinates for drawing a GlyphVector
+	        x -= rect.getWidth() / 2;
+	        y += rect.getHeight() / 2;
+	        
+	        g.drawGlyphVector(gv, x, y);
 	}
 
 	@Override

@@ -301,38 +301,19 @@ public class CompassRose {
 		// WARNING: north south confusion
 		// currendDir South is going upward on the map
 		Panel.setColor((CardinalDirection.South == currentDir) ? MARKER_COLOR : goldWM);
-		drawMarker(Panel, centerX, centerY - offset, "N");
+		Panel.addMarker(centerX, centerY - offset, "N");
 
 		Panel.setColor((CardinalDirection.East == currentDir) ? MARKER_COLOR : goldWM);
-		drawMarker(Panel, centerX + offset, centerY, "E");
+		Panel.addMarker(centerX + offset, centerY, "E");
 
 		// WARNING: north south confusion
 		// currendDir North is going downwards on the map
 		Panel.setColor((CardinalDirection.North == currentDir) ? MARKER_COLOR : goldWM);
-		drawMarker(Panel, centerX, centerY + offset, "S");
+		Panel.addMarker(centerX, centerY + offset, "S");
 
 		Panel.setColor((CardinalDirection.West == currentDir) ? MARKER_COLOR : goldWM);
-		drawMarker(Panel, centerX - offset, centerY, "W");
+		Panel.addMarker(centerX - offset, centerY, "W");
 
 	}
- 
-	/**
-	 * Draws the given string at the given coordinates.
-	 * It uses the field markerFont to determine the font.
-	 * @param g2 The graphics object to draw on
-	 * @param x The x coordinate where to draw
-	 * @param y The y coordinate where to draw
-	 * @param str The string to draw
-	 */
-    private void drawMarker(Graphics2D g2, float x, float y, String str) {
-        GlyphVector gv = markerFont.createGlyphVector(g2.getFontRenderContext(), str);
-        Rectangle2D rect = gv.getVisualBounds();
-        // need to update x, y by half of rectangle width, height
-        // to serve as x, y coordinates for drawing a GlyphVector
-        x -= rect.getWidth() / 2;
-        y += rect.getHeight() / 2;
-        
-        g2.drawGlyphVector(gv, x, y);
-        
-    }
+
 }
