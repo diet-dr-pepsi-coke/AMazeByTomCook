@@ -79,7 +79,7 @@ public class MazeApplication extends JFrame {
 	    String msg = null; // message for feedback
 	    
 	    // Case 1: no input
-	    if (generation == "") {
+	    if (generation == "" || generation == null) {
 	        msg = "MazeApplication: maze will be generated with a randomized algorithm."; 
 	    }
 	    
@@ -121,7 +121,7 @@ public class MazeApplication extends JFrame {
 	    }
 	    
 	    // Case 4: No driver input
-	    if (driver == "") {
+	    if (driver == "" || driver == null) {
 	    	msg = "No driver selected: maze will be ran in Manual mode.";
 	    }
 	    
@@ -144,7 +144,7 @@ public class MazeApplication extends JFrame {
 	    }
 
 	    // Case 7: No sensor input
-	    if (sensors == "") {
+	    if (sensors == "" || sensors == null) {
 	    	System.out.println("No Sensor Information: Initializing ReliableSensors");
 	    	robot = new ReliableRobot();
 	    	// initialize all sensors as reliable on default
