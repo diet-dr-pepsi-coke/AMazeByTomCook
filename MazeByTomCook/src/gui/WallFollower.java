@@ -74,59 +74,44 @@ public class WallFollower implements RobotDriver {
 
 	@Override
 	public boolean drive1Step2Exit() throws Exception {
-		// check to see if we are looking at the exit, and if so, make a break for it
-	/*	if (robot.canSeeThroughTheExitIntoEternity(Direction.FORWARD) == true) {
-			System.out.println("can see");
-			while (!robot.isAtExit()) {
-				robot.move(1);
-				return true;
-			}
-		} */
 		// we want to know when the robot is at the exit so we do not pass it
 		if (robot.isAtExit() == true) {
 			return true;
 		}
 		if (robot.isAtExit() == false) {
-			System.out.println(robot.getBatteryLevel());
 			// first check if there is a wall to your left
 			if (robot.distanceToObstacle(Direction.LEFT) == 0) {
 				// if not, check if there is a wall ahead
 				if (robot.distanceToObstacle(Direction.FORWARD) == 0) {
 					// walls in front and to the left so we must turn right
 					robot.rotate(Turn.RIGHT);
-					return false;
-				}
+					totalEnergy += (1/4)*robot.getEnergyForFullRotation();
+					return false; }
 				else {
 					// no wall in front of us so we move up one step
 					robot.move(1);
 					totalPath ++;
-					return true;
-				}
+					totalEnergy += robot.getEnergyForStepForward();
+					return true; }
 			}
 			else {
 				// no wall to our left so we turn left before anything else and also take a step
 				robot.rotate(Turn.LEFT);
 				robot.move(1);
-				//System.out.println(robot.distanceToObstacle(Direction.FORWARD));
 				totalPath++;
-				return true;
-			}
-		}
-		else {
-			
+				totalEnergy += (1/4)*robot.getEnergyForFullRotation() + robot.getEnergyForStepForward();
+				return true; }
 		}
 		return false;
 	}
 
 	@Override
 	public float getEnergyConsumption() {
-		// TODO Auto-generated method stub
 		return totalEnergy;
 	}
 
 	@Override
 	public int getPathLength() {
-		// TODO Auto-generated method stub
 		return robot.getOdometerReading();
 	}
 
