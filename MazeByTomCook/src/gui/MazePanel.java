@@ -31,7 +31,6 @@ public class MazePanel extends Panel implements P5PanelF21  {
 	private Graphics2D graphics; // obtained from bufferImage, 
 	// graphics is stored to allow clients to draw on the same graphics object repeatedly
 	// has benefits if color settings should be remembered for subsequent drawing operations
-	private Graphics gc;
 	private Font markerFont = Font.decode("Serif-PLAIN-16");
 	
 	/**
@@ -121,14 +120,19 @@ public class MazePanel extends Panel implements P5PanelF21  {
 
 	@Override
 	public void commit() {
-		// TODO Auto-generated method stub
+		paint(getGraphics());
 		
 	}
 
 	@Override
 	public boolean isOperational() {
-		// TODO Auto-generated method stub
+		Graphics g = this.getBufferGraphics();
+		if (g != null) {
+			return true;
+		}
+		else {
 		return false;
+		}
 	}
 
 	@Override
@@ -151,6 +155,13 @@ public class MazePanel extends Panel implements P5PanelF21  {
 		gc.setColor(c);
 	}
 	
+	/**
+	 * Provides an alternate way to set the color used for drawing
+	 * @param r a multiplier used on 255 to determine red value
+	 * @param g a multiplier used on 255 to determine green value
+	 * @param b a multiplier used on 255 to determine blue value
+	 * @param a a multiplier used on 255 to determine alpha value
+	 */
 	public void setColor(float r, float g, float b, float a) {
 		Graphics gc = this.getBufferGraphics();
 		Color c = new Color(r, g, b, a);
@@ -224,6 +235,12 @@ public class MazePanel extends Panel implements P5PanelF21  {
 		
 	}
 	
+	/**
+	 * Helper method to change the enumerated P5RenderingHints into 
+	 * RenderingHints.Keys that the graphics method will accept
+	 * @param hintKey the P5RenderingHint we want to convert
+	 * @return corresponding RenderingHints.Key
+	 */
 	private RenderingHints.Key convertP5toGraphicHint(P5RenderingHints hintKey) {
 		RenderingHints.Key result = null;
 		switch (hintKey) {
@@ -240,6 +257,12 @@ public class MazePanel extends Panel implements P5PanelF21  {
 		return result;
 	}
 	
+	/**
+	 * Helper method to change the enumerated P5RenderingHints into 
+	 * RenderingHints Objects that the graphics method will accept
+	 * @param hintKey the P5RenderingHint we want to convert
+	 * @return corresponding RenderingHints Object
+	 */
 	private Object convertP5toGraphicObject(P5RenderingHints hintValue) {
 		Object result = null;
 		switch(hintValue) {
