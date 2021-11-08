@@ -220,7 +220,7 @@ public class MazePanel extends Panel implements P5PanelF21  {
 	@Override
 	public void setRenderingHint(P5RenderingHints hintKey, P5RenderingHints hintValue) {
 		Graphics2D g = (Graphics2D) this.getBufferGraphics();
-		g.setRenderingHint(convertP5toGraphicHint(hintKey), hintValue);
+		g.setRenderingHint(convertP5toGraphicHint(hintKey), convertP5toGraphicObject(hintValue));
 		
 	}
 	
@@ -236,14 +236,23 @@ public class MazePanel extends Panel implements P5PanelF21  {
 		case KEY_RENDERING:
 			result = RenderingHints.KEY_RENDERING;
 			break;
+		}
+		return result;
+	}
+	
+	private Object convertP5toGraphicObject(P5RenderingHints hintValue) {
+		Object result = null;
+		switch(hintValue) {
 		case VALUE_ANTIALIAS_ON:
-			result = (Key) RenderingHints.VALUE_ANTIALIAS_ON;
+			result = RenderingHints.VALUE_ANTIALIAS_ON;
 			break;
 		case VALUE_INTERPOLATION_BILINEAR:
-			result = (Key) RenderingHints.VALUE_INTERPOLATION_BILINEAR;
+			result = RenderingHints.VALUE_INTERPOLATION_BILINEAR;
 			break;
 		case VALUE_RENDER_QUALITY:
-			result = (Key) RenderingHints.VALUE_RENDER_QUALITY;
+			result = RenderingHints.VALUE_RENDER_QUALITY;
+			break;
+		default:
 			break;		
 		}
 		return result;
