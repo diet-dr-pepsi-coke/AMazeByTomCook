@@ -20,10 +20,10 @@ import gui.Robot.Direction;
  */
 
 public class UnreliableRobot extends ReliableRobot {
-	 public DistanceSensor frontSensor;
-	 public DistanceSensor leftSensor;
-	 public DistanceSensor rightSensor;
-	 public DistanceSensor backSensor;
+	 private DistanceSensor frontSensor;
+	 private DistanceSensor leftSensor;
+	 private DistanceSensor rightSensor;
+	 private DistanceSensor backSensor;
 
 	public UnreliableRobot() {
 		// TODO Auto-generated constructor stub
