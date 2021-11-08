@@ -32,7 +32,7 @@ public class MazePanel extends Panel implements P5PanelF21  {
 	// graphics is stored to allow clients to draw on the same graphics object repeatedly
 	// has benefits if color settings should be remembered for subsequent drawing operations
 	private Graphics gc;
-	private Font markerFont;
+	private Font markerFont = Font.decode("Serif-PLAIN-16");
 	
 	/**
 	 * Constructor. Object is not focusable.

@@ -1,14 +1,7 @@
 package gui;
 
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.font.GlyphVector;
-import java.awt.geom.Rectangle2D;
 
 import generation.CardinalDirection;
-import gui.P5PanelF21;
 import gui.P5PanelF21.P5RenderingHints;
 
 /**
@@ -46,7 +39,6 @@ public class CompassRose {
      * so this is why it is fixed by the constructor.
      * It could be made flexible with getters/setters if needed.
      */
-    private final Font markerFont;  
     
     // The scaler of the rose.  
     // The bordering circle will be this portion of the component dimensions.
@@ -68,7 +60,7 @@ public class CompassRose {
      * Construct a compass rose with the default settings.
      */
     public CompassRose() {
-        this(0.9, 1.7, Font.decode("Serif-PLAIN-16"));
+        this(0.9, 1.7);
     }
      
     /**
@@ -79,10 +71,9 @@ public class CompassRose {
      *                      will position the markers outside of the bordering circle.
      * @param markerFont    The font used for the markers.
      */
-    public CompassRose(double scaler, double markerRadius, Font markerFont) {
+    public CompassRose(double scaler, double markerRadius) {
         this.scaler = scaler;
         this.markerRadius = markerRadius;
-        this.markerFont = markerFont;
     }
     /**
      * Sets the center position for the compass rose and its size
@@ -285,7 +276,7 @@ public class CompassRose {
 	 */
 	private void drawDirectionMarker(MazePanel Panel, int width) {
 		// catch special cases where drawing is not possible
-		if (Double.isNaN(markerRadius) || markerFont == null) 
+		if (Double.isNaN(markerRadius) || Panel == null) 
 			return;
 		
 		// determine offset from center for position of each string
