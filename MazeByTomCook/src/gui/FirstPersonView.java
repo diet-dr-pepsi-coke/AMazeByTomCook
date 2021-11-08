@@ -261,7 +261,6 @@ public class FirstPersonView {
 	    double g = weightFstColor * Integer.parseInt(fstColor.substring(2,4), 16) + (1-weightFstColor) * Integer.parseInt(sndColor.substring(2,4), 16);
 	    double b = weightFstColor * Integer.parseInt(fstColor.substring(4,6), 16) + (1-weightFstColor) * Integer.parseInt(fstColor.substring(4,6), 16);
 	    String newHex = Integer.toHexString((int) r) + Integer.toHexString((int) g) + Integer.toHexString((int) b);
-	    System.out.println("newHex: " + newHex);
 	    return Integer.parseInt(newHex,16);
 	  }
 	/**
