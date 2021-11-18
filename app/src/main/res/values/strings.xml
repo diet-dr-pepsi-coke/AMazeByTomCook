@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AMazeByTomCook</string>
+    <string name="DFS">DFS</string>
+    <string name="Prim">Prim</string>
+    <string name="Boruvka">Boruvka</string>
+    <string name="Difficulty">Select Difficulty:</string>
+    <string name="Room">Include Rooms?</string>
+    <string name="Algorithm">Generation Algorithm:</string>
+    <string name="Explore">Explore</string>
+    <string name="Revisit">Revisit</string>
 </resources>
