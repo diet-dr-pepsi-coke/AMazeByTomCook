@@ -2,6 +2,7 @@ package edu.wm.cs.cs301.tomcook;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -34,7 +35,7 @@ public class GeneratingActivity extends AppCompatActivity {
         Shaky = (RadioButton) findViewById(R.id.buttonShaky);
         handler = new Handler();
 
-        new Thread(new Runnable() {
+        Thread Progress = new Thread(new Runnable() {
             int percent = progressBar.getProgress();
 
             public void run() {
@@ -53,7 +54,15 @@ public class GeneratingActivity extends AppCompatActivity {
                     }
                 }
             }
-        }).start();
+        });
+        Progress.start();
+        if (!Progress.isAlive() && sensors!= null && driver != null) {
+            if ((driver == "Manual")) {
+                openPlayManuallyActivity();
+            } else {
+                openPlayAnimationActivity();
+            }
+        }
     }
 
     public void onRadioButtonSensorsClicked(View view) {
@@ -94,5 +103,15 @@ public class GeneratingActivity extends AppCompatActivity {
                     driver = "WallFollower";
                 break;
         }
+    }
+
+    public void openPlayManuallyActivity() {
+        Intent intent = new Intent(this, PlayManuallyActivity.class);
+        startActivity(intent);
+    }
+
+    public void openPlayAnimationActivity() {
+        Intent intent = new Intent(this, PlayAnimationActivity.class);
+        startActivity(intent);
     }
 }
