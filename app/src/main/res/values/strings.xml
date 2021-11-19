@@ -11,4 +11,11 @@
     <string name="Manual">Manual</string>
     <string name="WallFollower">WallFollower</string>
     <string name="Wizard">Wizard</string>
+    <string name="Premium">Premium</string>
+    <string name="Mediocre">Mediocre</string>
+    <string name="Soso">So-so</string>
+    <string name="Shaky">Shaky</string>
+    <string name="RobotQuality">Robot Quality:</string>
+    <string name="Driver">Driver:</string>
+    <string name="GeneratingMaze">Generating Maze:</string>
 </resources>

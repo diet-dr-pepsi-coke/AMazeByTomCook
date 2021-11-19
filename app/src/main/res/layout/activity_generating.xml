@@ -6,38 +6,156 @@
     android:layout_height="match_parent"
     tools:context=".GeneratingActivity">
 
-   <RadioGroup
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal">
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="300dp"
+        android:minHeight="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:progress="0"
+        android:progressBackgroundTint="@color/red"
+        android:progressTint="@color/teal_200"
+        />
 
-    <RadioButton
-        android:id="@+id/buttonManual"
-        android:layout_width="138dp"
+
+    <TextView
+        android:id="@+id/textSensors"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="452dp"
+        android:text="@string/RobotQuality"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="36sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="1dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/buttonManual"
+            android:layout_width="138dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="306dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/Manual"
+            android:onClick="onRadioButtonDriverClicked"/>
+
+        <RadioButton
+            android:id="@+id/buttonWizard"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="306dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/Wizard"
+            android:onClick="onRadioButtonDriverClicked"/>
+
+        <RadioButton
+            android:id="@+id/buttonWallFollower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="306dp"
+            android:layout_toRightOf="@+id/buttonWizard"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/WallFollower"
+            android:onClick="onRadioButtonDriverClicked"/>
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroupSensor"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="500dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/buttonPremium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/Premium"
+            android:onClick="onRadioButtonSensorsClicked"/>
+
+        <RadioButton
+            android:id="@+id/buttonMediocre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/Mediocre"
+            android:onClick="onRadioButtonSensorsClicked"/>
+
+        <RadioButton
+            android:id="@+id/buttonSoso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/Soso"
+            android:onClick="onRadioButtonSensorsClicked"/>
+
+        <RadioButton
+            android:id="@+id/buttonShaky"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="@string/Shaky"
+            android:onClick="onRadioButtonSensorsClicked"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="360dp"
+        android:text="@string/Driver"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textGenerating"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="306dp"
-        android:text="@string/Manual"/>
-
-    <RadioButton
-        android:id="@+id/buttonWizard"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="306dp"
-        android:text="@string/Wizard" />
+        android:layout_marginStart="194dp"
+        android:layout_marginTop="62dp"
+        android:textColor="@color/black"
+        android:textSize="28sp" />
 
-    <RadioButton
-        android:id="@+id/buttonWallFollower"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="306dp"
-        android:layout_toRightOf="@+id/buttonWizard"
-        android:text="@string/WallFollower" />
-    </RadioGroup>
 </RelativeLayout>
