@@ -6,13 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".GeneratingActivity">
 
-    <TextView
-        android:id="@+id/textView"
+   <RadioGroup
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/buttonManual"
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="306dp"
+        android:text="@string/Manual"/>
+
+    <RadioButton
+        android:id="@+id/buttonWizard"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="306dp"
+        android:text="@string/Wizard" />
+
+    <RadioButton
+        android:id="@+id/buttonWallFollower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="346dp"
-        android:layout_marginEnd="175dp"
-        android:text="got it" />
+        android:layout_marginTop="306dp"
+        android:layout_toRightOf="@+id/buttonWizard"
+        android:text="@string/WallFollower" />
+    </RadioGroup>
 </RelativeLayout>

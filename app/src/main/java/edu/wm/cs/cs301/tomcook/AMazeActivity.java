@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.Button;
 
@@ -17,8 +18,11 @@ import java.util.List;
 public class AMazeActivity extends AppCompatActivity {
 
     Spinner generationDropdown;
+    Switch switchRoom;
+    boolean rooms;
     String algorithm;
     Button exploreButton;
+    Button revisitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,10 @@ public class AMazeActivity extends AppCompatActivity {
 
         generationDropdown = (Spinner) findViewById(R.id.spinnerAlgorithm);
         exploreButton = (Button) findViewById(R.id.buttonExplore);
+        revisitButton = (Button) findViewById(R.id.buttonRevisit);
+        switchRoom = (Switch) findViewById(R.id.switchRoom);
 
+        //Spinner//
         List<String> generationAlgorithms = new ArrayList<>();
         generationAlgorithms.add(getString(R.string.DFS));
         generationAlgorithms.add(getString(R.string.Prim));
@@ -49,12 +56,23 @@ public class AMazeActivity extends AppCompatActivity {
             }
         });
 
+        //Buttons//
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openGeneratingActivity();
             }
         });
+
+        revisitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGeneratingActivity();
+            }
+        });
+
+        //Switch//
+        rooms = switchRoom.isChecked();
     }
 
         public void openGeneratingActivity() {

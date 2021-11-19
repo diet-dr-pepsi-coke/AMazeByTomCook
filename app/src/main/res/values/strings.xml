@@ -8,4 +8,7 @@
     <string name="Algorithm">Generation Algorithm:</string>
     <string name="Explore">Explore</string>
     <string name="Revisit">Revisit</string>
+    <string name="Manual">Manual</string>
+    <string name="WallFollower">WallFollower</string>
+    <string name="Wizard">Wizard</string>
 </resources>
