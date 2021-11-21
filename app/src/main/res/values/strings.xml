@@ -18,4 +18,10 @@
     <string name="RobotQuality">Robot Quality:</string>
     <string name="Driver">Driver:</string>
     <string name="GeneratingMaze">Generating Maze:</string>
+    <string name="WaitingThread">Waiting for maze to be generated</string>
+    <string name="WaitingSelection">Please select a driver and/or robot to continue to the maze</string>
+    <string name="Map">Show Map</string>
+    <string name="Solution">Show Solution</string>
+    <string name="Walls">Show Walls</string>
+    <string name="ShortCut">ShortCut</string>
 </resources>

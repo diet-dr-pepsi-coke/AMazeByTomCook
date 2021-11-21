@@ -9,14 +9,20 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class GeneratingActivity extends AppCompatActivity {
     ProgressBar progressBar;
     String driver;
     String sensors;
     TextView generating;
+    TextView robotQuality;
     Handler handler;
+    boolean done = false;
     RadioButton Manual, Wizard, WallFollower, Premium, Mediocre, Soso, Shaky;
+    Thread Progress;
 
 
     @Override
@@ -26,16 +32,22 @@ public class GeneratingActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         generating = (TextView) findViewById(R.id.textGenerating);
+        robotQuality = (TextView) findViewById(R.id.textSensors);
         Manual = (RadioButton) findViewById(R.id.buttonManual);
         Wizard = (RadioButton) findViewById(R.id.buttonWizard);
         WallFollower = (RadioButton) findViewById(R.id.buttonWallFollower);
         Premium = (RadioButton) findViewById(R.id.buttonPremium);
+            Premium.setVisibility(View.GONE);
         Mediocre = (RadioButton) findViewById(R.id.buttonMediocre);
+            Mediocre.setVisibility(View.GONE);
         Soso = (RadioButton) findViewById(R.id.buttonSoso);
+            Soso.setVisibility(View.GONE);
         Shaky = (RadioButton) findViewById(R.id.buttonShaky);
+            Shaky.setVisibility(View.GONE);
+        robotQuality.setVisibility(View.GONE);
         handler = new Handler();
 
-        Thread Progress = new Thread(new Runnable() {
+        Progress = new Thread(new Runnable() {
             int percent = progressBar.getProgress();
 
             public void run() {
@@ -53,13 +65,18 @@ public class GeneratingActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                done = true;
             }
         });
         Progress.start();
-        if (!Progress.isAlive() && sensors!= null && driver != null) {
-            if ((driver == "Manual")) {
+        if (done == true) {
+            if (driver == null) {
+                Toast.makeText(this, R.string.WaitingSelection, Toast.LENGTH_LONG).show();
+            }
+            else if (driver == "Manual") {
                 openPlayManuallyActivity();
-            } else {
+            }
+            else {
                 openPlayAnimationActivity();
             }
         }
@@ -85,24 +102,43 @@ public class GeneratingActivity extends AppCompatActivity {
                     sensors = "0000";
                 break;
         }
+        if (Progress.isAlive()) {
+        Toast.makeText(this, R.string.WaitingThread, Toast.LENGTH_LONG).show(); }
     }
 
     public void onRadioButtonDriverClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
         switch (view.getId()) {
             case R.id.buttonManual:
-                if (checked)
+                if (checked) {
                     driver = "Manual";
+                robotQuality.setVisibility(View.GONE);
+                Premium.setVisibility(View.GONE);
+                Mediocre.setVisibility(View.GONE);
+                Soso.setVisibility(View.GONE);
+                Shaky.setVisibility(View.GONE); }
                 break;
             case R.id.buttonWizard:
-                if (checked)
+                if (checked) {
                     driver = "Wizard";
+                robotQuality.setVisibility(View.VISIBLE);
+                Premium.setVisibility(View.VISIBLE);
+                Mediocre.setVisibility(View.VISIBLE);
+                Soso.setVisibility(View.VISIBLE);
+                Shaky.setVisibility(View.VISIBLE); }
                 break;
             case R.id.buttonWallFollower:
-                if (checked)
+                if (checked) {
                     driver = "WallFollower";
+                    robotQuality.setVisibility(View.VISIBLE);
+                    Premium.setVisibility(View.VISIBLE);
+                    Mediocre.setVisibility(View.VISIBLE);
+                    Soso.setVisibility(View.VISIBLE);
+                    Shaky.setVisibility(View.VISIBLE); }
                 break;
         }
+        if (Progress.isAlive()) {
+            Toast.makeText(this, R.string.WaitingThread, Toast.LENGTH_LONG).show(); }
     }
 
     public void openPlayManuallyActivity() {
