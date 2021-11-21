@@ -15,10 +15,8 @@ import org.w3c.dom.Text;
 
 public class GeneratingActivity extends AppCompatActivity {
     ProgressBar progressBar;
-    String driver;
-    String sensors;
-    TextView generating;
-    TextView robotQuality;
+    String driver, sensors;
+    TextView generating, robotQuality;
     Handler handler;
     boolean done = false;
     RadioButton Manual, Wizard, WallFollower, Premium, Mediocre, Soso, Shaky;
