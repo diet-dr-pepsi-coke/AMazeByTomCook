@@ -3,6 +3,7 @@ package edu.wm.cs.cs301.tomcook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -22,7 +23,6 @@ public class GeneratingActivity extends AppCompatActivity {
     boolean done = false;
     RadioButton Manual, Wizard, WallFollower, Premium, Mediocre, Soso, Shaky;
     Thread Progress;
-    Button buttonManual, buttonAnimation;
 
 
     @Override
@@ -46,26 +46,12 @@ public class GeneratingActivity extends AppCompatActivity {
             Shaky.setVisibility(View.GONE);
         robotQuality.setVisibility(View.GONE);
         handler = new Handler();
-        buttonManual = (Button) findViewById(R.id.buttonGo);
-        buttonAnimation = (Button) findViewById(R.id.buttonAnimation);
-
-        buttonManual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openPlayManuallyActivity();
-            }
-        });
-        buttonAnimation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openPlayAnimationActivity();
-            }
-        });
 
         Progress = new Thread(new Runnable() {
             int percent = progressBar.getProgress();
 
             public void run() {
+                Log.v(String.valueOf(this), "creating maze");
                 while (percent < 100) {
                     percent += 1;
                     handler.post(new Runnable() {
@@ -75,50 +61,55 @@ public class GeneratingActivity extends AppCompatActivity {
                         }
                     });
                     try {
-                        Thread.sleep(200);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                done = true;
+                if (driver == null) {
+                    Toast.makeText(GeneratingActivity.this, R.string.WaitingSelection, Toast.LENGTH_SHORT).show();
+                }
+                else if (driver == "Manual") {
+                    openPlayManuallyActivity();
+                }
+                else {
+                    openPlayAnimationActivity();
+                }
             }
         });
         Progress.start();
-        if (done == true) {
-            if (driver == null) {
-                Toast.makeText(this, R.string.WaitingSelection, Toast.LENGTH_LONG).show();
-            }
-            else if (driver == "Manual") {
-                openPlayManuallyActivity();
-            }
-            else {
-                openPlayAnimationActivity();
-            }
-        }
     }
 
     public void onRadioButtonSensorsClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
         switch (view.getId()) {
             case R.id.buttonPremium:
-                if (checked)
+                if (checked) {
                     sensors = "1111";
+                Log.v(String.valueOf(this), "Premium robot selected");
+                Toast.makeText(this, "Premium robot selected", Toast.LENGTH_SHORT).show(); }
                 break;
             case R.id.buttonMediocre:
-                if (checked)
+                if (checked) {
                     sensors = "1001";
+                Log.v(String.valueOf(this), "Mediocre robot selected");
+                Toast.makeText(this, "Mediocre robot selected", Toast.LENGTH_SHORT).show(); }
                 break;
             case R.id.buttonSoso:
-                if (checked)
+                if (checked) {
                     sensors = "0110";
+                Log.v(String.valueOf(this), "So-so robot selected");
+                Toast.makeText(this, "So-so robot selected", Toast.LENGTH_SHORT).show(); }
                 break;
             case R.id.buttonShaky:
-                if (checked)
+                if (checked) {
                     sensors = "0000";
+                Log.v(String.valueOf(this), "Shaky robot selected");
+                Toast.makeText(this, "Shaky robot selected", Toast.LENGTH_SHORT).show(); }
                 break;
         }
         if (Progress.isAlive()) {
-        Toast.makeText(this, R.string.WaitingThread, Toast.LENGTH_LONG).show(); }
+        Toast.makeText(this, R.string.WaitingThread, Toast.LENGTH_SHORT).show(); }
     }
 
     public void onRadioButtonDriverClicked(View view) {
@@ -127,6 +118,8 @@ public class GeneratingActivity extends AppCompatActivity {
             case R.id.buttonManual:
                 if (checked) {
                     driver = "Manual";
+                    Log.v(String.valueOf(this), "Manual driver selected");
+                    Toast.makeText(this, "Manual driver selected", Toast.LENGTH_SHORT).show();
                 robotQuality.setVisibility(View.GONE);
                 Premium.setVisibility(View.GONE);
                 Mediocre.setVisibility(View.GONE);
@@ -136,6 +129,8 @@ public class GeneratingActivity extends AppCompatActivity {
             case R.id.buttonWizard:
                 if (checked) {
                     driver = "Wizard";
+                    Log.v(String.valueOf(this), "Wizard driver selected");
+                    Toast.makeText(this, "Wizard driver selected", Toast.LENGTH_SHORT).show();
                 robotQuality.setVisibility(View.VISIBLE);
                 Premium.setVisibility(View.VISIBLE);
                 Mediocre.setVisibility(View.VISIBLE);
@@ -145,6 +140,8 @@ public class GeneratingActivity extends AppCompatActivity {
             case R.id.buttonWallFollower:
                 if (checked) {
                     driver = "WallFollower";
+                    Log.v(String.valueOf(this), "Wizard driver selected");
+                    Toast.makeText(this, "Wizard driver selected", Toast.LENGTH_SHORT).show();
                     robotQuality.setVisibility(View.VISIBLE);
                     Premium.setVisibility(View.VISIBLE);
                     Mediocre.setVisibility(View.VISIBLE);
@@ -153,7 +150,7 @@ public class GeneratingActivity extends AppCompatActivity {
                 break;
         }
         if (Progress.isAlive()) {
-            Toast.makeText(this, R.string.WaitingThread, Toast.LENGTH_LONG).show(); }
+            Toast.makeText(this, R.string.WaitingThread, Toast.LENGTH_SHORT).show(); }
     }
 
     public void openPlayManuallyActivity() {

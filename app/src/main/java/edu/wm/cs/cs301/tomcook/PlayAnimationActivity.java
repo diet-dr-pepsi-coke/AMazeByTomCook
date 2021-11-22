@@ -26,7 +26,7 @@ import edu.wm.cs.cs301.tomcook.R;
 public class PlayAnimationActivity extends AppCompatActivity {
 
     TextView front, left, right, back;
-    boolean frontOn = true, leftOn = true, rightOn = true, backOn = true, playing = false;
+    boolean frontOn = true, leftOn = true, rightOn = true, backOn = true, playing = false, mapShown = false;
     ProgressBar energy;
     int animationSpeed = 100;
     Slider speed;
@@ -92,6 +92,33 @@ public class PlayAnimationActivity extends AppCompatActivity {
                     playing = false;
                 }
             }
+        });
+        zoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // maze zooms in
+                Log.v(String.valueOf(this), "Maze size incremented by 10%");
+            }
+        });
+        zoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // maze zooms out
+                Log.v(String.valueOf(this), "Maze size decremented by 10%");
+            }
+        });
+        showMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mapShown==false) {
+                // turn on map
+                    mapShown = true;
+                Log.v(String.valueOf(this), "ShowMap: On"); }
+                else {
+                    // turn map off
+                    mapShown = false;
+                    Log.v(String.valueOf(this), "ShowMap: Off"); }
+                }
         });
 
     }

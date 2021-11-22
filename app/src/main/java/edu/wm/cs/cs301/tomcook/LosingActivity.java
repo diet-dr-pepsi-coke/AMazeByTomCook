@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class LosingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 restart();
+                Log.v(String.valueOf(this), "Returning to Title Screen");
             }
         });
         odometer.setText(getString(R.string.odometer) + " N/A for now");

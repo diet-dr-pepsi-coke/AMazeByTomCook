@@ -2,6 +2,7 @@ package edu.wm.cs.cs301.tomcook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.slider.Slider;
@@ -25,6 +27,7 @@ public class AMazeActivity extends AppCompatActivity {
     Switch switchRoom;
     boolean rooms;
     Slider difficulty;
+    int skillLevel;
     String algorithm;
     Button exploreButton;
     Button revisitButton;
@@ -53,7 +56,8 @@ public class AMazeActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 algorithm = adapter.getItem(i);
-                Toast.makeText(adapterView.getContext(), "Selected: " + algorithm, Toast.LENGTH_LONG).show();
+                Toast.makeText(adapterView.getContext(), "Selected: " + algorithm, Toast.LENGTH_SHORT).show();
+                Log.v(String.valueOf(this), algorithm + " selected for maze generation");
             }
 
             @Override
@@ -77,8 +81,27 @@ public class AMazeActivity extends AppCompatActivity {
             }
         });
 
-        //Switch//
-        rooms = switchRoom.isChecked();
+        switchRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (switchRoom.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "Rooms: On", Toast.LENGTH_SHORT).show(); }
+                else { Toast.makeText(getApplicationContext(), "Rooms: Off", Toast.LENGTH_SHORT).show(); }
+                rooms = switchRoom.isChecked();
+                Log.v(String.valueOf(this), "rooms included: " + rooms);
+            }
+        });
+
+
+        // Slider //
+        difficulty.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                skillLevel = (int) value;
+                Toast.makeText(getApplicationContext(), "Skill level set to " + skillLevel, Toast.LENGTH_SHORT).show();
+                Log.v(String.valueOf(this), "skill level set to " + skillLevel);
+            }
+        });
     }
 
     @Override

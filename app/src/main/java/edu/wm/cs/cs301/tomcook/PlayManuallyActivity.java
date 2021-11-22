@@ -2,6 +2,7 @@ package edu.wm.cs.cs301.tomcook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -38,24 +39,73 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 openWinningActivity();
             }
         });
+        walk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // robot walks
+                Log.v(String.valueOf(this), "Walk 1 step forward");
+            }
+        });
+        turnRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // robot turns right
+                Log.v(String.valueOf(this), "Turn right");
+            }
+        });
+        turnLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // robot turns left
+                Log.v(String.valueOf(this), "Turn left");
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // robot moves backwards
+                Log.v(String.valueOf(this), "Walk 1 step backward");
+            }
+        });
+        zoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // maze increases in size
+                Log.v(String.valueOf(this), "Maze size incremented by 10%");
+            }
+        });
+        zoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // maze decreases in size
+                Log.v(String.valueOf(this), "Maze size decremented by 10%");
+            }
+        });
     }
 
     public void toggle(View view) {
         switch (view.getId()) {
             case R.id.buttonMap:
                 if (mapShown==false) {
-                    mapShown=true; }
-                else {mapShown=false;}
+                    mapShown=true;
+                Log.v(String.valueOf(this), "ShowMap: On");
+                }
+                else {mapShown=false;
+                    Log.v(String.valueOf(this), "ShowMap: Off");}
                 break;
             case R.id.buttonSolution:
                 if (solutionShown==false) {
-                    solutionShown=true; }
-                else {solutionShown=false;}
+                    solutionShown=true;
+                    Log.v(String.valueOf(this), "ShowSolution: On");}
+                else {solutionShown=false;
+                    Log.v(String.valueOf(this), "ShowSolution: Off");}
                 break;
             case R.id.buttonWalls:
                 if (wallsShown==false) {
-                    wallsShown=true; }
-                else {wallsShown=false;}
+                    wallsShown=true;
+                    Log.v(String.valueOf(this), "ShowWalls: On");}
+                else {wallsShown=false;
+                    Log.v(String.valueOf(this), "ShowWalls: Off");}
                 break;
         }
 
