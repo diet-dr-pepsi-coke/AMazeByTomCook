@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.slider.Slider;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class AMazeActivity extends AppCompatActivity {
     Spinner generationDropdown;
     Switch switchRoom;
     boolean rooms;
+    Slider difficulty;
     String algorithm;
     Button exploreButton;
     Button revisitButton;
@@ -35,6 +38,7 @@ public class AMazeActivity extends AppCompatActivity {
         exploreButton = (Button) findViewById(R.id.buttonExplore);
         revisitButton = (Button) findViewById(R.id.buttonRevisit);
         switchRoom = (Switch) findViewById(R.id.switchRoom);
+        difficulty = (Slider) findViewById(R.id.sliderDifficulty);
 
         //Spinner//
         List<String> generationAlgorithms = new ArrayList<>();
@@ -77,7 +81,12 @@ public class AMazeActivity extends AppCompatActivity {
         rooms = switchRoom.isChecked();
     }
 
-        public void openGeneratingActivity() {
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    public void openGeneratingActivity() {
             Intent intent = new Intent(this, GeneratingActivity.class);
             startActivity(intent);
         }

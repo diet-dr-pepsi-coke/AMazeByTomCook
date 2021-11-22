@@ -27,4 +27,12 @@
     <string name="Winning">Go2Winning</string>
     <string name="Losing">Go2Losing</string>
     <string name="Energy">Energy:</string>
+    <string name="Speed">Speed:</string>
+    <string name="Slow">Slow</string>
+    <string name="Medium">Medium</string>
+    <string name="Fast">Fast</string>
+    <string name="Front">Front</string>
+    <string name="Left">Left</string>
+    <string name="Right">Right</string>
+    <string name="Back">Back</string>
 </resources>

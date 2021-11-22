@@ -87,7 +87,7 @@
         android:id="@+id/imageZoomIn"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="260dp"
+        android:layout_marginStart="300dp"
         android:layout_marginTop="20dp"
         android:layout_below="@id/buttonShortCut"
         app:srcCompat="@android:drawable/btn_plus" />
@@ -96,7 +96,7 @@
         android:id="@+id/imageZoomOut"
         android:layout_width="79dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="260dp"
+        android:layout_marginStart="300dp"
         android:layout_marginTop="20dp"
         android:layout_below="@id/imageZoomIn"
         app:srcCompat="@android:drawable/btn_minus" />
