@@ -24,4 +24,7 @@
     <string name="Solution">Show Solution</string>
     <string name="Walls">Show Walls</string>
     <string name="ShortCut">ShortCut</string>
+    <string name="Winning">Go2Winning</string>
+    <string name="Losing">Go2Losing</string>
+    <string name="Energy">Energy:</string>
 </resources>

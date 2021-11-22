@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import edu.wm.cs.cs301.tomcook.R;
 
-public class PlayAnimationActivity extends AppCompatActivity {
+public class WinningActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_animation);
+        setContentView(R.layout.activity_winning);
     }
 }

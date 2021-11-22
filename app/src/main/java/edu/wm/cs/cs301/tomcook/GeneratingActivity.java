@@ -1,17 +1,18 @@
 package edu.wm.cs.cs301.tomcook;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+
+import edu.wm.cs.cs301.tomcook.R;
 
 public class GeneratingActivity extends AppCompatActivity {
     ProgressBar progressBar;
@@ -21,6 +22,7 @@ public class GeneratingActivity extends AppCompatActivity {
     boolean done = false;
     RadioButton Manual, Wizard, WallFollower, Premium, Mediocre, Soso, Shaky;
     Thread Progress;
+    Button buttonManual, buttonAnimation;
 
 
     @Override
@@ -44,6 +46,21 @@ public class GeneratingActivity extends AppCompatActivity {
             Shaky.setVisibility(View.GONE);
         robotQuality.setVisibility(View.GONE);
         handler = new Handler();
+        buttonManual = (Button) findViewById(R.id.buttonGo);
+        buttonAnimation = (Button) findViewById(R.id.buttonAnimation);
+
+        buttonManual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPlayManuallyActivity();
+            }
+        });
+        buttonAnimation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPlayAnimationActivity();
+            }
+        });
 
         Progress = new Thread(new Runnable() {
             int percent = progressBar.getProgress();
