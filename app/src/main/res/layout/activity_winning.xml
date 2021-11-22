@@ -1,9 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WinningActivity">
+    tools:context=".WinningActivity"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageFireworks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:background="@drawable/fireworks" />
+
+    <TextView
+        android:id="@+id/textViewWon"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="@string/Won"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="100sp"
+        android:background="@color/white"/>
+
+    <TextView
+        android:id="@+id/textViewOdometerWon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/textViewWon"
+        android:layout_centerHorizontal="true"
+        android:text="@string/odometer"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:background="@color/teal_200"/>
+
+    <TextView
+        android:id="@+id/textViewShortestWon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/textViewOdometerWon"
+        android:layout_centerHorizontal="true"
+        android:text="@string/shortest"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:background="@color/teal_200"/>
+
+    <TextView
+        android:id="@+id/textViewConsumptionWon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/textViewShortestWon"
+        android:layout_centerHorizontal="true"
+        android:text="@string/Consumption"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:background="@color/teal_200"/>
+
+    <Button
+        android:id="@+id/buttonPlayAgainWon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewConsumptionWon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/playAgain"
+        android:textSize="36sp"/>
+
+</RelativeLayout>
