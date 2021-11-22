@@ -55,9 +55,9 @@
         android:id="@+id/imageZoomIn"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="20dp"
         android:layout_below="@id/buttonGo2Winning"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="10dp"
         app:srcCompat="@android:drawable/btn_plus" />
 
     <ImageButton
@@ -65,9 +65,18 @@
         android:layout_width="79dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="300dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/imageZoomIn"
         app:srcCompat="@android:drawable/btn_minus" />
+
+    <Button
+        android:id="@+id/buttonShowMap"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageZoomOut"
+        android:layout_marginStart="300dp"
+        android:text="@string/Map"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/imagePlay"
@@ -98,6 +107,7 @@
         android:layout_below="@id/imagePlay"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
+        android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:layout_marginBottom="76dp"
         android:text="@string/Front"

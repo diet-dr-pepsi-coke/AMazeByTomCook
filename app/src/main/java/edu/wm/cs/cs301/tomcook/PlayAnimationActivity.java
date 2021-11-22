@@ -32,7 +32,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
     Slider speed;
     Button go2Losing, go2Winning;
     ImageButton zoomIn, zoomOut;
-    Button play;
+    Button play, showMap;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -44,6 +44,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         go2Losing = (Button) findViewById(R.id.buttonGo2Losing);
         go2Winning = (Button) findViewById(R.id.buttonGo2Winning);
         play = (Button) findViewById(R.id.imagePlay);
+        showMap = (Button) findViewById(R.id.buttonShowMap);
         zoomIn = (ImageButton) findViewById(R.id.imageZoomIn);
         zoomOut = (ImageButton) findViewById(R.id.imageZoomOut);
         speed = (Slider) findViewById(R.id.sliderSpeed);

@@ -35,4 +35,10 @@
     <string name="Left">Left</string>
     <string name="Right">Right</string>
     <string name="Back">Back</string>
+    <string name="Lost">You Lost!</string>
+    <string name="Won">You Won!</string>
+    <string name="odometer">Total Path Length:</string>
+    <string name="shortest">Shortest Path Length:</string>
+    <string name="Consumption">Energy Consumption:</string>
+    <string name="playAgain">Play Again?</string>
 </resources>
