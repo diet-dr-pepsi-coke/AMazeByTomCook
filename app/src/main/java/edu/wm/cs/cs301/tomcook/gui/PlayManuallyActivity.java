@@ -1,4 +1,4 @@
-package edu.wm.cs.cs301.tomcook;
+package edu.wm.cs.cs301.tomcook.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
     Button map, solution, walls, shortCut;
     ImageButton walk, turnLeft, turnRight, back, zoomIn, zoomOut;
     boolean mapShown = false, solutionShown = false, wallsShown = false;
+    MazePanel panel;
 
 
     @Override
@@ -25,20 +26,13 @@ public class PlayManuallyActivity extends AppCompatActivity {
         map = (Button) findViewById(R.id.buttonMap);
         solution = (Button) findViewById(R.id.buttonSolution);
         walls = (Button) findViewById(R.id.buttonWalls);
-        shortCut = (Button) findViewById(R.id.buttonShortCut);
         walk = (ImageButton) findViewById(R.id.imageWalk);
         turnLeft = (ImageButton) findViewById(R.id.imageLeft);
         turnRight = (ImageButton) findViewById(R.id.imageRight);
         back = (ImageButton) findViewById(R.id.imageBack);
         zoomIn = (ImageButton) findViewById(R.id.imageZoomIn);
         zoomOut = (ImageButton) findViewById(R.id.imageZoomOut);
-
-        shortCut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openWinningActivity();
-            }
-        });
+        panel = (MazePanel) findViewById(R.id.mazePanel);
         walk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

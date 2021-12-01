@@ -1,4 +1,4 @@
-package edu.wm.cs.cs301.tomcook;
+package edu.wm.cs.cs301.tomcook.gui;
 
 import android.content.Intent;
 import android.os.Bundle;

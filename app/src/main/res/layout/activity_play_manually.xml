@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlayManuallyActivity">
+    tools:context=".gui.PlayManuallyActivity">
 
     <Button
         android:id="@+id/buttonMap"
@@ -36,22 +36,18 @@
         android:text="@string/Walls"
         android:onClick="toggle"/>
 
-    <Button
-        android:id="@+id/buttonShortCut"
+    <edu.wm.cs.cs301.tomcook.gui.MazePanel
+        android:id="@+id/mazePanel"
         android:layout_width="396dp"
-        android:layout_height="344dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:backgroundTint="@color/teal_200"
-        android:text="@string/ShortCut" />
+        android:layout_below="@id/buttonWalls"
+        android:layout_height="344dp"/>
 
     <ImageButton
         android:id="@+id/imageWalk"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="49dp"
-        android:layout_below="@id/buttonShortCut"
+        android:layout_below="@id/mazePanel"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/arrowup" />
 
@@ -89,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="300dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@id/buttonShortCut"
+        android:layout_below="@id/mazePanel"
         app:srcCompat="@android:drawable/btn_plus" />
 
     <ImageButton

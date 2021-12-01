@@ -1,18 +1,12 @@
-package edu.wm.cs.cs301.tomcook;
-
-import static edu.wm.cs.cs301.tomcook.R.color.green;
-import static edu.wm.cs.cs301.tomcook.R.color.red;
+package edu.wm.cs.cs301.tomcook.gui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
