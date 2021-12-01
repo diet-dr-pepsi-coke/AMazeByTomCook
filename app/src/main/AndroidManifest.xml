@@ -18,13 +18,13 @@
             android:name=".gui.PlayAnimationActivity"
             android:exported="true" />
         <activity
-            android:name=".gui.PlayManuallyActivity"
+            android:name=".gui.AMazeActivity"
             android:exported="true" />
         <activity
             android:name=".gui.GeneratingActivity"
             android:exported="true" />
         <activity
-            android:name=".gui.AMazeActivity"
+            android:name=".gui.PlayManuallyActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
