@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -17,37 +18,42 @@ public class MazePanel extends View implements P5PanelF21 {
     private Paint paint = new Paint();
     private Bitmap bitmap;
     private Canvas canvas_bm;
+    private Path path;
+    private int width = 1440, height = 1200;
 
     public MazePanel(Context context) {
         super(context);
-        bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         canvas_bm = new Canvas(bitmap);
         paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setAntiAlias(true);
+        path = new Path();
     }
 
     public MazePanel(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         canvas_bm = new Canvas(bitmap);
         paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setAntiAlias(true);
+        path = new Path();
     }
 
     public MazePanel(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         canvas_bm = new Canvas(bitmap);
         paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.STROKE);
+        path = new Path();
     }
 
     public MazePanel(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         canvas_bm = new Canvas(bitmap);
         paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setAntiAlias(true);
+        path = new Path();
     }
 
     @Override
@@ -77,15 +83,13 @@ public class MazePanel extends View implements P5PanelF21 {
     }
 
     public void addLine(int startX, int startY, int endX, int endY) {
+        paint.setStyle(Paint.Style.STROKE);
         canvas_bm.drawLine((float) startX, (float) startY, (float) endX, (float) endY, paint);
     }
 
     @Override
     public void commit() {
-        /*
-        paint(getGraphics());
-
-         */
+        invalidate();
 
     }
 
@@ -106,13 +110,7 @@ public class MazePanel extends View implements P5PanelF21 {
 
     @Override
     public void setColor(int rgb) {
-        /*
-        Graphics g = this.getBufferGraphics();
-        Color c = new Color(rgb);
-        g.setColor(c);
-
-
-         */
+        paint.setColor(rgb);
     }
 
     /**
@@ -122,12 +120,7 @@ public class MazePanel extends View implements P5PanelF21 {
      * @param b the blue value 0-255
      */
     public void setColor(int r, int g, int b) {
-        /*
-        Graphics gc = this.getBufferGraphics();
-        Color c = new Color(r, g, b);
-        gc.setColor(c);
-
-         */
+        paint.setColor(Color.rgb(r, g, b));
     }
 
     /**
@@ -138,20 +131,13 @@ public class MazePanel extends View implements P5PanelF21 {
      * @param a a multiplier used on 255 to determine alpha value
      */
     public void setColor(float r, float g, float b, float a) {
-        /*
-        Graphics gc = this.getBufferGraphics();
-        Color c = new Color(r, g, b, a);
-        gc.setColor(c); */
+        setColor((int) r, (int) g, (int) b);
+        paint.setAlpha((int) a);
     }
 
     @Override
     public int getColor() {
-        /*
-        Graphics g = this.getBufferGraphics();
-        Color col = g.getColor();
-        return col.getRGB();
-         */
-        return 0;
+        return paint.getColor();
     }
 
     @Override
@@ -161,67 +147,49 @@ public class MazePanel extends View implements P5PanelF21 {
 
     @Override
     public void addFilledRectangle(int x, int y, int width, int height) {
-        /*
-        Graphics g = this.getBufferGraphics();
-        g.fillRect(x, y, width, height);
-
-         */
-
+        paint.setStyle(Paint.Style.FILL);
+        canvas_bm.drawRect(x, y, width, height, paint);
     }
 
     @Override
     public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        /*
-        Graphics g = this.getBufferGraphics();
-        g.fillPolygon(xPoints, yPoints, nPoints);
-
-         */
-
+        path.reset();
+        paint.setStyle(Paint.Style.FILL);
+        path.moveTo((float) xPoints[0], (float) yPoints[0]);
+        for (int i=1; i<nPoints; i++) {
+            path.lineTo((float) xPoints[i], (float) yPoints[i]);
+        }
+        canvas_bm.drawPath(path, paint);
     }
 
     @Override
     public void addPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        /*
-        Graphics g = this.getBufferGraphics();
-        g.drawPolygon(xPoints, yPoints, nPoints);
-         */
-
+        path.reset();
+        paint.setStyle(Paint.Style.STROKE);
+        path.moveTo((float) xPoints[0], (float) yPoints[0]);
+        for (int i=1; i<nPoints; i++) {
+            path.lineTo((float) xPoints[i], (float) yPoints[i]);
+        }
+        path.lineTo((float) xPoints[0], (float) yPoints[0]);
+        canvas_bm.drawPath(path, paint);
     }
 
     @Override
     public void addFilledOval(int x, int y, int width, int height) {
-        /*
-        Graphics g = this.getBufferGraphics();
-        g.fillOval(x, y, width, height);
-
-         */
+        paint.setStyle(Paint.Style.FILL);
+        canvas_bm.drawOval((float) x, (float) y, (float) width, (float) height, paint);
 
     }
 
     @Override
     public void addArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-        /*
-        Graphics g = this.getBufferGraphics();
-        g.drawArc(x, y, width, height, startAngle, arcAngle);
-
-         */
-
+        paint.setStyle(Paint.Style.STROKE);
+        canvas_bm.drawArc((float) x, (float) y, (float) width, (float) height, (float) startAngle, (float) arcAngle, false, paint);
     }
 
     @Override
     public void addMarker(float x, float y, String str) {
-        /*
-        Graphics2D g = (Graphics2D) this.getBufferGraphics();
-        GlyphVector gv = markerFont.createGlyphVector(g.getFontRenderContext(), str);
-        Rectangle2D rect = gv.getVisualBounds();
-        // need to update x, y by half of rectangle width, height
-        // to serve as x, y coordinates for drawing a GlyphVector
-        x -= rect.getWidth() / 2;
-        y += rect.getHeight() / 2;
-
-        g.drawGlyphVector(gv, x, y);
-
-         */
+        canvas_bm.drawText(str, x, y, paint);
     }
 
     @Override
@@ -235,7 +203,18 @@ public class MazePanel extends View implements P5PanelF21 {
     }
 
     private void myTestImage(Canvas c) {
-        addLine(0,0,c.getHeight(), c.getWidth());
+        /* debugging
+        addLine(0,0,width, height);
+        addArc(0, 0, width, height, 0, 360);
+        addFilledOval(0,0, width, height);
+        addMarker(500, 500, "yeet");
+        int[] x = {100, 200, 300};
+        int[] y = {100, 300, 100};
+        addFilledPolygon(x,y,3);
+        addFilledRectangle(0,0,width,height);
+        addPolygon(x,y,3);
+
+         */
         c.drawBitmap(bitmap, (float) 0, (float) 0, paint);
     }
 
