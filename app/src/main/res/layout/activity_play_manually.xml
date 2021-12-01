@@ -38,9 +38,9 @@
 
     <edu.wm.cs.cs301.tomcook.gui.MazePanel
         android:id="@+id/mazePanel"
-        android:layout_width="396dp"
-        android:layout_below="@id/buttonWalls"
-        android:layout_height="344dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="348dp"
+        android:layout_below="@id/buttonWalls" />
 
     <ImageButton
         android:id="@+id/imageWalk"
