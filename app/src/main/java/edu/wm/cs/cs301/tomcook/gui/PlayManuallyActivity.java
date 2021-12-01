@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import edu.wm.cs.cs301.tomcook.R;
 
 public class PlayManuallyActivity extends AppCompatActivity {
-    Button map, solution, walls, shortCut;
+    Button map, solution, walls;
     ImageButton walk, turnLeft, turnRight, back, zoomIn, zoomOut;
     boolean mapShown = false, solutionShown = false, wallsShown = false;
     MazePanel panel;

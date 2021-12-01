@@ -20,25 +20,11 @@
         android:progressTint="@color/black"
         />
 
-    <Button
-        android:id="@+id/buttonGo2Losing"
-        android:layout_width="198dp"
-        android:layout_height="344dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="55dp"
-        android:backgroundTint="@color/teal_200"
-        android:text="@string/Losing" />
-
-    <Button
-        android:id="@+id/buttonGo2Winning"
-        android:layout_width="198dp"
-        android:layout_height="344dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="55dp"
-        android:backgroundTint="@color/teal_200"
-        android:text="@string/Winning" />
+    <edu.wm.cs.cs301.tomcook.gui.MazePanel
+        android:id="@+id/mazePanel"
+        android:layout_width="match_parent"
+        android:layout_height="348dp"
+        android:layout_below="@id/progressBarBattery" />
 
     <TextView
         android:id="@+id/textView"
@@ -55,7 +41,7 @@
         android:id="@+id/imageZoomIn"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonGo2Winning"
+        android:layout_below="@id/mazePanel"
         android:layout_marginStart="300dp"
         android:layout_marginTop="10dp"
         app:srcCompat="@android:drawable/btn_plus" />
@@ -96,7 +82,7 @@
         android:valueFrom="50"
         android:valueTo="150"
 
-        android:layout_below="@id/buttonGo2Losing"
+        android:layout_below="@id/mazePanel"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"/>
 

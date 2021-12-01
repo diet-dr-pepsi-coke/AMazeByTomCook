@@ -24,9 +24,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
     ProgressBar energy;
     int animationSpeed = 100;
     Slider speed;
-    Button go2Losing, go2Winning;
     ImageButton zoomIn, zoomOut;
     Button play, showMap;
+    MazePanel panel;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -35,8 +35,6 @@ public class PlayAnimationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play_animation);
 
         energy = (ProgressBar) findViewById(R.id.progressBarBattery);
-        go2Losing = (Button) findViewById(R.id.buttonGo2Losing);
-        go2Winning = (Button) findViewById(R.id.buttonGo2Winning);
         play = (Button) findViewById(R.id.imagePlay);
         showMap = (Button) findViewById(R.id.buttonShowMap);
         zoomIn = (ImageButton) findViewById(R.id.imageZoomIn);
@@ -46,21 +44,8 @@ public class PlayAnimationActivity extends AppCompatActivity {
         right = (TextView) findViewById(R.id.textViewRight);
         left = (TextView) findViewById(R.id.textViewLeft);
         back = (TextView) findViewById(R.id.textViewBack);
+        panel = (MazePanel) findViewById(R.id.mazePanel);
         isOn();
-        go2Losing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openLosingActivity();
-                Log.v(String.valueOf(this), "moving to losing screen");
-            }
-        });
-        go2Winning.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openWinningActivity();
-                Log.v(String.valueOf(this), "moving to winning screen");
-            }
-        });
         speed.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
@@ -39,23 +40,6 @@ public class MazePanel extends View implements P5PanelF21 {
         path = new Path();
     }
 
-    public MazePanel(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        canvas_bm = new Canvas(bitmap);
-        paint.setColor(Color.RED);
-        path = new Path();
-    }
-
-    public MazePanel(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        canvas_bm = new Canvas(bitmap);
-        paint.setColor(Color.RED);
-        paint.setAntiAlias(true);
-        path = new Path();
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -76,10 +60,7 @@ public class MazePanel extends View implements P5PanelF21 {
      * Warning: do not override getGraphics() or drawing might fail.
      */
     public void update() {
-        /*
-        paint(getGraphics());
-
-         */
+        invalidate();
     }
 
     public void addLine(int startX, int startY, int endX, int endY) {
@@ -203,18 +184,19 @@ public class MazePanel extends View implements P5PanelF21 {
     }
 
     private void myTestImage(Canvas c) {
-        /* debugging
-        addLine(0,0,width, height);
-        addArc(0, 0, width, height, 0, 360);
-        addFilledOval(0,0, width, height);
-        addMarker(500, 500, "yeet");
-        int[] x = {100, 200, 300};
-        int[] y = {100, 300, 100};
-        addFilledPolygon(x,y,3);
-        addFilledRectangle(0,0,width,height);
-        addPolygon(x,y,3);
 
-         */
+        //addLine(0,0,width, height);
+        //addArc(0, 0, width, height, 0, 360);
+        setColor(Color.GREEN);
+        addFilledOval(0,0, width, height);
+        //addMarker(500, 500, "yeet");
+        //int[] x = {100, 200, 300};
+        //int[] y = {100, 300, 100};
+        //addFilledPolygon(x,y,3);
+        //addFilledRectangle(0,0,width,height);
+        //addPolygon(x,y,3);
+
+
         c.drawBitmap(bitmap, (float) 0, (float) 0, paint);
     }
 
