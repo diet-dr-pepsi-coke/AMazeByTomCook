@@ -72,6 +72,7 @@ public class MazeBuilder implements Runnable {
 	 */
 	public void run() {
 		// try-catch block to recognize if thread is interrupted
+
 		try {
 			// create an initial invalid maze where all wallboards and borders are up
 			floorplan.initialize();
@@ -96,7 +97,8 @@ public class MazeBuilder implements Runnable {
 
 			// communicate results back to Controller
 			order.updateProgress(100); // Order interface promises to communicate 100% upon delivery
-			order.deliver(new MazeContainer(width, height, floorplan, dists, root, startx, starty));
+			Maze maze = new MazeContainer(width, height, floorplan, dists, root, startx, starty);
+			GlobalValues.mazeConfig = maze;
             // reset order and other fields for safe repeated operation and garbage collection
 			reset() ;
 		}

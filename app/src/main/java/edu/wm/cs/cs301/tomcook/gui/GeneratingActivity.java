@@ -13,15 +13,24 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import edu.wm.cs.cs301.tomcook.R;
+import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
+import edu.wm.cs.cs301.tomcook.generation.Maze;
+import edu.wm.cs.cs301.tomcook.generation.MazeContainer;
+import edu.wm.cs.cs301.tomcook.generation.Order;
+import edu.wm.cs.cs301.tomcook.generation.MazeFactory;
 
-public class GeneratingActivity extends AppCompatActivity {
-    ProgressBar progressBar;
-    String driver, sensors;
-    TextView generating, robotQuality;
-    Handler handler;
-    boolean done = false;
-    RadioButton Manual, Wizard, WallFollower, Premium, Mediocre, Soso, Shaky;
-    Thread Progress;
+public class GeneratingActivity extends AppCompatActivity implements Order {
+    private ProgressBar progressBar;
+    private String driver, sensors, filename;
+    private TextView generating, robotQuality, textProgress;
+    private Handler handler;
+    private boolean done = false, perfect;
+    private RadioButton Manual, Wizard, WallFollower, Premium, Mediocre, Soso, Shaky;
+    private Thread Progress;
+    protected MazeFactory factory;
+    private int seed, skillLevel, percentdone;
+    private Builder builder;
+
 
 
     @Override
@@ -29,51 +38,41 @@ public class GeneratingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generating);
 
+        factory = new MazeFactory();
+        filename = null;
+        factory = new MazeFactory();
+        skillLevel = GlobalValues.skillLevel;
+        builder = GlobalValues.builder;
+        perfect = GlobalValues.perfect;
+        seed = GlobalValues.seed;
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        textProgress = (TextView) findViewById(R.id.textProgress);
         generating = (TextView) findViewById(R.id.textGenerating);
         robotQuality = (TextView) findViewById(R.id.textSensors);
         Manual = (RadioButton) findViewById(R.id.buttonManual);
         Wizard = (RadioButton) findViewById(R.id.buttonWizard);
         WallFollower = (RadioButton) findViewById(R.id.buttonWallFollower);
         Premium = (RadioButton) findViewById(R.id.buttonPremium);
-            Premium.setVisibility(View.GONE);
+        Premium.setVisibility(View.GONE);
         Mediocre = (RadioButton) findViewById(R.id.buttonMediocre);
-            Mediocre.setVisibility(View.GONE);
+        Mediocre.setVisibility(View.GONE);
         Soso = (RadioButton) findViewById(R.id.buttonSoso);
-            Soso.setVisibility(View.GONE);
+        Soso.setVisibility(View.GONE);
         Shaky = (RadioButton) findViewById(R.id.buttonShaky);
-            Shaky.setVisibility(View.GONE);
+        Shaky.setVisibility(View.GONE);
         robotQuality.setVisibility(View.GONE);
         handler = new Handler();
-
         Progress = new Thread(new Runnable() {
             int percent = progressBar.getProgress();
 
             public void run() {
                 Log.v(String.valueOf(this), "creating maze");
-                while (percent < 100) {
-                    percent += 1;
-                    handler.post(new Runnable() {
-                        public void run() {
-                            progressBar.setProgress(percent);
-                            generating.setText(percent + "%");
-                        }
-                    });
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (driver == null) {
-                    Toast.makeText(GeneratingActivity.this, R.string.WaitingSelection, Toast.LENGTH_SHORT).show();
-                }
-                else if (driver == "Manual") {
-                    openPlayManuallyActivity();
-                }
-                else {
-                    openPlayAnimationActivity();
-                }
+                generateMaze();
+                if (GlobalValues.mazeConfig == null) {
+                    Log.v("Generating", "maze is null"); }
+                else { Log.v("Generating", "maze is not null"); }
+                openPlayManuallyActivity();
             }
         });
         Progress.start();
@@ -85,30 +84,24 @@ public class GeneratingActivity extends AppCompatActivity {
             case R.id.buttonPremium:
                 if (checked) {
                     sensors = "1111";
-                Log.v(String.valueOf(this), "Premium robot selected");
-                Toast.makeText(this, "Premium robot selected", Toast.LENGTH_SHORT).show(); }
+                Log.v(String.valueOf(this), "Premium robot selected"); };
                 break;
             case R.id.buttonMediocre:
                 if (checked) {
                     sensors = "1001";
-                Log.v(String.valueOf(this), "Mediocre robot selected");
-                Toast.makeText(this, "Mediocre robot selected", Toast.LENGTH_SHORT).show(); }
+                Log.v(String.valueOf(this), "Mediocre robot selected"); };
                 break;
             case R.id.buttonSoso:
                 if (checked) {
                     sensors = "0110";
-                Log.v(String.valueOf(this), "So-so robot selected");
-                Toast.makeText(this, "So-so robot selected", Toast.LENGTH_SHORT).show(); }
+                Log.v(String.valueOf(this), "So-so robot selected"); }
                 break;
             case R.id.buttonShaky:
                 if (checked) {
                     sensors = "0000";
-                Log.v(String.valueOf(this), "Shaky robot selected");
-                Toast.makeText(this, "Shaky robot selected", Toast.LENGTH_SHORT).show(); }
+                Log.v(String.valueOf(this), "Shaky robot selected"); }
                 break;
         }
-        if (Progress.isAlive()) {
-        Toast.makeText(this, R.string.WaitingThread, Toast.LENGTH_SHORT).show(); }
     }
 
     public void onRadioButtonDriverClicked(View view) {
@@ -160,5 +153,43 @@ public class GeneratingActivity extends AppCompatActivity {
     public void openPlayAnimationActivity() {
         Intent intent = new Intent(this, PlayAnimationActivity.class);
         startActivity(intent);
+    }
+
+    public void generateMaze() {
+        factory.order(this);
+        factory.waitTillDelivered();
+    }
+
+    @Override
+    public int getSkillLevel() {
+        return skillLevel;
+    }
+
+    @Override
+    public Builder getBuilder() {
+        return builder;
+    }
+
+    @Override
+    public boolean isPerfect() {
+        return perfect;
+    }
+
+    @Override
+    public int getSeed() {
+        return seed;
+    }
+
+    @Override
+    public void deliver(Maze mazeConfig) {
+
+    }
+
+    @Override
+    public void updateProgress(int percentage) {
+        if (this.percentdone < percentage && percentage <= 100) {
+            this.percentdone = percentage;
+            progressBar.setProgress(percentdone);
+        }
     }
 }

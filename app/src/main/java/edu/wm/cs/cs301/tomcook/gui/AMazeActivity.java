@@ -20,17 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.wm.cs.cs301.tomcook.R;
+import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
+import edu.wm.cs.cs301.tomcook.generation.Order;
 
 public class AMazeActivity extends AppCompatActivity {
 
-    Spinner generationDropdown;
-    Switch switchRoom;
-    boolean rooms;
-    Slider difficulty;
-    int skillLevel;
-    String algorithm;
-    Button exploreButton;
-    Button revisitButton;
+    private Spinner generationDropdown;
+    private Switch switchRoom;
+    private boolean perfect = GlobalValues.perfect;
+    private Slider difficulty;
+    private int skillLevel = GlobalValues.skillLevel;
+    private String algorithm;
+    private Button exploreButton, revisitButton;
+    private Order.Builder builder = GlobalValues.builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,19 @@ public class AMazeActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 algorithm = adapter.getItem(i);
-                Toast.makeText(adapterView.getContext(), "Selected: " + algorithm, Toast.LENGTH_SHORT).show();
                 Log.v(String.valueOf(this), algorithm + " selected for maze generation");
+                switch (algorithm) {
+                    case "DFS":
+                        builder = Order.Builder.DFS;
+                        break;
+                    case "Prim":
+                        builder = Order.Builder.Prim;
+                        break;
+                    case "Boruvka":
+                        builder = Order.Builder.Boruvka;
+                        break;
+                }
+                GlobalValues.builder = builder;
             }
 
             @Override
@@ -84,11 +97,9 @@ public class AMazeActivity extends AppCompatActivity {
         switchRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (switchRoom.isChecked()) {
-                    Toast.makeText(getApplicationContext(), "Rooms: On", Toast.LENGTH_SHORT).show(); }
-                else { Toast.makeText(getApplicationContext(), "Rooms: Off", Toast.LENGTH_SHORT).show(); }
-                rooms = switchRoom.isChecked();
-                Log.v(String.valueOf(this), "rooms included: " + rooms);
+                perfect = switchRoom.isChecked();
+                GlobalValues.perfect = perfect;
+                Log.v(String.valueOf(this), "rooms included: " + perfect);
             }
         });
 
@@ -98,7 +109,7 @@ public class AMazeActivity extends AppCompatActivity {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 skillLevel = (int) value;
-                Toast.makeText(getApplicationContext(), "Skill level set to " + skillLevel, Toast.LENGTH_SHORT).show();
+                GlobalValues.skillLevel = skillLevel;
                 Log.v(String.valueOf(this), "skill level set to " + skillLevel);
             }
         });
