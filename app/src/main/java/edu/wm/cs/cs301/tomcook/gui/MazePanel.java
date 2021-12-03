@@ -43,7 +43,7 @@ public class MazePanel extends View implements P5PanelF21 {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        myTestImage(canvas);
+        paint(canvas);
     }
 
     @Override
@@ -72,6 +72,10 @@ public class MazePanel extends View implements P5PanelF21 {
     public void commit() {
         invalidate();
 
+    }
+
+    public void paint(Canvas c) {
+        c.drawBitmap(bitmap, (float) 0, (float) 0, paint);
     }
 
     @Override

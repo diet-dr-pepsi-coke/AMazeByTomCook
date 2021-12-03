@@ -2,6 +2,7 @@ package edu.wm.cs.cs301.tomcook.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,19 +10,35 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import javax.sql.StatementEvent;
+
 import edu.wm.cs.cs301.tomcook.R;
+import edu.wm.cs.cs301.tomcook.generation.CardinalDirection;
+import edu.wm.cs.cs301.tomcook.generation.Constants;
+import edu.wm.cs.cs301.tomcook.generation.Floorplan;
+import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
+import edu.wm.cs.cs301.tomcook.generation.Maze;
 
 public class PlayManuallyActivity extends AppCompatActivity {
-    Button map, solution, walls;
-    ImageButton walk, turnLeft, turnRight, back, zoomIn, zoomOut;
-    boolean mapShown = false, solutionShown = false, wallsShown = false;
-    MazePanel panel;
+    private Button map, solution, walls;
+    private ImageButton walk, turnLeft, turnRight, back, zoomIn, zoomOut;
+    private boolean mapMode = false, showSolution = false, showMaze = false, started;
+    private MazePanel panel;
+    private StatePlaying statePlaying;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_manually);
+
+        statePlaying = new StatePlaying();
+        statePlaying.setMazeConfiguration(GlobalValues.mazeConfig);
+        GlobalValues.panel = findViewById(R.id.mazePanel);
+        if (GlobalValues.panel == null) {
+            Log.v("Playing", "panel is null");
+        } else {Log.v("Playing", "panel is not null");}
+        statePlaying.start(GlobalValues.panel);
 
         map = (Button) findViewById(R.id.buttonMap);
         solution = (Button) findViewById(R.id.buttonSolution);
@@ -80,25 +97,25 @@ public class PlayManuallyActivity extends AppCompatActivity {
     public void toggle(View view) {
         switch (view.getId()) {
             case R.id.buttonMap:
-                if (mapShown==false) {
-                    mapShown=true;
+                if (mapMode==false) {
+                    mapMode=true;
                 Log.v(String.valueOf(this), "ShowMap: On");
                 }
-                else {mapShown=false;
+                else {mapMode=false;
                     Log.v(String.valueOf(this), "ShowMap: Off");}
                 break;
             case R.id.buttonSolution:
-                if (solutionShown==false) {
-                    solutionShown=true;
+                if (showSolution==false) {
+                    showSolution=true;
                     Log.v(String.valueOf(this), "ShowSolution: On");}
-                else {solutionShown=false;
+                else {showSolution=false;
                     Log.v(String.valueOf(this), "ShowSolution: Off");}
                 break;
             case R.id.buttonWalls:
-                if (wallsShown==false) {
-                    wallsShown=true;
+                if (showMaze==false) {
+                    showMaze=true;
                     Log.v(String.valueOf(this), "ShowWalls: On");}
-                else {wallsShown=false;
+                else {showMaze=false;
                     Log.v(String.valueOf(this), "ShowWalls: Off");}
                 break;
         }
@@ -115,4 +132,6 @@ public class PlayManuallyActivity extends AppCompatActivity {
         Intent intent = new Intent(this, WinningActivity.class);
         startActivity(intent);
     }
+
+
 }

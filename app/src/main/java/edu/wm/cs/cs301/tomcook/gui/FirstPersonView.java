@@ -10,6 +10,7 @@ import edu.wm.cs.cs301.tomcook.generation.BSPLeaf;
 import edu.wm.cs.cs301.tomcook.generation.BSPNode;
 import edu.wm.cs.cs301.tomcook.generation.Constants;
 import edu.wm.cs.cs301.tomcook.generation.Floorplan;
+import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
 import edu.wm.cs.cs301.tomcook.generation.Wall;
 
 /**
@@ -76,7 +77,7 @@ public class FirstPersonView {
 	 * with the current buffer image is the responsibility of
 	 * the StatePlaying class.
 	 */
-	private MazePanel Panel;
+	private MazePanel Panel = GlobalValues.panel;
 	
 	/**
 	 * The current position (x,y) scaled by map_unit and 
@@ -167,9 +168,9 @@ public class FirstPersonView {
         
         // update graphics
         // draw background figure: lightGrey to green on bottom half, yellow to gold on top half
-        drawBackground(Panel, percentToExit);
+        drawBackground(panel, percentToExit);
         // set color to white and draw what ever can be seen from the current position
-        Panel.setColor(0xFFFFFF);
+        panel.setColor(0xFFFFFF);
         // reset the set of ranges to a single new element (0,width-1)
         // to cover the full width of the view 
         // as we have not drawn any polygons (walls) yet.
