@@ -155,6 +155,7 @@ public class FirstPersonView {
 	 * 
 	 */
 	public void draw(MazePanel panel, int x, int y, int walkStep, int ang, float percentToExit) {
+		System.out.println("firstpersonview drawing");
 		// obtain a Graphics2D object we can draw on
         // viewers draw on the buffer graphics
         //if (null == panel.getBufferGraphics()) {
@@ -170,7 +171,7 @@ public class FirstPersonView {
         // draw background figure: lightGrey to green on bottom half, yellow to gold on top half
         drawBackground(panel, percentToExit);
         // set color to white and draw what ever can be seen from the current position
-        panel.setColor(0xFFFFFF);
+        panel.setColor(0xFFFFFFFF);
         // reset the set of ranges to a single new element (0,width-1)
         // to cover the full width of the view 
         // as we have not drawn any polygons (walls) yet.
@@ -216,15 +217,18 @@ public class FirstPersonView {
 	 * @param percentToExit gives the distance to exit
 	 */
 	private void drawBackground(MazePanel Panel, float percentToExit) {
+		System.out.println("drawing background");
 		// black rectangle in upper half of screen
 		// graphics.setColor(Color.black);
 		// dynamic color setting: 
 		Panel.setColor(getBackgroundColor(percentToExit, true));
+		System.out.println("top background color" + Panel.getColor());
 		Panel.addFilledRectangle(0, 0, viewWidth, viewHeight/2);
 		// grey rectangle in lower half of screen
 		// graphics.setColor(Color.darkGray);
 		// dynamic color setting: 
-		Panel.setColor(getBackgroundColor(percentToExit, false));
+		//Panel.setColor(getBackgroundColor(percentToExit, false));
+		Panel.setColor(0xFF737373);
 		Panel.addFilledRectangle(0, viewHeight/2, viewWidth, viewHeight/2);
 	}
 	/**
@@ -237,7 +241,7 @@ public class FirstPersonView {
 	 * @return the color to use for the background rectangle
 	 */
 	private int getBackgroundColor(float percentToExit, boolean top) {
-		return top? blend(yellowWM, goldWM, percentToExit) : 
+		return top? blend(yellowWM, goldWM, percentToExit) :
 			blend("D3D3D3", greenWM, percentToExit);
 	}
 

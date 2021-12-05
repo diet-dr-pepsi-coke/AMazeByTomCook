@@ -6,6 +6,7 @@ package edu.wm.cs.cs301.tomcook.gui;
 import edu.wm.cs.cs301.tomcook.generation.CardinalDirection;
 import edu.wm.cs.cs301.tomcook.generation.Constants;
 import edu.wm.cs.cs301.tomcook.generation.Floorplan;
+import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
 import edu.wm.cs.cs301.tomcook.generation.Maze;
 
 /**
@@ -59,7 +60,7 @@ public class Map {
 	 */
 	final Maze maze ;
 	
-	MazePanel Panel;
+	MazePanel Panel = GlobalValues.panel;
 
 	/**
 	 * Constructor 
@@ -137,8 +138,8 @@ public class Map {
        // }
         final int viewDX = getViewDX(angle); 
         final int viewDY = getViewDY(angle);
-        drawMap(Panel, x, y, walkStep, viewDX, viewDY, showMaze, showSolution) ;
-        drawCurrentLocation(Panel, viewDX, viewDY) ;
+        drawMap(panel, x, y, walkStep, viewDX, viewDY, showMaze, showSolution) ;
+        drawCurrentLocation(panel, viewDX, viewDY) ;
 	}
 	//////////////////////////////// private, internal methods //////////////////////////////
 	/**
@@ -396,7 +397,10 @@ public class Map {
 		// and its width and height to draw the circle
 		// top left corner is (centerX-radius, centerY-radius)
 		// width and height is simply the diameter
-		Panel.addFilledOval(centerX-diameter/2, centerY-diameter/2, diameter, diameter);
+		System.out.println("centerx " + centerX);
+		System.out.println("centerY "+ centerY);
+		System.out.println("diameter "+ diameter);
+		Panel.addFilledOval(centerX-(diameter/2), centerY-(diameter/2), centerX+diameter/2, centerY+diameter/2);
 		// draw a red arrow with the oval to show current direction
 		drawArrow(Panel, viewDX, viewDY, centerX, centerY);
 	}

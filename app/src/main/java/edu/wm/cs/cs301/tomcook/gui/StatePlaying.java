@@ -141,7 +141,7 @@ public class StatePlaying {
 		firstPersonView = new FirstPersonView(Constants.VIEW_WIDTH,
 				Constants.VIEW_HEIGHT, Constants.MAP_UNIT,
 				Constants.STEP_SIZE, seenCells, mazeConfig.getRootnode()) ;
-		mapView = new Map(seenCells, 15, mazeConfig) ;
+		mapView = new Map(seenCells, 30, mazeConfig) ;
 		// draw the initial screen for this state
 		draw();
 	}
@@ -150,7 +150,7 @@ public class StatePlaying {
      * and the viewing direction to values consistent with the 
      * given maze.
      */
-	private void setPositionDirectionViewingDirection() {
+	public void setPositionDirectionViewingDirection() {
 		// obtain starting position
         int[] start = mazeConfig.getStartingPosition() ;
         setCurrentPosition(start[0],start[1]) ;
@@ -172,7 +172,7 @@ public class StatePlaying {
      * @param key provides the feature the user selected
      * @param value is not used, exists only for consistency across State classes
      * @return false if not started yet otherwise true
-
+    */
     public boolean keyDown(UserInput key, int value) {
         if (!started)
             return false;
@@ -188,86 +188,79 @@ public class StatePlaying {
             walk(1);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
-            	if (control.getRobot() == null) {
-            		control.switchFromPlayingToWinning(0);
+                // TODO
+            	//if (control.getRobot() == null) {
+            		//control.switchFromPlayingToWinning(0);
             	}
             	else {
-                control.switchFromPlayingToWinning(control.getRobot().getOdometerReading());
+            	    // TODO
+                //control.switchFromPlayingToWinning(control.getRobot().getOdometerReading());
             	}
-            }
             break;
         case LEFT: // turn left
         	rotate(1);
             break;
         case RIGHT: // turn right
             rotate(-1);
+            System.out.println("rotating");
             break;
         case DOWN: // move backward
             walk(-1);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
-                control.switchFromPlayingToWinning(0);
+                // TODO
+                //control.switchFromPlayingToWinning(0);
             }
             break;
         case RETURNTOTITLE: // escape to title screen
-            control.switchToTitle();
+            // TODO
+            //control.switchToTitle();
             break;
         case JUMP: // make a step forward even through a wall
             // go to position if within maze
             if (mazeConfig.isValidPosition(px + dx, py + dy)) {
                 setCurrentPosition(px + dx, py + dy) ;
-                draw() ;
             }
             break;
         case TOGGLELOCALMAP: // show local information: current position and visible walls
             // precondition for showMaze and showSolution to be effective
             // acts as a toggle switch
-            mapMode = !mapMode;         
-            draw() ; 
+            mapMode = !mapMode;
             break;
         case TOGGLEFULLMAP: // show the whole maze
             // acts as a toggle switch
-            showMaze = !showMaze;       
-            draw() ; 
+            showMaze = !showMaze;
             break;
         case TOGGLESOLUTION: // show the solution as a yellow line towards the exit
             // acts as a toggle switch
-            showSolution = !showSolution;       
-            draw() ;
+            showSolution = !showSolution;
             break;
         case ZOOMIN: // zoom into map
-        	mapView.incrementMapScale(); 
-            draw() ;
+        	mapView.incrementMapScale();
             break ;
         case ZOOMOUT: // zoom out of map
-        	mapView.decrementMapScale(); 
-            draw() ; 
+        	mapView.decrementMapScale();
             break ;
-        } // end of internal switch statement for playing state
-       /* int[] curPos = getCurrentPosition();
+        }// end of internal switch statement for playing state
+        int[] curPos = getCurrentPosition();
 		int[] desiredPos = mazeConfig.getNeighborCloserToExit(curPos[0], curPos[1]);
-		System.out.println(curPos[0]);
-		System.out.println(curPos[1]);
-		System.out.println(desiredPos[0]);
-		System.out.println(desiredPos[1]);
 		// find the difference between the cells (i.e. subtract
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
 		int[] direction = {curPos[0] - desiredPos[0], curPos[1] - desiredPos[1]};
-		System.out.println(getCurrentDirection());
-		System.out.println(CardinalDirection.getDirection(direction[0], direction[1])); */
-        //return true;
-    //} */
+        return true;
+    }
     /**
      * Draws the current content on panel to show it on screen.
      */
     protected void draw() {
+        System.out.println("drawing");
     	if (panel == null) {
     		System.out.println("panel is null in draw method in stateplaying");
     		return;
     	} else {System.out.println("panel is NOT null in draw method in stateplaying");}
     	// draw the first person view and the map view if wanted
-    	firstPersonView.draw(panel, px, py, walkStep, angle, 
+    	firstPersonView.draw(panel, px, py, walkStep, angle,
     			getPercentageForDistanceToExit()) ;
         if (isInMapMode()) {
 			mapView.draw(panel, px, py, angle, walkStep,
@@ -363,6 +356,7 @@ public class StatePlaying {
      * Draws and waits. Used to obtain a smooth appearance for rotate and move operations
      */
     private void slowedDownRedraw() {
+        System.out.println("slowedownredraw calling draw");
         draw() ;
         try {
             Thread.sleep(25);
@@ -370,6 +364,7 @@ public class StatePlaying {
         	// may happen if thread is interrupted
         	// no reason to do anything about it, ignore exception
         }
+        System.out.println("sloweddownredraw finished");
     }
  	
     /**
@@ -377,7 +372,7 @@ public class StatePlaying {
      * updates the screen and the internal direction
      * @param dir for current direction, values are either 1 or -1
      */
-    private synchronized void rotate(int dir) {
+    public synchronized void rotate(int dir) {
         final int originalAngle = angle;
         final int steps = 4;
 
@@ -388,13 +383,15 @@ public class StatePlaying {
             angle = (angle+1800) % 360;
             // draw method is called and uses angle field for direction
             // information.
+            System.out.println("rotate calling sloweddownredraw");
 			slowedDownRedraw();
         }
         // update maze direction only after intermediate steps are done
         // because choice of direction values are more limited.
         setDirectionToMatchCurrentAngle();
         //logPosition(); // debugging
-        drawHintIfNecessary(); 
+        drawHintIfNecessary();
+        System.out.println("finished rotating");
     }
 	
     /**
@@ -402,7 +399,8 @@ public class StatePlaying {
      * updates the screen and the internal position
      * @param dir, only possible values are 1 (forward) and -1 (backward)
      */
-    private synchronized void walk(int dir) {
+    public synchronized void walk(int dir) {
+        System.out.println("walking");
     	// check if there is a wall in the way
         if (!checkMove(dir))
             return;
@@ -427,7 +425,7 @@ public class StatePlaying {
      * @param y coordinate of position
      * @return true if position is outside, false otherwise
      */
-    private boolean isOutside(int x, int y) {
+    public boolean isOutside(int x, int y) {
         return !mazeConfig.isValidPosition(x, y) ;
     }
     /**
@@ -437,6 +435,7 @@ public class StatePlaying {
      * otherwise it is a compass rose.
      */
     private void drawHintIfNecessary() {
+        System.out.println("drawing hint because necessary");
     	if (isInMapMode())
     		return; // no need for help
     	// in testing environments, there is sometimes no panel to draw on

@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -42,6 +43,7 @@ public class MazePanel extends View implements P5PanelF21 {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        Log.v("MazePanel", "onDraw called");
         super.onDraw(canvas);
         paint(canvas);
     }
@@ -60,6 +62,7 @@ public class MazePanel extends View implements P5PanelF21 {
      * Warning: do not override getGraphics() or drawing might fail.
      */
     public void update() {
+        System.out.println("MazePanel: invalidating" + this);
         invalidate();
     }
 
@@ -96,6 +99,7 @@ public class MazePanel extends View implements P5PanelF21 {
     @Override
     public void setColor(int rgb) {
         paint.setColor(rgb);
+        paint.setAlpha(255);
     }
 
     /**
@@ -106,6 +110,7 @@ public class MazePanel extends View implements P5PanelF21 {
      */
     public void setColor(int r, int g, int b) {
         paint.setColor(Color.rgb(r, g, b));
+        paint.setAlpha(255);
     }
 
     /**
@@ -132,8 +137,10 @@ public class MazePanel extends View implements P5PanelF21 {
 
     @Override
     public void addFilledRectangle(int x, int y, int width, int height) {
+        Log.v("MazePanel", "drawing Filled Rectangle");
         paint.setStyle(Paint.Style.FILL);
         canvas_bm.drawRect(x, y, width, height, paint);
+        update();
     }
 
     @Override

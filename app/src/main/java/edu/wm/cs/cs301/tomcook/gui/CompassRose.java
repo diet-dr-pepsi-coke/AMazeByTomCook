@@ -163,7 +163,7 @@ public class CompassRose {
      */
 	private void drawBackground(MazePanel Panel) {
 		// color setting hard coded as white
-		Panel.setColor(0xFFFFFF);
+		Panel.setColor(0xFFFFFFFF);
 		// determine x,y coordinates for oval
 		final int x = centerX - size;
 		final int y = centerY - size;
