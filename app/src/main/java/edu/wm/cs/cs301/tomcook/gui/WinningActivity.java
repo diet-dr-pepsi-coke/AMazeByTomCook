@@ -27,7 +27,8 @@ public class WinningActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         stepsWalked = intent.getIntExtra("STEPS_WALKED", 0);
         shortestPathTaken = GlobalValues.mazeConfig.getDistanceToExit(
-                GlobalValues.mazeConfig.getStartingPosition()[0], GlobalValues.mazeConfig.getStartingPosition()[1]);
+                GlobalValues.mazeConfig.getStartingPosition()[0],
+                GlobalValues.mazeConfig.getStartingPosition()[1]);
         origin = intent.getStringExtra("ORIGIN");
 
 

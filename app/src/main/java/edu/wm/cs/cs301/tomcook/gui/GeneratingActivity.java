@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Random;
+
 import edu.wm.cs.cs301.tomcook.R;
 import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
 import edu.wm.cs.cs301.tomcook.generation.Maze;
@@ -24,11 +26,11 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
     private String driver, sensors, filename;
     private TextView generating, robotQuality, textProgress;
     private Handler handler;
-    private boolean done = false, perfect;
+    private boolean done = false, perfect, selected = false;
     private RadioButton Manual, Wizard, WallFollower, Premium, Mediocre, Soso, Shaky;
     private Thread Progress;
     protected MazeFactory factory;
-    private int seed, skillLevel, percentdone;
+    private int seed = GlobalValues.seed, skillLevel, percentdone;
     private Builder builder;
 
 
@@ -44,7 +46,9 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         skillLevel = GlobalValues.skillLevel;
         builder = GlobalValues.builder;
         perfect = GlobalValues.perfect;
-        seed = GlobalValues.seed;
+        Random random = new Random();
+        seed = random.nextInt();
+        GlobalValues.seed = seed;
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         textProgress = (TextView) findViewById(R.id.textProgress);
@@ -69,10 +73,10 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
             public void run() {
                 Log.v(String.valueOf(this), "creating maze");
                 generateMaze();
+                Log.v("Generating", "done" + done);
                 if (GlobalValues.mazeConfig == null) {
                     Log.v("Generating", "maze is null"); }
                 else { Log.v("Generating", "maze is not null"); }
-                openPlayManuallyActivity();
             }
         });
         Progress.start();
@@ -84,21 +88,25 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
             case R.id.buttonPremium:
                 if (checked) {
                     sensors = "1111";
+                    selected = true;
                 Log.v(String.valueOf(this), "Premium robot selected"); };
                 break;
             case R.id.buttonMediocre:
                 if (checked) {
                     sensors = "1001";
+                    selected = true;
                 Log.v(String.valueOf(this), "Mediocre robot selected"); };
                 break;
             case R.id.buttonSoso:
                 if (checked) {
                     sensors = "0110";
+                    selected = true;
                 Log.v(String.valueOf(this), "So-so robot selected"); }
                 break;
             case R.id.buttonShaky:
                 if (checked) {
                     sensors = "0000";
+                    selected = true;
                 Log.v(String.valueOf(this), "Shaky robot selected"); }
                 break;
         }
@@ -112,11 +120,13 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                     driver = "Manual";
                     Log.v(String.valueOf(this), "Manual driver selected");
                     Toast.makeText(this, "Manual driver selected", Toast.LENGTH_SHORT).show();
+                    selected = true;
                 robotQuality.setVisibility(View.GONE);
                 Premium.setVisibility(View.GONE);
                 Mediocre.setVisibility(View.GONE);
                 Soso.setVisibility(View.GONE);
-                Shaky.setVisibility(View.GONE); }
+                Shaky.setVisibility(View.GONE);
+                openPlayManuallyActivity();}
                 break;
             case R.id.buttonWizard:
                 if (checked) {
@@ -127,7 +137,8 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 Premium.setVisibility(View.VISIBLE);
                 Mediocre.setVisibility(View.VISIBLE);
                 Soso.setVisibility(View.VISIBLE);
-                Shaky.setVisibility(View.VISIBLE); }
+                Shaky.setVisibility(View.VISIBLE);
+                openPlayAnimationActivity();}
                 break;
             case R.id.buttonWallFollower:
                 if (checked) {
@@ -138,26 +149,45 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                     Premium.setVisibility(View.VISIBLE);
                     Mediocre.setVisibility(View.VISIBLE);
                     Soso.setVisibility(View.VISIBLE);
-                    Shaky.setVisibility(View.VISIBLE); }
+                    Shaky.setVisibility(View.VISIBLE);
+                openPlayAnimationActivity();}
                 break;
         }
         if (Progress.isAlive()) {
             Toast.makeText(this, R.string.WaitingThread, Toast.LENGTH_SHORT).show(); }
+        Log.v("Geerating", "selected: " + selected);
     }
 
     public void openPlayManuallyActivity() {
         Intent intent = new Intent(this, PlayManuallyActivity.class);
+        while (!done) {
+            while (!selected) {
+            try {
+                wait(); }
+            catch (InterruptedException e) {
+                Log.v("Generating", e.toString());
+            }
+        } }
         startActivity(intent);
     }
 
-    public void openPlayAnimationActivity() {
+    public synchronized void openPlayAnimationActivity() {
         Intent intent = new Intent(this, PlayAnimationActivity.class);
+        while (!done) {
+            while (!selected) {
+            try {
+                wait(); }
+            catch (InterruptedException e) {
+                Log.v("Generating", e.toString());
+                }
+        } }
         startActivity(intent);
     }
 
     public void generateMaze() {
         factory.order(this);
         factory.waitTillDelivered();
+        done = true;
     }
 
     @Override

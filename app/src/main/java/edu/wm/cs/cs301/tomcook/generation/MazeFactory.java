@@ -84,6 +84,7 @@ public class MazeFactory implements Factory {
 		}
 		builder = null;
 		currentOrder = null;
+		System.out.println("Maze has been delivered");
 	}
 	///////////////////////// private methods ///////////////////////////////////
 	/**
