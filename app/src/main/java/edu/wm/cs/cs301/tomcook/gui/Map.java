@@ -400,7 +400,7 @@ public class Map {
 		System.out.println("centerx " + centerX);
 		System.out.println("centerY "+ centerY);
 		System.out.println("diameter "+ diameter);
-		Panel.addFilledOval(centerX-(diameter/2), centerY-(diameter/2), centerX+diameter/2, centerY+diameter/2);
+		Panel.addFilledOval(centerX-(diameter/2), centerY-(diameter/2), diameter/2, diameter/2);
 		// draw a red arrow with the oval to show current direction
 		drawArrow(Panel, viewDX, viewDY, centerX, centerY);
 	}
@@ -467,7 +467,7 @@ public class Map {
 		int sy = py;
 		int distance = maze.getDistanceToExit(sx, sy);
 		
-		Panel.setColor(0xFFFF00);
+		Panel.setColor(0x00FFFF00);
 		
 		// while we are more than 1 step away from the final position
 		while (distance > 1) {

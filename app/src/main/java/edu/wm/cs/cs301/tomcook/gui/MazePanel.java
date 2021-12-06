@@ -67,7 +67,9 @@ public class MazePanel extends View implements P5PanelF21 {
     }
 
     public void addLine(int startX, int startY, int endX, int endY) {
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setAlpha(255);
+        for (int i=0; i<5; i++)
         canvas_bm.drawLine((float) startX, (float) startY, (float) endX, (float) endY, paint);
     }
 
@@ -169,7 +171,7 @@ public class MazePanel extends View implements P5PanelF21 {
     @Override
     public void addFilledOval(int x, int y, int width, int height) {
         paint.setStyle(Paint.Style.FILL);
-        canvas_bm.drawOval((float) x, (float) y, (float) width, (float) height, paint);
+        canvas_bm.drawOval((float) x, (float) y, (float) x + width, (float) y + height, paint);
 
     }
 

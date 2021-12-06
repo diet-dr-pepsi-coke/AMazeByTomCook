@@ -38,9 +38,9 @@ public class StatePlaying {
     
     Maze mazeConfig ; 
     
-    private boolean showMaze;           // toggle switch to show overall maze on screen
-    private boolean showSolution;       // toggle switch to show solution in overall maze on screen
-    private boolean mapMode; // true: display map of maze, false: do not display map of maze
+    public boolean showMaze;           // toggle switch to show overall maze on screen
+    public boolean showSolution;       // toggle switch to show solution in overall maze on screen
+    public boolean mapMode; // true: display map of maze, false: do not display map of maze
     // mapMode is toggled by user keyboard input, causes a call to drawMap during play mode
 
     // current position and direction with regard to MazeConfiguration
@@ -141,7 +141,7 @@ public class StatePlaying {
 		firstPersonView = new FirstPersonView(Constants.VIEW_WIDTH,
 				Constants.VIEW_HEIGHT, Constants.MAP_UNIT,
 				Constants.STEP_SIZE, seenCells, mazeConfig.getRootnode()) ;
-		mapView = new Map(seenCells, 30, mazeConfig) ;
+		mapView = new Map(seenCells, 75, mazeConfig) ;
 		// draw the initial screen for this state
 		draw();
 	}
@@ -226,20 +226,25 @@ public class StatePlaying {
             // precondition for showMaze and showSolution to be effective
             // acts as a toggle switch
             mapMode = !mapMode;
+            draw();
             break;
         case TOGGLEFULLMAP: // show the whole maze
             // acts as a toggle switch
             showMaze = !showMaze;
+            draw();
             break;
         case TOGGLESOLUTION: // show the solution as a yellow line towards the exit
             // acts as a toggle switch
             showSolution = !showSolution;
+            draw();
             break;
         case ZOOMIN: // zoom into map
         	mapView.incrementMapScale();
+        	draw();
             break ;
         case ZOOMOUT: // zoom out of map
         	mapView.decrementMapScale();
+        	draw();
             break ;
         }// end of internal switch statement for playing state
         int[] curPos = getCurrentPosition();

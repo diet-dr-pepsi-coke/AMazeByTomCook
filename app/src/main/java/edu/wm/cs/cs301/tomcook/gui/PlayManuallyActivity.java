@@ -62,8 +62,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 if (statePlaying.isOutside(statePlaying.px, statePlaying.py)) {
                     openWinningActivity(); }
                 Log.v(String.valueOf(this), "Walk 1 step forward");
-                //panel.setColor(0xFF00FF00);
-                //panel.addFilledOval(600,400,800,600);
+                panel.setColor(0xFF00FF00);
+                panel.addLine(20, 400, 400, 600);
 
             }
         });
@@ -94,14 +94,14 @@ public class PlayManuallyActivity extends AppCompatActivity {
         zoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                statePlaying.mapView.incrementMapScale();
+                statePlaying.keyDown(Constants.UserInput.ZOOMIN, 0);
                 Log.v(String.valueOf(this), "Maze size incremented by 10%");
             }
         });
         zoomOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                statePlaying.mapView.decrementMapScale();
+                statePlaying.keyDown(Constants.UserInput.ZOOMOUT, 0);
                 Log.v(String.valueOf(this), "Maze size decremented by 10%");
             }
         });
@@ -110,15 +110,18 @@ public class PlayManuallyActivity extends AppCompatActivity {
     public void toggle(View view) {
         switch (view.getId()) {
             case R.id.buttonMap:
-                showMaze = !showMaze;
+                statePlaying.keyDown(Constants.UserInput.TOGGLEFULLMAP, 0);
+                statePlaying.draw();
                 Log.v(String.valueOf(this), "ShowMap:" + showMaze);
                 break;
             case R.id.buttonSolution:
-                showSolution = !showSolution;
+                statePlaying.keyDown(Constants.UserInput.TOGGLESOLUTION, 0);
+                statePlaying.draw();
                 Log.v(String.valueOf(this), "ShowSolution:" + showSolution);
                 break;
             case R.id.buttonWalls:
-                mapMode = !mapMode;
+                statePlaying.keyDown(Constants.UserInput.TOGGLELOCALMAP, 0);
+                statePlaying.draw();
                 Log.v(String.valueOf(this), "ShowWalls:" + mapMode);
                 break;
         }
@@ -132,6 +135,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
     }
 
     public void openWinningActivity() {
+        Log.v("PlayManually", "Going to Winning");
         Intent intent = new Intent(this, WinningActivity.class);
         startActivity(intent);
     }

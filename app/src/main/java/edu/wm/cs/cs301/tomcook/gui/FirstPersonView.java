@@ -229,7 +229,7 @@ public class FirstPersonView {
 		// dynamic color setting: 
 		//Panel.setColor(getBackgroundColor(percentToExit, false));
 		Panel.setColor(0xFF737373);
-		Panel.addFilledRectangle(0, viewHeight/2, viewWidth, viewHeight/2);
+		Panel.addFilledRectangle(0, viewHeight/2, viewWidth, viewHeight);
 	}
 	/**
 	 * Determine the background color for the top and bottom

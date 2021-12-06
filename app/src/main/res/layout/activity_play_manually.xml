@@ -13,7 +13,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="6dp"
-        android:text="@string/Map"
+        android:text="@string/Walls"
         android:onClick="toggle"/>
 
     <Button
@@ -33,7 +33,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="0dp"
-        android:text="@string/Walls"
+        android:text="@string/Map"
         android:onClick="toggle"/>
 
     <edu.wm.cs.cs301.tomcook.gui.MazePanel
