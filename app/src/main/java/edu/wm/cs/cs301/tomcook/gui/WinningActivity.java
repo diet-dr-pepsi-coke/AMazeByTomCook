@@ -10,17 +10,26 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import edu.wm.cs.cs301.tomcook.R;
+import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
 import edu.wm.cs.cs301.tomcook.gui.AMazeActivity;
 
 public class WinningActivity extends AppCompatActivity {
 
     TextView odometer, shortestPath, consumption;
     Button playAgain;
+    private int stepsWalked, shortestPathTaken;
+    private String origin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winning);
+        Intent intent = this.getIntent();
+        stepsWalked = intent.getIntExtra("STEPS_WALKED", 0);
+        shortestPathTaken = GlobalValues.mazeConfig.getDistanceToExit(
+                GlobalValues.mazeConfig.getStartingPosition()[0], GlobalValues.mazeConfig.getStartingPosition()[1]);
+        origin = intent.getStringExtra("ORIGIN");
+
 
         odometer = (TextView) findViewById(R.id.textViewOdometerWon);
         shortestPath = (TextView) findViewById(R.id.textViewShortestWon);
@@ -33,9 +42,10 @@ public class WinningActivity extends AppCompatActivity {
                 Log.v(String.valueOf(this), "Returning to Title Screen");
             }
         });
-        odometer.setText(getString(R.string.odometer) + " N/A for now");
-        shortestPath.setText(getString(R.string.shortest) + " N/A for now");
-        consumption.setText(getString(R.string.Consumption) + " N/A for now");
+        odometer.setText(getString(R.string.odometer) + " " + stepsWalked);
+        shortestPath.setText(getString(R.string.shortest) + " " + shortestPathTaken);
+        if (origin.equals("PlayManually")) {
+            consumption.setText(getString(R.string.Consumption) + " You didn't use a Robot"); }
     }
     @Override
     public void onBackPressed() {

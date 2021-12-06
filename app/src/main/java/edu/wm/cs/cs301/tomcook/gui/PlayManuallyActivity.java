@@ -26,6 +26,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
             showMaze = GlobalValues.showMaze, started;
     private MazePanel panel;
     private StatePlaying statePlaying;
+    private int stepsWalked=0;
 
 
     @Override
@@ -57,6 +58,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
         walk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stepsWalked++;
                 statePlaying.keyDown(Constants.UserInput.UP, 0);
                 // check termination, did we leave the maze?
                 if (statePlaying.isOutside(statePlaying.px, statePlaying.py)) {
@@ -138,6 +140,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
     public void openWinningActivity() {
         Log.v("PlayManually", "Going to Winning");
         Intent intent = new Intent(this, WinningActivity.class);
+        intent.putExtra("STEPS_WALKED", stepsWalked);
+        intent.putExtra("ORIGIN", "PlayManually");
         startActivity(intent);
     }
 
