@@ -94,7 +94,7 @@ public class StatePlaying {
         // configure compass rose
         cr = new CompassRose();
         cr.setPositionAndSize(Constants.VIEW_WIDTH/2,
-        		(int)(0.1*Constants.VIEW_HEIGHT),35);
+        		(int)(0.1*Constants.VIEW_HEIGHT),100);
 
         if (panel != null) {
         	startDrawer();
@@ -189,8 +189,7 @@ public class StatePlaying {
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
                 // TODO
-            	//if (control.getRobot() == null) {
-            		//control.switchFromPlayingToWinning(0);
+            	return true;
             	}
             	else {
             	    // TODO
@@ -252,7 +251,11 @@ public class StatePlaying {
 		// find the difference between the cells (i.e. subtract
 		// 	the x and y values from each other) to see which direction
 		// 	the neighbor cell is
-		int[] direction = {curPos[0] - desiredPos[0], curPos[1] - desiredPos[1]};
+        //System.out.println("Exit position " + mazeConfig.getExitPosition()[0] + " " + mazeConfig.getExitPosition()[1]);
+        //System.out.println("current position " + curPos[0] + " " + curPos[1]);
+        //System.out.println("desired Positoin " + desiredPos[0] + " " + desiredPos[1]);
+        //if (desiredPos == null) {
+		    //int[] direction = {curPos[0] - desiredPos[0], curPos[1] - desiredPos[1]}; }
         return true;
     }
     /**

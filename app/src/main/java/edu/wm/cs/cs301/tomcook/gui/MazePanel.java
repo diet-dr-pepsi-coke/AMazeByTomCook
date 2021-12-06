@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -80,7 +81,7 @@ public class MazePanel extends View implements P5PanelF21 {
     }
 
     public void paint(Canvas c) {
-        c.drawBitmap(bitmap, (float) 0, (float) 0, paint);
+        c.drawBitmap(bitmap, (float) 120, (float) 0, paint);
     }
 
     @Override
@@ -183,6 +184,9 @@ public class MazePanel extends View implements P5PanelF21 {
 
     @Override
     public void addMarker(float x, float y, String str) {
+        paint.setTextSize(64);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTypeface(Typeface.SERIF);
         canvas_bm.drawText(str, x, y, paint);
     }
 

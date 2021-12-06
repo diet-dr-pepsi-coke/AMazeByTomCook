@@ -60,10 +60,11 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 statePlaying.keyDown(Constants.UserInput.UP, 0);
                 // check termination, did we leave the maze?
                 if (statePlaying.isOutside(statePlaying.px, statePlaying.py)) {
+                    Log.v("PlayManually", "Opening Winning acitvity");
                     openWinningActivity(); }
                 Log.v(String.valueOf(this), "Walk 1 step forward");
-                panel.setColor(0xFF00FF00);
-                panel.addLine(20, 400, 400, 600);
+                //panel.setColor(0xFF00FF00);
+                // panel.addLine(20, 400, 400, 600);
 
             }
         });

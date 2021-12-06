@@ -282,18 +282,18 @@ public class CompassRose {
 		// WARNING: north south confusion
 		// currendDir South is going upward on the map
 		Panel.setColor((CardinalDirection.South == currentDir) ? MARKER_COLOR : goldWM);
-		Panel.addMarker(centerX, centerY - offset, "N");
+		Panel.addMarker(centerX - offset/4, centerY - offset/2-10, "N");
 
 		Panel.setColor((CardinalDirection.East == currentDir) ? MARKER_COLOR : goldWM);
-		Panel.addMarker(centerX + offset, centerY, "E");
+		Panel.addMarker(centerX + offset/2+10, centerY + offset/4, "E");
 
 		// WARNING: north south confusion
 		// currendDir North is going downwards on the map
 		Panel.setColor((CardinalDirection.North == currentDir) ? MARKER_COLOR : goldWM);
-		Panel.addMarker(centerX, centerY + offset, "S");
+		Panel.addMarker(centerX - offset/4, centerY + offset+10, "S");
 
 		Panel.setColor((CardinalDirection.West == currentDir) ? MARKER_COLOR : goldWM);
-		Panel.addMarker(centerX - offset, centerY, "W");
+		Panel.addMarker( centerX-offset*(1.25f)-10, centerY + offset/4, "W");
 
 	}
 

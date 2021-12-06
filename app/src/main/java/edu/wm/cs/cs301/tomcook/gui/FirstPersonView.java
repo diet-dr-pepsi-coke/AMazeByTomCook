@@ -155,7 +155,6 @@ public class FirstPersonView {
 	 * 
 	 */
 	public void draw(MazePanel panel, int x, int y, int walkStep, int ang, float percentToExit) {
-		System.out.println("firstpersonview drawing");
 		// obtain a Graphics2D object we can draw on
         // viewers draw on the buffer graphics
         //if (null == panel.getBufferGraphics()) {
