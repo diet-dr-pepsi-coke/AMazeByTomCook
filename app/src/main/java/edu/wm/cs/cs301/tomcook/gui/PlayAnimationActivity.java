@@ -70,7 +70,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         speed.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                animationSpeed = (int) value;
+                animationSpeed = 10000/(int) value;
                 Log.v(String.valueOf(this), "animation speed set to " + animationSpeed);
             }
         });
@@ -94,17 +94,17 @@ public class PlayAnimationActivity extends AppCompatActivity {
                 }
             }
         });
-        zoomIn.setOnClickListener(new View.OnClickListener() {
+        zoomOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                statePlaying.keyDown(Constants.UserInput.ZOOMIN, 0);
+                statePlaying.keyDown(Constants.UserInput.ZOOMOUT, 0);
                 Log.v(String.valueOf(this), "Maze size incremented by 10%");
             }
         });
         zoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                statePlaying.keyDown(Constants.UserInput.ZOOMOUT, 0);
+                statePlaying.keyDown(Constants.UserInput.ZOOMIN, 0);
                 Log.v(String.valueOf(this), "Maze size decremented by 10%");
             }
         });
