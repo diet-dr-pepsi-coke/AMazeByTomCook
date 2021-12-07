@@ -168,8 +168,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        energyLeft -= (int)robot.getBatteryLevel();
-        energy.setProgress(3500-energyLeft);
+        energy.setProgress(3500-(int)robot.getBatteryLevel());
         Log.v("Animation", "energy " + robot.getBatteryLevel());
     }
 
