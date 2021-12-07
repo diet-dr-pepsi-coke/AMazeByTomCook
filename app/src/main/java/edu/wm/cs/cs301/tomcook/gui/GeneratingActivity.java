@@ -89,25 +89,29 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 if (checked) {
                     sensors = "1111";
                     selected = true;
-                Log.v(String.valueOf(this), "Premium robot selected"); };
+                Log.v(String.valueOf(this), "Premium robot selected");
+                openPlayAnimationActivity();};
                 break;
             case R.id.buttonMediocre:
                 if (checked) {
                     sensors = "1001";
                     selected = true;
-                Log.v(String.valueOf(this), "Mediocre robot selected"); };
+                Log.v(String.valueOf(this), "Mediocre robot selected");
+                openPlayAnimationActivity();};
                 break;
             case R.id.buttonSoso:
                 if (checked) {
                     sensors = "0110";
                     selected = true;
-                Log.v(String.valueOf(this), "So-so robot selected"); }
+                Log.v(String.valueOf(this), "So-so robot selected");
+                openPlayAnimationActivity();}
                 break;
             case R.id.buttonShaky:
                 if (checked) {
                     sensors = "0000";
                     selected = true;
-                Log.v(String.valueOf(this), "Shaky robot selected"); }
+                Log.v(String.valueOf(this), "Shaky robot selected");
+                openPlayAnimationActivity();}
                 break;
         }
     }
@@ -138,7 +142,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 Mediocre.setVisibility(View.VISIBLE);
                 Soso.setVisibility(View.VISIBLE);
                 Shaky.setVisibility(View.VISIBLE);
-                openPlayAnimationActivity();}
+                }
                 break;
             case R.id.buttonWallFollower:
                 if (checked) {
@@ -150,7 +154,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                     Mediocre.setVisibility(View.VISIBLE);
                     Soso.setVisibility(View.VISIBLE);
                     Shaky.setVisibility(View.VISIBLE);
-                openPlayAnimationActivity();}
+                }
                 break;
         }
         if (Progress.isAlive()) {
@@ -160,36 +164,40 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
 
     public void openPlayManuallyActivity() {
         Intent intent = new Intent(this, PlayManuallyActivity.class);
-        while (!done) {
-            while (!selected) {
+            while (!selected || !done) {
+                Log.v("Generating", "done: " + ", selected: " + selected);
             try {
                 wait(); }
             catch (InterruptedException e) {
                 Log.v("Generating", e.toString());
             }
-        } }
+        }
+            Log.v("Generating", "Going to PlayManually");
         startActivity(intent);
     }
 
     public synchronized void openPlayAnimationActivity() {
         Intent intent = new Intent(this, PlayAnimationActivity.class);
-        while (!done) {
-            while (!selected) {
+            while (!selected || !done) {
+                Log.v("Generating", "done: " + done + ", selected: " + selected);
             try {
                 wait(); }
             catch (InterruptedException e) {
                 Log.v("Generating", e.toString());
                 }
-        } }
+        }
+        Log.v("Generating", "Going to PlayAnimation");
         intent.putExtra("DRIVER", driver);
         intent.putExtra("SENSOR", sensors);
         startActivity(intent);
     }
 
-    public void generateMaze() {
+    public synchronized void generateMaze() {
         factory.order(this);
         factory.waitTillDelivered();
         done = true;
+        if (selected)
+            notify();
     }
 
     @Override

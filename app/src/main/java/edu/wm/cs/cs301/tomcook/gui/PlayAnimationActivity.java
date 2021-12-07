@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.slider.Slider;
 
@@ -25,7 +26,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
     TextView front, left, right, back;
     boolean frontOn = true, leftOn = true, rightOn = true, backOn = true, playing = false, mapShown  = GlobalValues.showMaze;
     ProgressBar energy;
-    int animationSpeed = 100, odometer = GlobalValues.stepsWalked;
+    int animationSpeed = 100, odometer = GlobalValues.stepsWalked, energyLeft=3500;
     Slider speed;
     ImageButton zoomIn, zoomOut;
     Button play, showMap;
@@ -70,7 +71,23 @@ public class PlayAnimationActivity extends AppCompatActivity {
         speed.addOnChangeListener(new Slider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                animationSpeed = 10000/(int) value;
+                switch ((int) value) {
+                    case 50:
+                        animationSpeed = 750;
+                        break;
+                    case 100:
+                        animationSpeed = 500;
+                        break;
+                    case 150:
+                        animationSpeed = 250;
+                        break;
+                    case 200:
+                        animationSpeed = 50;
+                        break;
+                }
+                //TODO
+                // add toasts to tell user what speed they selected
+                Toast.makeText(getApplicationContext(), "Speed: " + value + "%", Toast.LENGTH_SHORT).show();
                 Log.v(String.valueOf(this), "animation speed set to " + animationSpeed);
             }
         });
@@ -151,6 +168,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        energyLeft -= (int)robot.getBatteryLevel();
+        energy.setProgress(3500-energyLeft);
+        Log.v("Animation", "energy " + robot.getBatteryLevel());
     }
 
     private void setUpAnimation() {
