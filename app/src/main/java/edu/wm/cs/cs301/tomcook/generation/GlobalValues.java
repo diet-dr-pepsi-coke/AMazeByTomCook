@@ -15,4 +15,6 @@ public class GlobalValues {
     public static boolean showSolution = false;
     public static boolean showMaze = false;
     public static boolean mapMode = false;
+
+    public static int stepsWalked;
 }

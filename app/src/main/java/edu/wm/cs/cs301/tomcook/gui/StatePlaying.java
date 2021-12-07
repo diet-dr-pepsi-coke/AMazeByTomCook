@@ -104,33 +104,6 @@ public class StatePlaying {
         	printWarning();
         }
         // bring the robot and driver from controller into this game state
-        /*
-        Robot robot = controller.getRobot();
-        RobotDriver driver = controller.getDriver();
-        // when we have a driver (Wizard, WallFollower)
-        if (driver != null) {
-        	// give the robot and driver the pertinent information for distance sensing,
-        	// room sensing, and exit sensing, etc.
-        	driver.setRobot(robot);
-        	driver.setMaze(mazeConfig);
-        	robot.setController(controller);
-        	robot.setBatteryLevel(3500);
-        	robot.resetOdometer();
-        	// this method must be called after the robot has its controller set to the 
-        	// one pertaining to this maze
-        	robot.setSensorMazes();
-        	try {
-				if (driver.drive2Exit() == true) {
-					controller.switchFromPlayingToWinning(robot.getOdometerReading());
-				}
-				else {
-					controller.switchFromPlayingToWinning(robot.getOdometerReading());
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Robot is null");
-			}  
-    	} */
     }
     /**
      * Initializes the drawer for the first person view

@@ -181,6 +181,8 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
                 Log.v("Generating", e.toString());
                 }
         } }
+        intent.putExtra("DRIVER", driver);
+        intent.putExtra("SENSOR", sensors);
         startActivity(intent);
     }
 
