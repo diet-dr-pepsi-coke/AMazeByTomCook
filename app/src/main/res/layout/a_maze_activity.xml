@@ -6,11 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".gui.AMazeActivity">
 
+    <ImageView
+        android:id="@+id/imageOverlook"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/overlook"
+        android:scaleType="fitXY" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="434dp"
+        android:fontFamily="@font/seaweed_script"
+        android:text="@string/Welcome"
+        android:textColor="@color/gold"
+        android:textAlignment="center"
+        android:textSize="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textViewDifficulty"
         android:layout_width="182dp"
         android:layout_height="26dp"
         android:layout_marginStart="16dp"
+        android:background="@color/white"
+        android:fontFamily="@font/seaweed_script"
         android:text="@string/Difficulty"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -35,17 +62,19 @@
         app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.657" />
+        app:layout_constraintVertical_bias="0.657"
+        app:thumbColor="@color/snow"
+        app:trackColor="@color/gold" />
 
     <Switch
         android:id="@+id/switchRoom"
-        android:checked="true"
         android:layout_width="79dp"
         android:layout_height="67dp"
         android:layout_marginStart="212dp"
         android:layout_marginTop="540dp"
         android:layout_marginEnd="120dp"
         android:layout_marginBottom="124dp"
+        android:checked="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="504dp"
         android:layout_marginBottom="120dp"
+        android:background="@color/white"
         android:prompt="@string/Algorithm"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,6 +106,8 @@
         android:layout_marginEnd="200dp"
         android:layout_marginBottom="200dp"
         android:layout_toStartOf="@+id/spinnerAlgorithm"
+        android:background="@color/white"
+        android:fontFamily="@font/seaweed_script"
         android:text="@string/Algorithm"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -93,6 +125,8 @@
         android:layout_marginTop="563dp"
         android:layout_marginEnd="228dp"
         android:layout_marginBottom="141dp"
+        android:background="@color/white"
+        android:fontFamily="@font/seaweed_script"
         android:text="@string/Room"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -109,7 +143,9 @@
         android:layout_marginTop="608dp"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="75dp"
+        android:fontFamily="@font/seaweed_script"
         android:text="@string/Explore"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +159,11 @@
         android:layout_marginTop="608dp"
         android:layout_marginEnd="147dp"
         android:layout_marginBottom="75dp"
+        android:background="@color/gold"
+        android:backgroundTint="@color/gold"
+        android:fontFamily="@font/seaweed_script"
         android:text="@string/Revisit"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

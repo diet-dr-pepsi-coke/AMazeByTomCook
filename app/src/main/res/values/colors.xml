@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFFF0000</color>
     <color name="green">#FF00FF00</color>
+    <color name="snow">#969696</color>
+    <color name="gold">#D9B400</color>
 </resources>
