@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.GeneratingActivity">
+    tools:context=".gui.GeneratingActivity"
+    android:background="@drawable/generatingmaze"
+    >
+
 
     <TextView
         android:id="@+id/textProgress"
@@ -14,7 +17,7 @@
         android:textColor="@color/black"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="30dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -26,8 +29,8 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textProgress"
         android:progress="0"
-        android:progressBackgroundTint="@color/red"
-        android:progressTint="@color/teal_200"
+        android:progressBackgroundTint="@color/snow"
+        android:progressTint="@color/gold"
         />
 
 
@@ -35,6 +38,7 @@
         android:id="@+id/textSensors"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:fontFamily="@font/seaweed_script"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
@@ -42,7 +46,7 @@
         android:layout_marginTop="452dp"
         android:text="@string/RobotQuality"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/gold"
         android:textSize="36sp" />
 
     <RadioGroup
@@ -51,9 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="100dp"
         android:layout_marginStart="1dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        >
 
         <RadioButton
             android:id="@+id/buttonManual"
@@ -63,10 +68,10 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="306dp"
             android:layout_weight="1"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:onClick="onRadioButtonDriverClicked"
             android:text="@string/Manual"
-            android:onClick="onRadioButtonDriverClicked"/>
+            android:textColor="@color/gold"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/buttonWizard"
@@ -75,10 +80,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="306dp"
             android:layout_weight="1"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:onClick="onRadioButtonDriverClicked"
             android:text="@string/Wizard"
-            android:onClick="onRadioButtonDriverClicked"/>
+            android:textColor="@color/gold"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/buttonWallFollower"
@@ -88,10 +93,10 @@
             android:layout_marginTop="306dp"
             android:layout_toRightOf="@+id/buttonWizard"
             android:layout_weight="1"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:onClick="onRadioButtonDriverClicked"
             android:text="@string/WallFollower"
-            android:onClick="onRadioButtonDriverClicked"/>
+            android:textColor="@color/gold"
+            android:textSize="20sp" />
 
     </RadioGroup>
 
@@ -111,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/gold"
             android:text="@string/Premium"
             android:onClick="onRadioButtonSensorsClicked"/>
 
@@ -121,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/gold"
             android:text="@string/Mediocre"
             android:onClick="onRadioButtonSensorsClicked"/>
 
@@ -131,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/gold"
             android:text="@string/Soso"
             android:onClick="onRadioButtonSensorsClicked"/>
 
@@ -141,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textColor="@color/gold"
             android:text="@string/Shaky"
             android:onClick="onRadioButtonSensorsClicked"/>
     </RadioGroup>
@@ -152,7 +157,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="360dp"
         android:text="@string/Driver"
-        android:textColor="@color/black"
+        android:fontFamily="@font/seaweed_script"
+        android:textColor="@color/gold"
         android:textSize="36sp"
         android:layout_centerHorizontal="true"/>
 
