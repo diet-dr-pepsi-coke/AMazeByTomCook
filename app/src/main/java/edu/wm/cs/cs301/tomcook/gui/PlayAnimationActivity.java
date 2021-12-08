@@ -26,7 +26,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
     TextView front, left, right, back;
     boolean frontOn = true, leftOn = true, rightOn = true, backOn = true, playing = false, mapShown  = GlobalValues.showMaze;
     ProgressBar energy;
-    int animationSpeed = 750, odometer = GlobalValues.stepsWalked, energyLeft=3500;
+    int animationSpeed = 750, odometer, energyLeft=3500;
     Slider speed;
     ImageButton zoomIn, zoomOut;
     Button play, showMap;
@@ -74,16 +74,16 @@ public class PlayAnimationActivity extends AppCompatActivity {
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 switch ((int) value) {
                     case 50:
-                        animationSpeed = 750;
+                        animationSpeed = 800;
                         break;
                     case 100:
-                        animationSpeed = 500;
+                        animationSpeed = 550;
                         break;
                     case 150:
-                        animationSpeed = 250;
+                        animationSpeed = 300;
                         break;
                     case 200:
-                        animationSpeed = 50;
+                        animationSpeed = 100;
                         break;
                 }
                 //TODO
@@ -220,6 +220,15 @@ public class PlayAnimationActivity extends AppCompatActivity {
         // this method must be called after the robot has its controller set to the
         // one pertaining to this maze
         robot.setMaze(GlobalValues.mazeConfig);
+        ReliableSensor Fsensor = new ReliableSensor();
+        robot.addDistanceSensor(Fsensor, Robot.Direction.FORWARD);
+        ReliableSensor Lsensor = new ReliableSensor();
+        robot.addDistanceSensor(Lsensor, Robot.Direction.LEFT);
+        ReliableSensor Rsensor = new ReliableSensor();
+        robot.addDistanceSensor(Rsensor, Robot.Direction.RIGHT);
+        ReliableSensor Bsensor = new ReliableSensor();
+        robot.addDistanceSensor(Bsensor, Robot.Direction.BACKWARD);
+        robot.setSensorMazes();
     }
 
     public void isOn() {
@@ -248,18 +257,24 @@ public class PlayAnimationActivity extends AppCompatActivity {
 
     public void openLosingActivity() {
         handler.removeCallbacks(traverseMaze);
+        odometer = robot.getOdometerReading();
+        energyLeft = (int) robot.getBatteryLevel();
         Intent intent = new Intent(this, LosingActivity.class);
         intent.putExtra("ORIGIN", "PlayWinning");
         intent.putExtra("STEPS_WALKED", odometer);
+        intent.putExtra("ENERGY_CONSUMED", energyLeft);
         finish();
         startActivity(intent);
     }
 
     public void openWinningActivity() {
         handler.removeCallbacks(traverseMaze);
+        odometer = robot.getOdometerReading();
+        energyLeft = (int) robot.getBatteryLevel();
         Intent intent = new Intent(this, WinningActivity.class);
         intent.putExtra("ORIGIN", "PlayWinning");
         intent.putExtra("STEPS_WALKED", odometer);
+        intent.putExtra("ENERGY_CONSUMED", energyLeft);
         finish();
         startActivity(intent);
     }

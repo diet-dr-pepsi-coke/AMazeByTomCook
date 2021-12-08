@@ -29,7 +29,7 @@ import edu.wm.cs.cs301.tomcook.generation.Constants.UserInput;
 public class ReliableRobot implements Robot {
 	
 	 private float batteryLevel = 3500;
-	 private int odometer = GlobalValues.stepsWalked;
+	 private int odometer;
 	 private boolean stopped = false;
 	 private StatePlaying controller;
 	 private DistanceSensor frontSensor;
@@ -39,7 +39,10 @@ public class ReliableRobot implements Robot {
 	 private Maze maze;
 
 	public ReliableRobot() {
-		// TODO Auto-generated constructor stub
+		frontSensor  = new ReliableSensor();
+		leftSensor  = new ReliableSensor();
+		rightSensor  = new ReliableSensor();
+		backSensor  = new ReliableSensor();
 	}
 
 	public void setController(StatePlaying controller) {
@@ -239,6 +242,7 @@ public class ReliableRobot implements Robot {
 
 	@Override
 	public int distanceToObstacle(Direction direction) {
+		batteryLevel -= 1;
 		// check to make sure we haven't stopped and battery is still good
 		 if (getBatteryLevel() > 0 && !hasStopped()) { 
 			 float[] battery = {batteryLevel};

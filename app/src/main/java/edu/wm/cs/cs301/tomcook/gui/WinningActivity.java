@@ -17,7 +17,7 @@ public class WinningActivity extends AppCompatActivity {
 
     TextView odometer, shortestPath, consumption;
     Button playAgain;
-    private int stepsWalked, shortestPathTaken;
+    private int stepsWalked, shortestPathTaken, energy;
     private String origin;
 
     @Override
@@ -30,6 +30,7 @@ public class WinningActivity extends AppCompatActivity {
                 GlobalValues.mazeConfig.getStartingPosition()[0],
                 GlobalValues.mazeConfig.getStartingPosition()[1]);
         origin = intent.getStringExtra("ORIGIN");
+        energy = 3500 - intent.getIntExtra("ENERGY_CONSUMED", 0);
 
 
         odometer = (TextView) findViewById(R.id.textViewOdometerWon);
@@ -47,6 +48,9 @@ public class WinningActivity extends AppCompatActivity {
         shortestPath.setText(getString(R.string.shortest) + " " + shortestPathTaken);
         if (origin.equals("PlayManually")) {
             consumption.setText(getString(R.string.Consumption) + " You didn't use a Robot"); }
+        else {
+            consumption.setText(getString(R.string.Consumption) + " " + energy);
+        }
     }
     @Override
     public void onBackPressed() {

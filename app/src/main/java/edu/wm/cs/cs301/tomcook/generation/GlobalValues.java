@@ -12,5 +12,4 @@ public class GlobalValues {
     public static boolean showMaze = false;
     public static boolean mapMode = false;
 
-    public static int stepsWalked;
 }

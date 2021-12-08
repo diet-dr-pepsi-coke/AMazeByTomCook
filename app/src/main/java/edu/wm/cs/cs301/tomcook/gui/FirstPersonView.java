@@ -220,12 +220,11 @@ public class FirstPersonView {
 	 * @param percentToExit gives the distance to exit
 	 */
 	private void drawBackground(MazePanel Panel, float percentToExit) {
-		System.out.println("drawing background");
 		// black rectangle in upper half of screen
 		// graphics.setColor(Color.black);
 		// dynamic color setting: 
 		Panel.setColor(getBackgroundColor(percentToExit, true));
-		System.out.println("top background color" + Panel.getColor());
+		//System.out.println("top background color" + Panel.getColor());
 		Panel.addBackgroundImage(0, 0, viewWidth, viewHeight/2, R.drawable.stars);
 		// grey rectangle in lower half of screen
 		// graphics.setColor(Color.darkGray);

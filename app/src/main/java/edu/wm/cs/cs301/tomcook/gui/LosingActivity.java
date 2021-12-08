@@ -10,17 +10,28 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import edu.wm.cs.cs301.tomcook.R;
+import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
 import edu.wm.cs.cs301.tomcook.gui.AMazeActivity;
 
 public class LosingActivity extends AppCompatActivity {
 
     TextView odometer, shortestPath, consumption;
+    int stepsWalked,energy, shortestPathTaken;
+    String origin;
     Button playAgain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_losing);
+
+        Intent intent = this.getIntent();
+        stepsWalked = intent.getIntExtra("STEPS_WALKED", 0);
+        shortestPathTaken = GlobalValues.mazeConfig.getDistanceToExit(
+                GlobalValues.mazeConfig.getStartingPosition()[0],
+                GlobalValues.mazeConfig.getStartingPosition()[1]);
+        origin = intent.getStringExtra("ORIGIN");
+        energy = 3500 - intent.getIntExtra("ENERGY_CONSUMED", 0);
 
         odometer = (TextView) findViewById(R.id.textViewOdometer);
         shortestPath = (TextView) findViewById(R.id.textViewShortest);
@@ -33,9 +44,9 @@ public class LosingActivity extends AppCompatActivity {
                 Log.v(String.valueOf(this), "Returning to Title Screen");
             }
         });
-        odometer.setText(getString(R.string.odometer) + " N/A for now");
-        shortestPath.setText(getString(R.string.shortest) + " N/A for now");
-        consumption.setText(getString(R.string.Consumption) + " N/A for now");
+        odometer.setText(getString(R.string.odometer) + " " + stepsWalked);
+        shortestPath.setText(getString(R.string.shortest) + " " + shortestPathTaken);
+        consumption.setText(getString(R.string.Consumption) + " " + energy);
     }
 
     @Override

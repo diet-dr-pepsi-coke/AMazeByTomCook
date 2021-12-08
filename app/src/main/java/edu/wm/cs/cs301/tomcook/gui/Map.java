@@ -397,9 +397,6 @@ public class Map {
 		// and its width and height to draw the circle
 		// top left corner is (centerX-radius, centerY-radius)
 		// width and height is simply the diameter
-		System.out.println("centerx " + centerX);
-		System.out.println("centerY "+ centerY);
-		System.out.println("diameter "+ diameter);
 		Panel.addFilledOval(centerX-(diameter/2), centerY-(diameter/2), diameter/2, diameter/2);
 		// draw a red arrow with the oval to show current direction
 		drawArrow(Panel, viewDX, viewDY, centerX, centerY);

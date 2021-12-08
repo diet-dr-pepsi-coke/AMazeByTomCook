@@ -49,7 +49,6 @@ public class MazePanel extends View implements P5PanelF21 {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.v("MazePanel", "onDraw called");
         super.onDraw(canvas);
         paint(canvas);
     }
@@ -68,7 +67,6 @@ public class MazePanel extends View implements P5PanelF21 {
      * Warning: do not override getGraphics() or drawing might fail.
      */
     public void update() {
-        System.out.println("MazePanel: invalidating" + this);
         invalidate();
     }
 

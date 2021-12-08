@@ -174,7 +174,6 @@ public class StatePlaying {
             break;
         case RIGHT: // turn right
             rotate(-1);
-            System.out.println("rotating");
             break;
         case DOWN: // move backward
             walk(-1);
@@ -235,11 +234,11 @@ public class StatePlaying {
      * Draws the current content on panel to show it on screen.
      */
     protected void draw() {
-        System.out.println("drawing");
     	if (panel == null) {
-    		System.out.println("panel is null in draw method in stateplaying");
+    		//System.out.println("panel is null in draw method in stateplaying");
     		return;
-    	} else {System.out.println("panel is NOT null in draw method in stateplaying");}
+    	} else {//System.out.println("panel is NOT null in draw method in stateplaying");
+    	     }
     	// draw the first person view and the map view if wanted
     	firstPersonView.draw(panel, px, py, walkStep, angle,
     			getPercentageForDistanceToExit()) ;
@@ -337,15 +336,13 @@ public class StatePlaying {
      * Draws and waits. Used to obtain a smooth appearance for rotate and move operations
      */
     private void slowedDownRedraw() {
-        System.out.println("slowedownredraw calling draw");
         draw() ;
         try {
-            Thread.sleep(25);
+            //Thread.sleep(25);
         } catch (Exception e) { 
         	// may happen if thread is interrupted
         	// no reason to do anything about it, ignore exception
         }
-        System.out.println("sloweddownredraw finished");
     }
  	
     /**
@@ -364,7 +361,6 @@ public class StatePlaying {
             angle = (angle+1800) % 360;
             // draw method is called and uses angle field for direction
             // information.
-            System.out.println("rotate calling sloweddownredraw");
 			slowedDownRedraw();
         }
         // update maze direction only after intermediate steps are done
@@ -372,7 +368,6 @@ public class StatePlaying {
         setDirectionToMatchCurrentAngle();
         //logPosition(); // debugging
         drawHintIfNecessary();
-        System.out.println("finished rotating");
     }
 	
     /**
@@ -381,7 +376,6 @@ public class StatePlaying {
      * @param dir, only possible values are 1 (forward) and -1 (backward)
      */
     public synchronized void walk(int dir) {
-        System.out.println("walking");
     	// check if there is a wall in the way
         if (!checkMove(dir))
             return;
@@ -416,7 +410,6 @@ public class StatePlaying {
      * otherwise it is a compass rose.
      */
     private void drawHintIfNecessary() {
-        System.out.println("drawing hint because necessary");
     	if (isInMapMode())
     		return; // no need for help
     	// in testing environments, there is sometimes no panel to draw on
