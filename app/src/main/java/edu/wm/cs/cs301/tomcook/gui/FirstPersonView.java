@@ -226,13 +226,13 @@ public class FirstPersonView {
 		// dynamic color setting: 
 		Panel.setColor(getBackgroundColor(percentToExit, true));
 		System.out.println("top background color" + Panel.getColor());
-		Panel.addFilledRectangle(0, 0, viewWidth, viewHeight/2);
+		Panel.addBackgroundImage(0, 0, viewWidth, viewHeight/2, R.drawable.stars);
 		// grey rectangle in lower half of screen
 		// graphics.setColor(Color.darkGray);
 		// dynamic color setting: 
 		//Panel.setColor(getBackgroundColor(percentToExit, false));
 		Panel.setColor(0xFF2B2B2B);
-		Panel.addFilledRectangle(0, viewHeight/2, viewWidth, viewHeight);
+		Panel.addBackgroundImage(0, viewHeight/2, viewWidth, viewHeight/2, R.drawable.snowyground);
 	}
 	/**
 	 * Determine the background color for the top and bottom

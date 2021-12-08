@@ -210,6 +210,12 @@ public class MazePanel extends View implements P5PanelF21 {
 
     }
 
+    public void addBackgroundImage(int x, int y, int width, int height, int image) {
+        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), image);
+        Bitmap bitmap2 = Bitmap.createScaledBitmap(bitmap1, width, height, false);
+        canvas_bm.drawBitmap(bitmap2, x, y, paint);
+    }
+
     private void myTestImage(Canvas c) {
 
         //addLine(0,0,width, height);

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.PlayManuallyActivity">
+    tools:context=".gui.PlayManuallyActivity"
+    android:background="@drawable/snowygroundbig">
 
     <Button
         android:id="@+id/buttonMap"
@@ -13,6 +14,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="6dp"
+        android:fontFamily="@font/seaweed_script"
         android:text="@string/Walls"
         android:onClick="toggle"/>
 
@@ -20,21 +22,24 @@
         android:id="@+id/buttonSolution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/buttonMap"
         android:layout_marginTop="6dp"
-        android:text="@string/Solution"
-        android:onClick="toggle"/>
+        android:layout_toRightOf="@id/buttonMap"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/seaweed_script"
+        android:onClick="toggle"
+        android:text="@string/Solution" />
 
     <Button
         android:id="@+id/buttonWalls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/seaweed_script"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="0dp"
-        android:text="@string/Map"
-        android:onClick="toggle"/>
+        android:onClick="toggle"
+        android:text="@string/Map" />
 
     <edu.wm.cs.cs301.tomcook.gui.MazePanel
         android:id="@+id/mazePanel"
