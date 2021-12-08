@@ -153,6 +153,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
         public void run() {
             move();
             handler.postDelayed(this, animationSpeed);
+            if (robot.isAtExit()) {
+                openWinningActivity();
+            }
         }
     };
 
@@ -160,13 +163,14 @@ public class PlayAnimationActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, AMazeActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void move() {
         try {
             driver.drive1Step2Exit();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.v("Exception", e.toString());
         }
         energy.setProgress(3500-(int)robot.getBatteryLevel());
         Log.v("Animation", "energy " + robot.getBatteryLevel());
@@ -210,6 +214,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
     }
 
     public void openLosingActivity() {
+        handler.removeCallbacks(traverseMaze);
         Intent intent = new Intent(this, LosingActivity.class);
         intent.putExtra("ORIGIN", "PlayWinning");
         intent.putExtra("STEPS_WALKED", odometer);
@@ -217,9 +222,11 @@ public class PlayAnimationActivity extends AppCompatActivity {
     }
 
     public void openWinningActivity() {
+        handler.removeCallbacks(traverseMaze);
         Intent intent = new Intent(this, WinningActivity.class);
         intent.putExtra("ORIGIN", "PlayWinning");
         intent.putExtra("STEPS_WALKED", odometer);
+        finish();
         startActivity(intent);
     }
 }

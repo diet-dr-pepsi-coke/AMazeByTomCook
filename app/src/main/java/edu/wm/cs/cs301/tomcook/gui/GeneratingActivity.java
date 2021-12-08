@@ -1,6 +1,7 @@
 package edu.wm.cs.cs301.tomcook.gui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -23,15 +24,16 @@ import edu.wm.cs.cs301.tomcook.generation.MazeFactory;
 
 public class GeneratingActivity extends AppCompatActivity implements Order {
     private ProgressBar progressBar;
-    private String driver, sensors, filename;
+    private String driver, sensors, builderString;
     private TextView generating, robotQuality, textProgress;
     private Handler handler;
-    private boolean done = false, perfect, selected = false;
+    private boolean done = false, perfect, selected = false, explore;
     private RadioButton Manual, Wizard, WallFollower, Premium, Mediocre, Soso, Shaky;
     private Thread Progress;
     protected MazeFactory factory;
     private int seed = GlobalValues.seed, skillLevel, percentdone;
     private Builder builder;
+    private SharedPreferences sharedPreferences;
 
 
 
@@ -39,16 +41,51 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generating);
+        Intent intent = this.getIntent();
 
         factory = new MazeFactory();
-        filename = null;
         factory = new MazeFactory();
-        skillLevel = GlobalValues.skillLevel;
-        builder = GlobalValues.builder;
-        perfect = GlobalValues.perfect;
-        Random random = new Random();
-        seed = random.nextInt();
-        GlobalValues.seed = seed;
+        skillLevel = intent.getIntExtra("SKILL_LEVEL", 0);
+        perfect = intent.getBooleanExtra("ROOMS", true);
+        builderString = intent.getStringExtra("BUILDER");
+        switch(builderString) {
+            case "DFS":
+                builder = Order.Builder.DFS;
+                break;
+            case "Boruvka":
+                builder = Order.Builder.DFS;
+                break;
+            case "Prim":
+                builder = Order.Builder.Prim;
+                break;
+            default:
+                builder = Order.Builder.DFS;
+                break;
+
+        }
+
+        explore = intent.getBooleanExtra("EXPLORE", true);
+        sharedPreferences = getSharedPreferences("Mazes", MODE_PRIVATE);
+        if (explore) {
+            Log.v("Generating", "Exploring new maze");
+            Random random = new Random();
+            seed = random.nextInt();
+            GlobalValues.seed = seed;
+        }
+        else {
+            Log.v("Generating", "Revisiting old maze");
+            seed = sharedPreferences.getInt("seed", GlobalValues.seed);
+            perfect = sharedPreferences.getBoolean("rooms", false);
+            builderString = sharedPreferences.getString("builder", "DFS");
+            skillLevel = sharedPreferences.getInt("skillLevel", 0);
+
+        }
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("seed", seed);
+        editor.putBoolean("rooms", perfect);
+        editor.putInt("skillLevel", skillLevel);
+        editor.putString("builder", builder.toString());
+
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         textProgress = (TextView) findViewById(R.id.textProgress);
@@ -212,6 +249,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
 
     @Override
     public boolean isPerfect() {
+        Log.v("Generating", "rooms included: " + perfect);
         return perfect;
     }
 

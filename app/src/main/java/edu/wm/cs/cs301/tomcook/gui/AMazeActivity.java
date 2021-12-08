@@ -1,6 +1,7 @@
 package edu.wm.cs.cs301.tomcook.gui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,12 +28,12 @@ public class AMazeActivity extends AppCompatActivity {
 
     private Spinner generationDropdown;
     private Switch switchRoom;
-    private boolean perfect = GlobalValues.perfect;
+    private boolean perfect = false, explore;
     private Slider difficulty;
-    private int skillLevel = GlobalValues.skillLevel;
+    private int skillLevel = 0;
     private String algorithm;
     private Button exploreButton, revisitButton;
-    private Order.Builder builder = GlobalValues.builder;
+    private Order.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,6 @@ public class AMazeActivity extends AppCompatActivity {
                         builder = Order.Builder.Boruvka;
                         break;
                 }
-                GlobalValues.builder = builder;
             }
 
             @Override
@@ -83,6 +83,7 @@ public class AMazeActivity extends AppCompatActivity {
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                explore = true;
                 openGeneratingActivity();
             }
         });
@@ -90,6 +91,7 @@ public class AMazeActivity extends AppCompatActivity {
         revisitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                explore = false;
                 openGeneratingActivity();
             }
         });
@@ -98,7 +100,6 @@ public class AMazeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 perfect = switchRoom.isChecked();
-                GlobalValues.perfect = perfect;
                 Log.v(String.valueOf(this), "rooms included: " + perfect);
             }
         });
@@ -109,7 +110,6 @@ public class AMazeActivity extends AppCompatActivity {
             @Override
             public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                 skillLevel = (int) value;
-                GlobalValues.skillLevel = skillLevel;
                 Log.v(String.valueOf(this), "skill level set to " + skillLevel);
             }
         });
@@ -121,8 +121,16 @@ public class AMazeActivity extends AppCompatActivity {
     }
 
     public void openGeneratingActivity() {
-            Intent intent = new Intent(this, GeneratingActivity.class);
-            startActivity(intent);
+        Intent intent = new Intent(this, GeneratingActivity.class);
+        if (explore) {
+            intent.putExtra("EXPLORE", true);
+        } else {
+            intent.putExtra("EXPLORE", false);
         }
+        intent.putExtra("SKILL_LEVEL", skillLevel);
+        intent.putExtra("ROOMS", perfect);
+        intent.putExtra("BUILDER", builder.toString());
+        startActivity(intent);
 
+    }
 }
