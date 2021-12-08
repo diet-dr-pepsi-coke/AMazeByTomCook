@@ -156,6 +156,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
             if (robot.isAtExit()) {
                 openWinningActivity();
             }
+            if (robot.hasStopped()) {
+                openLosingActivity();
+            }
         }
     };
 
@@ -218,6 +221,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LosingActivity.class);
         intent.putExtra("ORIGIN", "PlayWinning");
         intent.putExtra("STEPS_WALKED", odometer);
+        finish();
         startActivity(intent);
     }
 

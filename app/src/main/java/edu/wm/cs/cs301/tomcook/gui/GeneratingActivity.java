@@ -42,12 +42,29 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generating);
         Intent intent = this.getIntent();
+        factory = new MazeFactory();
 
-        factory = new MazeFactory();
-        factory = new MazeFactory();
-        skillLevel = intent.getIntExtra("SKILL_LEVEL", 0);
-        perfect = intent.getBooleanExtra("ROOMS", true);
-        builderString = intent.getStringExtra("BUILDER");
+        explore = intent.getBooleanExtra("EXPLORE", true);
+        sharedPreferences = getSharedPreferences("Mazes", MODE_PRIVATE);
+        if (explore) {
+            Log.v("Generating", "Exploring new maze");
+            Random random = new Random();
+            seed = random.nextInt();
+            GlobalValues.seed = seed;
+            skillLevel = intent.getIntExtra("SKILL_LEVEL", 0);
+            perfect = intent.getBooleanExtra("ROOMS", true);
+            builderString = intent.getStringExtra("BUILDER");
+        }
+        else {
+            Log.v("Generating", "Revisiting old maze");
+            this.seed = sharedPreferences.getInt("seed", GlobalValues.seed);
+            this.perfect = sharedPreferences.getBoolean("rooms", false);
+            builderString = sharedPreferences.getString("builder", "DFS");
+            this.skillLevel = sharedPreferences.getInt("skillLevel", 0);
+            Log.v("Generating", "seed: " + seed + ", rooms: " + perfect + ", builder: " + builderString + ", skill level: " + skillLevel);
+
+        }
+
         switch(builderString) {
             case "DFS":
                 builder = Order.Builder.DFS;
@@ -64,27 +81,12 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
 
         }
 
-        explore = intent.getBooleanExtra("EXPLORE", true);
-        sharedPreferences = getSharedPreferences("Mazes", MODE_PRIVATE);
-        if (explore) {
-            Log.v("Generating", "Exploring new maze");
-            Random random = new Random();
-            seed = random.nextInt();
-            GlobalValues.seed = seed;
-        }
-        else {
-            Log.v("Generating", "Revisiting old maze");
-            seed = sharedPreferences.getInt("seed", GlobalValues.seed);
-            perfect = sharedPreferences.getBoolean("rooms", false);
-            builderString = sharedPreferences.getString("builder", "DFS");
-            skillLevel = sharedPreferences.getInt("skillLevel", 0);
-
-        }
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("seed", seed);
         editor.putBoolean("rooms", perfect);
         editor.putInt("skillLevel", skillLevel);
         editor.putString("builder", builder.toString());
+        editor.apply();
 
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -239,23 +241,23 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
 
     @Override
     public int getSkillLevel() {
-        return skillLevel;
+        return this.skillLevel;
     }
 
     @Override
     public Builder getBuilder() {
-        return builder;
+        return this.builder;
     }
 
     @Override
     public boolean isPerfect() {
         Log.v("Generating", "rooms included: " + perfect);
-        return perfect;
+        return this.perfect;
     }
 
     @Override
     public int getSeed() {
-        return seed;
+        return this.seed;
     }
 
     @Override
