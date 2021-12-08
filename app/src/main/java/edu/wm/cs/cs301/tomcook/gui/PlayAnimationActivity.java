@@ -26,7 +26,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
     TextView front, left, right, back;
     boolean frontOn = true, leftOn = true, rightOn = true, backOn = true, playing = false, mapShown  = GlobalValues.showMaze;
     ProgressBar energy;
-    int animationSpeed = 100, odometer = GlobalValues.stepsWalked, energyLeft=3500;
+    int animationSpeed = 750, odometer = GlobalValues.stepsWalked, energyLeft=3500;
     Slider speed;
     ImageButton zoomIn, zoomOut;
     Button play, showMap;
@@ -45,6 +45,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         driverString = intent.getStringExtra("DRIVER");
         sensorsString = intent.getStringExtra("SENSOR");
+        parseString(sensorsString);
 
         handler = new Handler();
 
@@ -169,6 +170,35 @@ public class PlayAnimationActivity extends AppCompatActivity {
         finish();
     }
 
+    private void parseString(String string) {
+        switch(string) {
+            case "Premium":
+                frontOn = true;
+                leftOn = true;
+                rightOn = true;
+                backOn = true;
+                break;
+            case "Mediocre":
+                frontOn = true;
+                leftOn = false;
+                rightOn = false;
+                backOn = true;
+                break;
+            case "Soso":
+                frontOn = false;
+                leftOn = true;
+                rightOn = true;
+                backOn = false;
+                break;
+            case "Shaky":
+                frontOn = false;
+                leftOn = false;
+                rightOn = false;
+                backOn = false;
+                break;
+                }
+        }
+
     private void move() {
         try {
             driver.drive1Step2Exit();
@@ -192,27 +222,27 @@ public class PlayAnimationActivity extends AppCompatActivity {
         robot.setMaze(GlobalValues.mazeConfig);
     }
 
-    @SuppressLint("ResourceAsColor")
     public void isOn() {
+        Log.v("Animation", "ran");
         if (frontOn) {
-            front.setTextColor(R.color.green);
+            front.setTextColor(getColor(R.color.green));
         } else {
-            front.setTextColor(R.color.red);
+            front.setTextColor(getColor(R.color.red));
         }
         if (leftOn) {
-            left.setTextColor(R.color.green);
+            left.setTextColor(getColor(R.color.green));
         } else {
-            left.setTextColor(R.color.red);
+            left.setTextColor(getColor(R.color.red));
         }
         if (rightOn) {
-            right.setTextColor(R.color.green);
+            right.setTextColor(getColor(R.color.green));
         } else {
-            right.setTextColor(R.color.red);
+            right.setTextColor(getColor(R.color.red));
         }
         if (backOn) {
-            back.setTextColor(R.color.green);
+            back.setTextColor(getColor(R.color.green));
         } else {
-            back.setTextColor(R.color.red);
+            back.setTextColor(getColor(R.color.red));
         }
     }
 

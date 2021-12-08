@@ -126,28 +126,28 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         switch (view.getId()) {
             case R.id.buttonPremium:
                 if (checked) {
-                    sensors = "1111";
+                    sensors = "Premium";
                     selected = true;
                 Log.v(String.valueOf(this), "Premium robot selected");
                 openPlayAnimationActivity();};
                 break;
             case R.id.buttonMediocre:
                 if (checked) {
-                    sensors = "1001";
+                    sensors = "Mediocre";
                     selected = true;
                 Log.v(String.valueOf(this), "Mediocre robot selected");
                 openPlayAnimationActivity();};
                 break;
             case R.id.buttonSoso:
                 if (checked) {
-                    sensors = "0110";
+                    sensors = "Soso";
                     selected = true;
                 Log.v(String.valueOf(this), "So-so robot selected");
                 openPlayAnimationActivity();}
                 break;
             case R.id.buttonShaky:
                 if (checked) {
-                    sensors = "0000";
+                    sensors = "Shaky";
                     selected = true;
                 Log.v(String.valueOf(this), "Shaky robot selected");
                 openPlayAnimationActivity();}
