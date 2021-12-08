@@ -3,8 +3,12 @@
  */
 package edu.wm.cs.cs301.tomcook.gui;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.util.List;
 
+import edu.wm.cs.cs301.tomcook.R;
 import edu.wm.cs.cs301.tomcook.generation.BSPBranch;
 import edu.wm.cs.cs301.tomcook.generation.BSPLeaf;
 import edu.wm.cs.cs301.tomcook.generation.BSPNode;
@@ -227,7 +231,7 @@ public class FirstPersonView {
 		// graphics.setColor(Color.darkGray);
 		// dynamic color setting: 
 		//Panel.setColor(getBackgroundColor(percentToExit, false));
-		Panel.setColor(0xFF737373);
+		Panel.setColor(0xFF2B2B2B);
 		Panel.addFilledRectangle(0, viewHeight/2, viewWidth, viewHeight);
 	}
 	/**
@@ -240,8 +244,8 @@ public class FirstPersonView {
 	 * @return the color to use for the background rectangle
 	 */
 	private int getBackgroundColor(float percentToExit, boolean top) {
-		return top? blend(yellowWM, goldWM, percentToExit) :
-			blend("D3D3D3", greenWM, percentToExit);
+		return top? blend("969696", "500035", percentToExit) :
+			blend("D3D3D3", "FFFFFF", percentToExit);
 	}
 
 	/**

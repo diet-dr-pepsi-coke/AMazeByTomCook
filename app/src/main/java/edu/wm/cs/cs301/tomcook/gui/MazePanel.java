@@ -4,17 +4,22 @@ import static edu.wm.cs.cs301.tomcook.R.*;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+
+import edu.wm.cs.cs301.tomcook.R;
 
 public class MazePanel extends View implements P5PanelF21 {
 
@@ -80,8 +85,9 @@ public class MazePanel extends View implements P5PanelF21 {
 
     }
 
+
     public void paint(Canvas c) {
-        c.drawBitmap(bitmap, (float) 120, (float) 0, paint);
+        c.drawBitmap(bitmap, (float) 0, (float) 0, paint);
     }
 
     @Override
@@ -140,7 +146,11 @@ public class MazePanel extends View implements P5PanelF21 {
 
     @Override
     public void addFilledRectangle(int x, int y, int width, int height) {
+        //Bitmap bitmapBackground = BitmapFactory.decodeResource(getResources(), drawable.hedges);
+        //Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmapBackground, width, height, true);
+        //BitmapShader shader = new BitmapShader(bitmapBackground, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
         Log.v("MazePanel", "drawing Filled Rectangle");
+        //paint.setShader(shader);
         paint.setStyle(Paint.Style.FILL);
         canvas_bm.drawRect(x, y, width, height, paint);
         update();

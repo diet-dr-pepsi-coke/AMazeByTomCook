@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.PlayAnimationActivity">
+    tools:context=".gui.PlayAnimationActivity"
+    android:background="@drawable/hedges"
+    >
 
     <ProgressBar
         android:id="@+id/progressBarBattery"
@@ -13,7 +15,7 @@
         android:layout_height="wrap_content"
         android:minWidth="400dp"
         android:minHeight="25dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:max="3500"
         android:progress="0"
         android:rotation="180"
@@ -26,7 +28,8 @@
         android:id="@+id/mazePanel"
         android:layout_width="match_parent"
         android:layout_height="348dp"
-        android:layout_below="@id/progressBarBattery" />
+        android:layout_below="@id/progressBarBattery"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/textView"
@@ -34,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:text="@string/Energy"
         android:textColor="@color/black"
         android:textSize="20sp"/>
