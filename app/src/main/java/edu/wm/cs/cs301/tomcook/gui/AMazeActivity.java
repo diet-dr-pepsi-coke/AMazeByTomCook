@@ -29,7 +29,7 @@ public class AMazeActivity extends AppCompatActivity {
 
     private Spinner generationDropdown;
     private Switch switchRoom;
-    private boolean perfect = false, explore;
+    private boolean perfect = true, explore;
     private Slider difficulty;
     private int skillLevel = 0;
     private String algorithm;

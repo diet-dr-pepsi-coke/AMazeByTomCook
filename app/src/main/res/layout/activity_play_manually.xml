@@ -111,4 +111,18 @@
         android:layout_below="@id/imageZoomIn"
         app:srcCompat="@android:drawable/btn_minus" />
 
+    <Button
+        android:id="@+id/buttonGiveUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/gold"
+        android:shadowRadius="15"
+        android:shadowColor="@color/white"
+        android:fontFamily="@font/seaweed_script"
+        android:textSize="24dp"
+        android:text="Give up?" />
+
 </RelativeLayout>

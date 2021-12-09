@@ -21,7 +21,7 @@ import edu.wm.cs.cs301.tomcook.generation.GlobalValues;
 import edu.wm.cs.cs301.tomcook.generation.Maze;
 
 public class PlayManuallyActivity extends AppCompatActivity {
-    private Button map, solution, walls;
+    private Button map, solution, walls, giveUp;
     private ImageButton walk, turnLeft, turnRight, back, zoomIn, zoomOut;
     private boolean mapMode = GlobalValues.mapMode, showSolution = GlobalValues.showSolution,
             showMaze = GlobalValues.showMaze, started;
@@ -51,6 +51,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
         map = (Button) findViewById(R.id.buttonMap);
         solution = (Button) findViewById(R.id.buttonSolution);
         walls = (Button) findViewById(R.id.buttonWalls);
+        giveUp = (Button) findViewById(R.id.buttonGiveUp);
         walk = (ImageButton) findViewById(R.id.imageWalk);
         turnLeft = (ImageButton) findViewById(R.id.imageLeft);
         turnRight = (ImageButton) findViewById(R.id.imageRight);
@@ -114,6 +115,12 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 Log.v(String.valueOf(this), "Maze size decremented by 10%");
             }
         });
+        giveUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openLosingActivity();
+            }
+        });
     }
 
     public void toggle(View view) {
@@ -143,6 +150,18 @@ public class PlayManuallyActivity extends AppCompatActivity {
         music.stop();
         music.release();
         music = null;
+        startActivity(intent);
+    }
+
+    public void openLosingActivity() {
+        Log.v("PlayManually", "Going to Losing");
+        Intent intent = new Intent(this, LosingActivity.class);
+        intent.putExtra("ORIGIN", "PlayWinning");
+        intent.putExtra("STEPS_WALKED", stepsWalked);
+        music.stop();
+        music.release();
+        music = null;
+        finish();
         startActivity(intent);
     }
 

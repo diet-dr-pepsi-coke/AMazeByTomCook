@@ -52,7 +52,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
             seed = random.nextInt();
             GlobalValues.seed = seed;
             skillLevel = intent.getIntExtra("SKILL_LEVEL", 0);
-            perfect = intent.getBooleanExtra("ROOMS", true);
+            this.perfect = intent.getBooleanExtra("ROOMS", true);
             builderString = intent.getStringExtra("BUILDER");
         }
         else {
@@ -201,7 +201,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order {
         Log.v("Geerating", "selected: " + selected);
     }
 
-    public void openPlayManuallyActivity() {
+    public synchronized void openPlayManuallyActivity() {
         Intent intent = new Intent(this, PlayManuallyActivity.class);
             while (!selected || !done) {
                 Log.v("Generating", "done: " + ", selected: " + selected);
