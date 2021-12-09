@@ -47,7 +47,7 @@ public class WinningActivity extends AppCompatActivity {
         odometer.setText(getString(R.string.odometer) + " " + stepsWalked);
         shortestPath.setText(getString(R.string.shortest) + " " + shortestPathTaken);
         if (origin.equals("PlayManually")) {
-            consumption.setText(getString(R.string.Consumption) + " You didn't use a Robot"); }
+            consumption.setText(getString(R.string.Consumption) + " N/A"); }
         else {
             consumption.setText(getString(R.string.Consumption) + " " + energy);
         }

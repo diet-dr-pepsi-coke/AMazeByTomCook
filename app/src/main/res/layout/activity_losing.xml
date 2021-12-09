@@ -4,30 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.LosingActivity">
+    tools:context=".gui.LosingActivity"
+    android:background="@color/black"
+    >
 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/frozenjack"
+        android:scaleType="fitXY"/>
 
     <TextView
-        android:id="@+id/textViewLost"
-        android:layout_width="250dp"
+        android:id="@+id/textLost"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/seaweed_script"
         android:text="@string/Lost"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="100sp" />
+        android:textColor="@color/red"
+        android:textSize="120dp" />
 
     <TextView
         android:id="@+id/textViewOdometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/textViewLost"
+        android:layout_marginTop="440dp"
         android:layout_centerHorizontal="true"
         android:text="@string/odometer"
-        android:textSize="20sp"
-        android:textColor="@color/black"/>
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
+        android:textSize="30sp"
+        android:fontFamily="@font/seaweed_script"
+        android:textColor="@color/gold"/>
 
     <TextView
         android:id="@+id/textViewShortest"
@@ -37,8 +50,11 @@
         android:layout_below="@id/textViewOdometer"
         android:layout_centerHorizontal="true"
         android:text="@string/shortest"
-        android:textSize="20sp"
-        android:textColor="@color/black"/>
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
+        android:textSize="30sp"
+        android:fontFamily="@font/seaweed_script"
+        android:textColor="@color/gold"/>
 
     <TextView
         android:id="@+id/textViewConsumption"
@@ -48,8 +64,11 @@
         android:layout_below="@id/textViewShortest"
         android:layout_centerHorizontal="true"
         android:text="@string/Consumption"
-        android:textSize="20sp"
-        android:textColor="@color/black"/>
+        android:textSize="30sp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
+        android:fontFamily="@font/seaweed_script"
+        android:textColor="@color/gold"/>
 
     <Button
         android:id="@+id/buttonPlayAgain"
@@ -58,6 +77,10 @@
         android:layout_below="@id/textViewConsumption"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/seaweed_script"
+        android:shadowColor="@color/black"
+        android:shadowRadius="25"
+        android:textColor="@color/gold"
         android:text="@string/playAgain"
         android:textSize="36sp"/>
 </RelativeLayout>

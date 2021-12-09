@@ -5,62 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".gui.WinningActivity"
+    android:background="@drawable/overlookparty"
     >
 
-    <ImageView
-        android:id="@+id/imageFireworks"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:background="@drawable/fireworks" />
 
     <TextView
         android:id="@+id/textViewWon"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:text="@string/Won"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="100sp"
-        android:background="@color/white"/>
+        android:textColor="@color/gold"
+        android:shadowColor="@color/black"
+        android:shadowRadius="25"
+        android:fontFamily="@font/seaweed_script"
+        android:textSize="116sp" />
 
     <TextView
         android:id="@+id/textViewOdometerWon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:layout_below="@id/textViewWon"
         android:layout_centerHorizontal="true"
         android:text="@string/odometer"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:background="@color/teal_200"/>
+        android:textSize="30sp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
+        android:textColor="@color/gold"
+        android:fontFamily="@font/seaweed_script"/>
 
     <TextView
         android:id="@+id/textViewShortestWon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:layout_below="@id/textViewOdometerWon"
         android:layout_centerHorizontal="true"
         android:text="@string/shortest"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:background="@color/teal_200"/>
+        android:textSize="30sp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
+        android:textColor="@color/gold"
+        android:fontFamily="@font/seaweed_script"/>
 
     <TextView
         android:id="@+id/textViewConsumptionWon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         android:layout_below="@id/textViewShortestWon"
         android:layout_centerHorizontal="true"
         android:text="@string/Consumption"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:background="@color/teal_200"/>
+        android:textSize="30sp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
+        android:textColor="@color/gold"
+        android:fontFamily="@font/seaweed_script"/>
 
     <Button
         android:id="@+id/buttonPlayAgainWon"
@@ -68,7 +71,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewConsumptionWon"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:fontFamily="@font/seaweed_script"
+        android:textColor="@color/gold"
+        android:shadowColor="@color/black"
+        android:background="@color/snow"
+        android:shadowRadius="15"
+        android:layout_marginTop="24dp"
         android:text="@string/playAgain"
         android:textSize="36sp"/>
 

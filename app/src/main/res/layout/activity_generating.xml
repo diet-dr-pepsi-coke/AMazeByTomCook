@@ -43,6 +43,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
         android:layout_marginTop="452dp"
         android:text="@string/RobotQuality"
         android:textAlignment="center"
@@ -58,12 +60,16 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="100dp"
         android:orientation="horizontal"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
         >
 
         <RadioButton
             android:id="@+id/buttonManual"
             android:layout_width="138dp"
             android:layout_height="wrap_content"
+            android:shadowColor="@color/black"
+            android:shadowRadius="15"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="306dp"
@@ -81,6 +87,8 @@
             android:layout_marginTop="306dp"
             android:layout_weight="1"
             android:onClick="onRadioButtonDriverClicked"
+            android:shadowColor="@color/black"
+            android:shadowRadius="15"
             android:text="@string/Wizard"
             android:textColor="@color/gold"
             android:textSize="20sp" />
@@ -93,6 +101,8 @@
             android:layout_marginTop="306dp"
             android:layout_toRightOf="@+id/buttonWizard"
             android:layout_weight="1"
+            android:shadowColor="@color/black"
+            android:shadowRadius="15"
             android:onClick="onRadioButtonDriverClicked"
             android:text="@string/WallFollower"
             android:textColor="@color/gold"
@@ -118,6 +128,8 @@
             android:textSize="20sp"
             android:textColor="@color/gold"
             android:text="@string/Premium"
+            android:shadowColor="@color/black"
+            android:shadowRadius="15"
             android:onClick="onRadioButtonSensorsClicked"/>
 
         <RadioButton
@@ -126,6 +138,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
+            android:shadowColor="@color/black"
+            android:shadowRadius="15"
             android:textColor="@color/gold"
             android:text="@string/Mediocre"
             android:onClick="onRadioButtonSensorsClicked"/>
@@ -138,6 +152,8 @@
             android:textSize="20sp"
             android:textColor="@color/gold"
             android:text="@string/Soso"
+            android:shadowColor="@color/black"
+            android:shadowRadius="15"
             android:onClick="onRadioButtonSensorsClicked"/>
 
         <RadioButton
@@ -148,6 +164,8 @@
             android:textSize="20sp"
             android:textColor="@color/gold"
             android:text="@string/Shaky"
+            android:shadowColor="@color/black"
+            android:shadowRadius="15"
             android:onClick="onRadioButtonSensorsClicked"/>
     </RadioGroup>
 
@@ -157,6 +175,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="360dp"
         android:text="@string/Driver"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
         android:fontFamily="@font/seaweed_script"
         android:textColor="@color/gold"
         android:textSize="36sp"

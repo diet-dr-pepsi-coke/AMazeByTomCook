@@ -16,6 +16,9 @@
         android:layout_marginTop="6dp"
         android:fontFamily="@font/seaweed_script"
         android:text="@string/Walls"
+        android:shadowColor="@color/white"
+        android:shadowRadius="15"
+        android:textColor="@color/gold"
         android:onClick="toggle"/>
 
     <Button
@@ -26,6 +29,9 @@
         android:layout_toRightOf="@id/buttonMap"
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/seaweed_script"
+        android:shadowColor="@color/white"
+        android:shadowRadius="15"
+        android:textColor="@color/gold"
         android:onClick="toggle"
         android:text="@string/Solution" />
 
@@ -36,6 +42,9 @@
         android:fontFamily="@font/seaweed_script"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:shadowColor="@color/white"
+        android:textColor="@color/gold"
+        android:shadowRadius="15"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="0dp"
         android:onClick="toggle"
