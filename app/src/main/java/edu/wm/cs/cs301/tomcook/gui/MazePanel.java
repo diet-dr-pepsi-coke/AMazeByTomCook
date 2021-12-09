@@ -33,7 +33,7 @@ public class MazePanel extends View implements P5PanelF21 {
         super(context);
         bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         canvas_bm = new Canvas(bitmap);
-        paint.setColor(Color.RED);
+        //paint.setColor(Color.RED);
         paint.setAntiAlias(true);
         path = new Path();
     }
@@ -42,7 +42,7 @@ public class MazePanel extends View implements P5PanelF21 {
         super(context, attrs);
         bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         canvas_bm = new Canvas(bitmap);
-        paint.setColor(Color.RED);
+        //paint.setColor(Color.RED);
         paint.setAntiAlias(true);
         path = new Path();
     }

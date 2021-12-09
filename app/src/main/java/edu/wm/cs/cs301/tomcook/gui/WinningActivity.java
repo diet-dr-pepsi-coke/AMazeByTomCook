@@ -3,6 +3,7 @@ package edu.wm.cs.cs301.tomcook.gui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ public class WinningActivity extends AppCompatActivity {
     Button playAgain;
     private int stepsWalked, shortestPathTaken, energy;
     private String origin;
+    private MediaPlayer music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,10 @@ public class WinningActivity extends AppCompatActivity {
                 GlobalValues.mazeConfig.getStartingPosition()[1]);
         origin = intent.getStringExtra("ORIGIN");
         energy = 3500 - intent.getIntExtra("ENERGY_CONSUMED", 0);
+
+        music = MediaPlayer.create(this, R.raw.cheers);
+        music.start();
+
 
 
         odometer = (TextView) findViewById(R.id.textViewOdometerWon);
@@ -55,10 +61,16 @@ public class WinningActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, AMazeActivity.class);
+        music.stop();
+        music.release();
+        music = null;
         startActivity(intent);
     }
     public void restart() {
         Intent intent = new Intent(this, AMazeActivity.class);
+        music.stop();
+        music.release();
+        music = null;
         startActivity(intent);
     }
 }

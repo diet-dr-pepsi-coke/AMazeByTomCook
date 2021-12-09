@@ -1,6 +1,7 @@
 package edu.wm.cs.cs301.tomcook.gui;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
     private MazePanel panel;
     private StatePlaying statePlaying;
     private int stepsWalked=0;
+    private MediaPlayer music;
 
 
     @Override
@@ -41,6 +43,10 @@ public class PlayManuallyActivity extends AppCompatActivity {
             Log.v("Playing", "panel is null");
         } else {Log.v("Playing", "panel is not null");}
         statePlaying.start(GlobalValues.panel);
+
+        music = MediaPlayer.create(this, R.raw.winter_music);
+        music.start();
+        music.setLooping(true);
 
         map = (Button) findViewById(R.id.buttonMap);
         solution = (Button) findViewById(R.id.buttonSolution);
@@ -134,6 +140,9 @@ public class PlayManuallyActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, AMazeActivity.class);
+        music.stop();
+        music.release();
+        music = null;
         startActivity(intent);
     }
 
@@ -142,6 +151,9 @@ public class PlayManuallyActivity extends AppCompatActivity {
         Intent intent = new Intent(this, WinningActivity.class);
         intent.putExtra("STEPS_WALKED", stepsWalked);
         intent.putExtra("ORIGIN", "PlayManually");
+        music.stop();
+        music.release();
+        music = null;
         startActivity(intent);
     }
 

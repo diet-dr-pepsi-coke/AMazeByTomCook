@@ -2,6 +2,7 @@ package edu.wm.cs.cs301.tomcook.gui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,7 @@ public class AMazeActivity extends AppCompatActivity {
     private String algorithm;
     private Button exploreButton, revisitButton;
     private Order.Builder builder;
+    private MediaPlayer music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,11 @@ public class AMazeActivity extends AppCompatActivity {
         revisitButton = (Button) findViewById(R.id.buttonRevisit);
         switchRoom = (Switch) findViewById(R.id.switchRoom);
         difficulty = (Slider) findViewById(R.id.sliderDifficulty);
+
+        music = MediaPlayer.create(this, R.raw.tititata);
+        music.setVolume(1.0f, 1.0f);
+        music.start();
+        music.setLooping(true);
 
         //Spinner//
         List<String> generationAlgorithms = new ArrayList<>();
@@ -117,7 +124,9 @@ public class AMazeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        music.stop();
+        music.release();
+        music = null;
     }
 
     public void openGeneratingActivity() {
@@ -130,6 +139,9 @@ public class AMazeActivity extends AppCompatActivity {
         intent.putExtra("SKILL_LEVEL", skillLevel);
         intent.putExtra("ROOMS", perfect);
         intent.putExtra("BUILDER", builder.toString());
+        music.stop();
+        music.release();
+        music = null;
         startActivity(intent);
 
     }

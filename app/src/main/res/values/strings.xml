@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AMazeByTomCook</string>
+    <string name="app_name">The Shining: Hedge Maze</string>
     <string name="DFS">DFS</string>
     <string name="Prim">Prim</string>
     <string name="Boruvka">Boruvka</string>

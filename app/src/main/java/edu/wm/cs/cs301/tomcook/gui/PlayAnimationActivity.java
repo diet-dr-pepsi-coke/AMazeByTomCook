@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -36,6 +37,7 @@ public class PlayAnimationActivity extends AppCompatActivity {
     private ReliableRobot robot;
     private RobotDriver driver;
     private Handler handler;
+    private MediaPlayer music;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -46,6 +48,10 @@ public class PlayAnimationActivity extends AppCompatActivity {
         driverString = intent.getStringExtra("DRIVER");
         sensorsString = intent.getStringExtra("SENSOR");
         parseString(sensorsString);
+
+        music = MediaPlayer.create(this, R.raw.winter_music );
+        music.start();
+        music.setLooping(true);
 
         handler = new Handler();
 
@@ -167,6 +173,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, AMazeActivity.class);
         startActivity(intent);
+        music.stop();
+        music.release();
+        music = null;
         finish();
     }
 
@@ -263,6 +272,9 @@ public class PlayAnimationActivity extends AppCompatActivity {
         intent.putExtra("ORIGIN", "PlayWinning");
         intent.putExtra("STEPS_WALKED", odometer);
         intent.putExtra("ENERGY_CONSUMED", energyLeft);
+        music.stop();
+        music.release();
+        music = null;
         finish();
         startActivity(intent);
     }
@@ -273,8 +285,11 @@ public class PlayAnimationActivity extends AppCompatActivity {
         energyLeft = (int) robot.getBatteryLevel();
         Intent intent = new Intent(this, WinningActivity.class);
         intent.putExtra("ORIGIN", "PlayWinning");
-        intent.putExtra("STEPS_WALKED", odometer);
+        intent.putExtra("STEPS_WALKED", odometer + 1);
         intent.putExtra("ENERGY_CONSUMED", energyLeft);
+        music.stop();
+        music.release();
+        music = null;
         finish();
         startActivity(intent);
     }

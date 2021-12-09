@@ -33,7 +33,7 @@
         android:id="@+id/textViewOdometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="340dp"
         android:layout_centerHorizontal="true"
         android:text="@string/odometer"
         android:shadowColor="@color/black"
