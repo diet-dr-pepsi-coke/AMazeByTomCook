@@ -144,9 +144,6 @@ public class MazePanel extends View implements P5PanelF21 {
 
     @Override
     public void addFilledRectangle(int x, int y, int width, int height) {
-        //Bitmap bitmapBackground = BitmapFactory.decodeResource(getResources(), drawable.hedges);
-        //Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmapBackground, width, height, true);
-        //BitmapShader shader = new BitmapShader(bitmapBackground, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
         Log.v("MazePanel", "drawing Filled Rectangle");
         //paint.setShader(shader);
         paint.setStyle(Paint.Style.FILL);
@@ -155,7 +152,12 @@ public class MazePanel extends View implements P5PanelF21 {
     }
 
     @Override
-    public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints, boolean bitmap) {
+    public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints, boolean bitmapon) {
+        if (bitmapon == true) {
+            Bitmap bitmapBackground = BitmapFactory.decodeResource(getResources(), drawable.hedgetexture3);
+            BitmapShader shader = new BitmapShader(bitmapBackground, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+            paint.setShader(shader);
+        }
                     path.reset();
             paint.setStyle(Paint.Style.FILL);
             path.moveTo((float) xPoints[0], (float) yPoints[0]);
@@ -163,6 +165,7 @@ public class MazePanel extends View implements P5PanelF21 {
                 path.lineTo((float) xPoints[i], (float) yPoints[i]);
             }
             canvas_bm.drawPath(path, paint);
+            paint.setShader(null);
     }
 
     @Override

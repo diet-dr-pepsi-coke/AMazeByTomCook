@@ -60,7 +60,7 @@ public class StatePlaying {
 
     boolean started;
 
-    
+
     public StatePlaying() {
         started = false;
     }
@@ -336,13 +336,7 @@ public class StatePlaying {
      * Draws and waits. Used to obtain a smooth appearance for rotate and move operations
      */
     private void slowedDownRedraw() {
-        draw() ;
-        try {
-            //Thread.sleep(25);
-        } catch (Exception e) { 
-        	// may happen if thread is interrupted
-        	// no reason to do anything about it, ignore exception
-        }
+        draw();
     }
  	
     /**
