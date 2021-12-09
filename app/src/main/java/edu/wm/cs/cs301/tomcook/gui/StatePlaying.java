@@ -355,8 +355,8 @@ public class StatePlaying {
             angle = (angle+1800) % 360;
             // draw method is called and uses angle field for direction
             // information.
-			slowedDownRedraw();
         }
+        slowedDownRedraw();
         // update maze direction only after intermediate steps are done
         // because choice of direction values are more limited.
         setDirectionToMatchCurrentAngle();
@@ -380,8 +380,8 @@ public class StatePlaying {
         // FirstPersonDrawer and MapDrawer
         for (int step = 0; step != 4; step++) {
             walkStep += dir;
-            slowedDownRedraw();
         }
+        slowedDownRedraw();
         setCurrentPosition(px + dir*dx, py + dir*dy) ;
         walkStep = 0; // reset counter for next time
         //logPosition(); // debugging
