@@ -564,7 +564,7 @@ public class FirstPersonView {
 			// debug
 			//System.out.println("polygon-x: " + xps[0] + ", " + xps[1] + ", " + xps[2] + ", " + xps[3]) ;
 			//System.out.println("polygon-y: " + yps[0] + ", " + yps[1] + ", " + yps[2] + ", " + yps[3]) ;
-			Panel.addFilledPolygon(xps, yps, 4);
+			Panel.addFilledPolygon(xps, yps, 4, true);
 			// for debugging purposes, code will draw a red line around polygon
 			// this makes individual walls visible
 			/*

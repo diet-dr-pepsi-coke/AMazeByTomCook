@@ -47,24 +47,30 @@ public interface P5PanelF21 {
 	        final int add = (extensionX != 0) ? 1 : 0;
 	        final int rgbValue =  ((part1 + 2 + add) * 70) / 8 + 80;
 	        //System.out.println("Initcolor rgb: " + rgbValue);
-	        switch (((d >> 3) ^ cc) % 6) {
+	        /* switch (((d >> 3) ^ cc) % 6) {
 	        case 0:
-	        	
+	        	System.out.println("case 0");
 	            return(Color.rgb(rgbValue, 20, 20));
 	        case 1:
+				System.out.println("case 1");
 	        	return(Color.rgb(20, 60, 20));
 	        case 2:
+				System.out.println("case 2");
 	        	return(Color.rgb(20, 20, rgbValue));
 	        case 3:
+				System.out.println("case 3");
 	        	return(Color.rgb(rgbValue, 60, 20));
 	        case 4:
+				System.out.println("case 4");
 	        	return(Color.rgb(20, 60, rgbValue));
 	        case 5:
+				System.out.println("case 5");
 	        	return(Color.rgb(rgbValue, 20, rgbValue));
 	        default:
+				System.out.println("case default");
 	        	return(Color.rgb(20, 20, 20));
-	        }
-
+	        } */
+		return 0x004f00;
 	    };
 		
 		
@@ -137,7 +143,7 @@ public interface P5PanelF21 {
 	     * @param yPoints are the y-coordinates of points for the polygon
 	     * @param nPoints is the number of points, the length of the arrays
 	     */
-	    public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints);
+	    public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints, boolean bitmap);
 	    
 	    /**
 	     * Adds a polygon.

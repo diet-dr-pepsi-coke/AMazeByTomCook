@@ -187,7 +187,7 @@ public class CompassRose {
         y[1] = centerY;
         x[2] = centerX - width;
         y[2] = centerY + width;
-        Panel.addFilledPolygon(x, y, 3);
+        Panel.addFilledPolygon(x, y, 3, false);
         // adjust coordinate for 2nd point and draw 2nd triangle
         y[2] = centerY - width;
         Panel.addPolygon(x, y, 3);
@@ -219,7 +219,7 @@ public class CompassRose {
         y[1] = centerY + length;
         x[2] = centerX + width;
         y[2] = centerY + width;
-        Panel.addFilledPolygon(x, y, 3);
+        Panel.addFilledPolygon(x, y, 3, false);
         // adjust coordinate for 2nd point and draw 2nd triangle
         x[2] = centerX - width;
         Panel.addPolygon(x, y, 3);

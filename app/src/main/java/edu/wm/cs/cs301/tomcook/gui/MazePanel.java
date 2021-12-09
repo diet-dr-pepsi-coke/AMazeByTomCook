@@ -155,14 +155,14 @@ public class MazePanel extends View implements P5PanelF21 {
     }
 
     @Override
-    public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-        path.reset();
-        paint.setStyle(Paint.Style.FILL);
-        path.moveTo((float) xPoints[0], (float) yPoints[0]);
-        for (int i=1; i<nPoints; i++) {
-            path.lineTo((float) xPoints[i], (float) yPoints[i]);
-        }
-        canvas_bm.drawPath(path, paint);
+    public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints, boolean bitmap) {
+                    path.reset();
+            paint.setStyle(Paint.Style.FILL);
+            path.moveTo((float) xPoints[0], (float) yPoints[0]);
+            for (int i=1; i<nPoints; i++) {
+                path.lineTo((float) xPoints[i], (float) yPoints[i]);
+            }
+            canvas_bm.drawPath(path, paint);
     }
 
     @Override
